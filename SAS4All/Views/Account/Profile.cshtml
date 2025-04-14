@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil com Abas</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS Bundle (com Popper incluído) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .perfil-box {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #fff;
+            border: 1px solid #00bfff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .perfil-icon-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #00bfff;
+            background-color: white;
+            padding: 4px;
+            z-index: 1;
+        }
+
+        .user-title {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+            .user-title strong {
+                display: block;
+            }
+
+        .nav-tabs .nav-link.active {
+            background-color: #00bfff;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="perfil-box">
+
+            <!-- Ícone do utilizador (imagem) -->
+            <div class="d-flex justify-content-center" style="margin-top: -60px; margin-bottom: 20px;">
+                <img src="~/Images/user.png" alt="Ícone Utilizador" class="perfil-icon-img">
+            </div>
+
+            <!-- Linha com imagem à esquerda e nome + abas -->
+            <div class="d-flex align-items-start mb-3 mt-3">
+                <img src="~/Images/Breezeicons-actions-22-im-user.svg.png" alt="Ícone Utilizador" style="width: 60px; height: 60px; border-radius: 50%; margin-right: 15px;">
+                <div>
+                    <div class="user-title text-start">
+                        <strong>NOME DO UTILIZADOR</strong>
+                        <div>Tipo de Utilizador UTAD</div>
+                    </div>
+                    <ul class="nav nav-tabs justify-content-start" id="perfilTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="utilizador-tab" data-bs-toggle="tab" data-bs-target="#utilizador" type="button" role="tab">
+                                Utilizador
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="instituicao-tab" data-bs-toggle="tab" data-bs-target="#instituicao" type="button" role="tab">
+                                Instituição
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Conteúdo das abas -->
+            <div class="tab-content" id="perfilTabsContent">
+
+                <!-- Aba Utilizador -->
+                <div class="tab-pane fade show active" id="utilizador" role="tabpanel">
+                    <div class="d-flex justify-content-center">
+                        <div>
+                            <div class="d-flex mb-2">
+                                <strong class="me-2 text-end" style="min-width: 150px;">Data de nascimento:</strong>
+                                <p>XX/XX/XXXX</p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <strong class="me-2 text-end" style="min-width: 150px;">Morada:</strong>
+                                <p>*Morada*</p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <strong class="me-2 text-end" style="min-width: 150px;">Email:</strong>
+                                <p>*Email*</p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <strong class="me-2 text-end" style="min-width: 150px;">Telemóvel:</strong>
+                                <p>XXXXXXXX</p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <strong class="me-2 text-end" style="min-width: 150px;">Cartão:</strong>
+                                <p>*Cartão*</p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <strong class="me-2 text-end" style="min-width: 150px;">Processo:</strong>
+                                <p>*Processo*</p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <strong class="me-2 text-end" style="min-width: 150px;">NIF:</strong>
+                                <p>*NIF*</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aba Instituição -->
+                <div class="tab-pane fade" id="instituicao" role="tabpanel">
+                    <div class="d-flex justify-content-center">
+                        <div>
+                            <div class="d-flex mb-2">
+                                <strong class="me-2 text-end" style="min-width: 120px;">Instituição:</strong>
+                                <p>SASUTAD</p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <strong class="me-2 text-end" style="min-width: 120px;">Morada:</strong>
+                                <p>Quinta de Prados</p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <strong class="me-2 text-end" style="min-width: 120px;">Telefone:</strong>
+                                <p>259 350 000</p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <strong class="me-2 text-end" style="min-width: 120px;">Email:</strong>
+                                <p>sasutad@utad.pt</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
