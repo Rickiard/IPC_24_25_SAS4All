@@ -100,11 +100,11 @@
 
         .menu-bar {
             display: flex;
-            justify-content: center; /* ou space-around / space-between */
+            justify-content: center;
             align-items: center;
-            gap: 20px; /* espaçamento entre os botões */
-            background-color: #f2f2f2; /* opcional */
-            padding: 10px 0; /* opcional para espaçamento vertical */
+            gap: 20px;
+            background-color: #f2f2f2;
+            padding: 10px 0;
         }
 
         .menu-item {
@@ -139,83 +139,21 @@
         }
     </style>
 </head>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const userIcon = document.getElementById("userIcon");
-        const dropdown = document.getElementById("userDropdown");
-
-        userIcon.addEventListener("click", function (event) {
-            event.stopPropagation(); // Evita fechar imediatamente
-            dropdown.classList.toggle("show");
-        });
-
-        // Fecha o dropdown ao clicar fora
-        document.addEventListener("click", function (event) {
-            if (!dropdown.contains(event.target)) {
-                dropdown.classList.remove("show");
-            }
-        });
-    });
-</script>
-<script>
-        // Selecionando o botão invisível e o conteúdo da página
-    const skipButton = document.getElementById('skipToContentButton');
-    const content = document.getElementById('mainContent');
-
-    // Função para focar no conteúdo ao clicar no botão invisível
-    skipButton.addEventListener('click', function () {
-        content.focus(); // Foca diretamente no conteúdo principal
-    });
-
-    // Também podemos ativar o botão invisível ao pressionar "Tab" para facilitar a navegação
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Tab' && !skipButton.classList.contains('sr-only')) {
-            skipButton.classList.remove('sr-only'); // Torna o botão visível ao pressionar "Tab"
-        }
-    });
-</script>
-<script>
-    // Selecionando o ícone do utilizador e o dropdown
-    const userIcon = document.getElementById('userIcon');
-    const userDropdown = document.getElementById('userDropdown');
-
-    // Função para alternar a visibilidade do dropdown
-    function toggleDropdown() {
-        userDropdown.classList.toggle('show');
-        const isOpen = userDropdown.classList.contains('show');
-        userIcon.setAttribute('aria-expanded', isOpen);
-    }
-
-    // Evento para mostrar o dropdown ao pressionar Enter
-    userIcon.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            toggleDropdown();
-        }
-    });
-
-    // Também pode fechar o dropdown quando clicar fora dele
-    document.addEventListener('click', function (event) {
-        if (!userIcon.contains(event.target) && !userDropdown.contains(event.target)) {
-            userDropdown.classList.remove('show');
-            userIcon.setAttribute('aria-expanded', 'false');
-        }
-    });
-</script>
 <body>
     <header class="sas4all-header">
         <div class="top-bar">
             <div class="logo-area">
-                <img src="~/Images/LOGO.png" alt="SAS4ALL Logo" class="logo">
+                <img src="~/Images/LOGO.png" alt="Logo da SAS4ALL" class="logo">
             </div>
             <div class="user-info">
                 <p><strong>Nome do Utilizador</strong><br>Tipo de Utilizador<br><br><strong>Saldo: X.XX€</strong></p>
                 <div class="user-dropdown">
-                    <img src="~/Images/user.png" alt="Utilizador" class="user-icon" id="userIcon" tabindex="0" aria-haspopup="true" aria-expanded="false">
+                    <img src="~/Images/user.png" alt="Ícone do utilizador" class="user-icon" id="userIcon" tabindex="0" aria-haspopup="menu" aria-expanded="false">
                     <div class="dropdown-content" id="userDropdown" tabindex="-1">
-                        <a href="/Account/Profile">Dados do Utilizador</a>
-                        <a href="/Account/Pin">Alteração do PIN</a>
-                        <a href="/Acessibility/Index">Acessibilidade</a>
-                        <a href="#">Sair</a>
+                        <a href="/Account/Profile" tabindex="0" role="menuitem">Dados do Utilizador</a>
+                        <a href="/Account/Pin" tabindex="0" role="menuitem">Alteração do PIN</a>
+                        <a href="/Accessibility/Index" tabindex="0" role="menuitem">Acessibilidade</a>
+                        <a href="#" tabindex="0" role="menuitem">Sair</a>
                     </div>
                 </div>
             </div>
@@ -225,30 +163,97 @@
         <button id="skipToContentButton" class="sr-only">Ir para o conteúdo</button>
 
         <nav class="menu-bar">
-            <a href="/Home/Index" class="menu-item">
-                <img src="~/Images/HomeBTN.png" alt="Início" class="icon">
+            <a href="/Home/Index" class="menu-item" tabindex="0" role="menuitem">
+                <img src="~/Images/HomeBTN.png" alt="Ícone de início" class="icon">
             </a>
-            <a href="/Transactions/Index" class="menu-item">Movimentos</a>
-            <a href="/Meals/Index" class="menu-item">Refeições</a>
-            <a href="/Charging/Index" class="menu-item">Carregamentos</a>
+            <a href="/Transactions/Index" class="menu-item" tabindex="0" role="menuitem">Movimentos</a>
+            <a href="/Meals/Index" class="menu-item" tabindex="0" role="menuitem">Refeições</a>
+            <a href="/Charging/Index" class="menu-item" tabindex="0" role="menuitem">Carregamentos</a>
         </nav>
     </header>
 
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" id="mainContent" tabindex="-1">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - SAS4All - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - SAS4All - <a asp-area="" asp-controller="Home" asp-action="Privacy" tabindex="0" role="link">Política de Privacidade</a>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        // Função para alternar o dropdown
+        document.addEventListener("DOMContentLoaded", function () {
+            const userIcon = document.getElementById("userIcon");
+            const dropdown = document.getElementById("userDropdown");
+
+            userIcon.addEventListener("click", function (event) {
+                event.stopPropagation();
+                toggleDropdown();
+            });
+
+            userIcon.addEventListener("keydown", function (event) {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    toggleDropdown();
+                } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+                    handleDropdownNavigation(event);
+                }
+            });
+
+            dropdown.addEventListener("keydown", function (event) {
+                handleDropdownNavigation(event);
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!dropdown.contains(event.target) && !userIcon.contains(event.target)) {
+                    closeDropdown();
+                }
+            });
+
+            function toggleDropdown() {
+                const isOpen = dropdown.classList.toggle("show");
+                userIcon.setAttribute("aria-expanded", isOpen);
+                if (isOpen) {
+                    dropdown.querySelector("a").focus();
+                }
+            }
+
+            function closeDropdown() {
+                dropdown.classList.remove("show");
+                userIcon.setAttribute("aria-expanded", "false");
+            }
+
+            function handleDropdownNavigation(event) {
+                const items = Array.from(dropdown.querySelectorAll("a"));
+                const currentIndex = items.indexOf(document.activeElement);
+
+                if (event.key === "ArrowDown") {
+                    event.preventDefault();
+                    const nextIndex = (currentIndex + 1) % items.length;
+                    items[nextIndex].focus();
+                } else if (event.key === "ArrowUp") {
+                    event.preventDefault();
+                    const prevIndex = (currentIndex - 1 + items.length) % items.length;
+                    items[prevIndex].focus();
+                } else if (event.key === "Escape") {
+                    closeDropdown();
+                    userIcon.focus();
+                }
+            }
+        });
+
+        // Botão "Ir para o conteúdo"
+        document.getElementById("skipToContentButton").addEventListener("click", function () {
+            document.getElementById("mainContent").focus();
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
