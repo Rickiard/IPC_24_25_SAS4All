@@ -1,0 +1,204 @@
+﻿@model SAS4All.Models.AcessibilidadeModel
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/hotkeys-js/dist/hotkeys.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acessibilidade</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin-bottom: 150px;
+        }
+
+        .container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+            .form-group label {
+                display: inline-block;
+                width: 200px;
+            }
+
+            .form-group input[type="checkbox"] {
+                transform: scale(1.5);
+                margin-right: 10px;
+            }
+
+            .form-group select {
+                width: 100px;
+            }
+
+        .atalhos-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .atalhos-table th,
+            .atalhos-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .atalhos-table th {
+                background-color: #f4f4f4;
+            }
+
+        .buttons {
+            text-align: right;
+        }
+
+            .buttons button {
+                margin-left: 10px;
+            }
+        /* Estilo de foco visível */
+        :focus {
+            outline: 3px solid blue;
+            outline-offset: 2px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" role="main">
+        <h2 id="page-title">Acessibilidade</h2>
+        <br />
+        <form asp-action="GuardarDefinicoes" method="post" role="form">
+            <!-- Seção de Acessibilidade -->
+            <div class="section" aria-labelledby="acessibilidade-title">
+                <h3 id="acessibilidade-title">Configurações de Acessibilidade</h3>
+                <div class="form-group">
+                    <label for="modo-escuro">Modo Escuro:</label>
+                    <input type="checkbox" id="modo-escuro" asp-for="ModoEscuro" aria-checked="@Model.ModoEscuro.ToString().ToLower()" />
+                </div>
+                <div class="form-group">
+                    <label for="alto-contraste">Alto Contraste:</label>
+                    <input type="checkbox" id="alto-contraste" asp-for="AltoContraste" aria-checked="@Model.AltoContraste.ToString().ToLower()" />
+                </div>
+                <div class="form-group">
+                    <label for="tamanho-fonte">Tamanho da Fonte:</label>
+                    <select id="tamanho-fonte" asp-for="TamanhoFonte" aria-label="Selecione o tamanho da fonte">
+                        <option value="12px">12px</option>
+                        <option value="14px">14px</option>
+                        <option value="16px">16px</option>
+                        <option value="18px">18px</option>
+                        <option value="20px">20px</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="espacamento">Espaçamento:</label>
+                    <select id="espacamento" asp-for="Espacamento" aria-label="Selecione o espaçamento">
+                        <option value="normal">Normal</option>
+                        <option value="larger">Larger</option>
+                        <option value="smaller">Smaller</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="temas-predefinidos">Temas Pré-definidos:</label>
+                    <input type="checkbox" id="temas-predefinidos" asp-for="TemasPredefinidos" aria-checked="@Model.TemasPredefinidos.ToString().ToLower()" />
+                </div>
+                <div class="form-group">
+                    <label for="feedback-auditivo">Feedback Auditivo:</label>
+                    <input type="checkbox" id="feedback-auditivo" asp-for="FeedbackAuditivo" aria-checked="@Model.FeedbackAuditivo.ToString().ToLower()" />
+                </div>
+                <div class="form-group">
+                    <label for="comandos-voz">Comandos por Voz:</label>
+                    <input type="checkbox" id="comandos-voz" asp-for="ComandosVoz" aria-checked="@Model.ComandosVoz.ToString().ToLower()" />
+                </div>
+            </div>
+
+            <!-- Seção de Configuração de Atalhos -->
+            <div class="section" aria-labelledby="atalhos-title">
+                <h3 id="atalhos-title">Configuração de Atalhos</h3>
+                <table class="atalhos-table" aria-label="Tabela de configuração de atalhos">
+                    <thead>
+                        <tr>
+                            <th scope="col">Opção</th>
+                            <th scope="col">Atalho</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Atalhos)
+                        {
+                            <tr>
+                                <td>@item.Key</td>
+                                <td>
+                                    <input type="text" id="atalho-@item.Key" name="Atalhos[@item.Key]" value="@item.Value" placeholder="Clique aqui para atribuir tecla(s)" aria-label="Atalho para @item.Key" style="width: 200px;" readonly />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="buttons">
+                <button type="button" onclick="history.back()" aria-label="Voltar à página anterior">Voltar</button>
+                <button type="submit" aria-label="Guardar definições">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Capturar atalhos com Hotkeys.js
+            document.querySelectorAll('input[type="text"][readonly]').forEach((input, index, inputs) => {
+                input.addEventListener('focus', function () {
+                    // Remove atalhos anteriores apenas para o campo atual
+                    hotkeys.unbind();
+
+                    // Define um novo atalho para capturar a próxima tecla pressionada
+                    hotkeys('*', function (event) {
+                        // Previne o comportamento padrão do navegador
+                        event.preventDefault();
+
+                        // Obtém as teclas pressionadas
+                        const key = event.key.toUpperCase();
+                        if (key === "CONTROL" || key === "ALT" || key === "SHIFT") return; // Ignora teclas sozinhas
+                        const ctrlKey = event.ctrlKey ? 'Ctrl+' : '';
+                        const altKey = event.altKey ? 'Alt+' : '';
+                        const shiftKey = event.shiftKey ? 'Shift+' : '';
+
+                        // Combina as teclas pressionadas
+                        const shortcut = `${ctrlKey}${altKey}${shiftKey}${key}`;
+
+                        // Define o valor do atalho no campo correspondente
+                        input.value = shortcut;
+
+                        // Move o foco para o próximo campo, se existir
+                        const nextInput = inputs[index + 1];
+                        if (nextInput) {
+                            nextInput.focus();
+                        }
+
+                        // Remove o atalho após capturar a tecla
+                        hotkeys.unbind();
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
