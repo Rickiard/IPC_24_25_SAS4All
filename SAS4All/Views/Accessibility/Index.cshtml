@@ -161,30 +161,22 @@
         </form>
     </div>
 
-    <!-- Script para feedback auditivo -->
     <script>
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                const audio = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=');
-                audio.play();
-            });
-        });
-
-        // Script para capturar atalhos com Hotkeys.js
         document.addEventListener('DOMContentLoaded', function () {
             // Capturar atalhos com Hotkeys.js
-            document.querySelectorAll('input[type="text"][readonly]').forEach(input => {
+            document.querySelectorAll('input[type="text"][readonly]').forEach((input, index, inputs) => {
                 input.addEventListener('focus', function () {
-                    // Remove todos os atalhos existentes
+                    // Remove atalhos anteriores apenas para o campo atual
                     hotkeys.unbind();
 
                     // Define um novo atalho para capturar a próxima tecla pressionada
-                    hotkeys('*', function (event, handler) {
+                    hotkeys('*', function (event) {
                         // Previne o comportamento padrão do navegador
                         event.preventDefault();
 
-                        // Obtém a tecla pressionada
-                        const key = handler.key.toUpperCase();
+                        // Obtém as teclas pressionadas
+                        const key = event.key.toUpperCase();
+                        if (key === "CONTROL" || key === "ALT" || key === "SHIFT") return; // Ignora teclas sozinhas
                         const ctrlKey = event.ctrlKey ? 'Ctrl+' : '';
                         const altKey = event.altKey ? 'Alt+' : '';
                         const shiftKey = event.shiftKey ? 'Shift+' : '';
@@ -194,6 +186,12 @@
 
                         // Define o valor do atalho no campo correspondente
                         input.value = shortcut;
+
+                        // Move o foco para o próximo campo, se existir
+                        const nextInput = inputs[index + 1];
+                        if (nextInput) {
+                            nextInput.focus();
+                        }
 
                         // Remove o atalho após capturar a tecla
                         hotkeys.unbind();
