@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <title>Marcação de Refeições</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleDescricao(id) {
+          const desc = document.getElementById(id);
+          const btn = document.getElementById('btn-' + id);
+          if (desc.classList.contains('hidden')) {
+            desc.classList.remove('hidden');
+            btn.textContent = '[Ver -]';
+          } else {
+            desc.classList.add('hidden');
+            btn.textContent = '[Ver +]';
+          }
+        }
+    </script>
+</head>
+<body class="bg-white text-gray-800 font-sans" style="margin-bottom:100px">
+
+    <!-- Cabeçalho -->
+    <div class="w-full px-6 py-4 border-b flex justify-center">
+        <div class="flex items-center gap-4">
+            <button class="border rounded-full p-2 hover:bg-gray-100">&larr;</button>
+            <span class="text-lg font-semibold">7 de Março de 2025</span>
+            <button class="border rounded-full p-2 hover:bg-gray-100">&rarr;</button>
+        </div>
+    </div>
+
+    <!-- Conteúdo central -->
+    <div class="w-full flex justify-center pt-6">
+        <div class="w-full max-w-7xl border border-gray-200 rounded-md shadow p-6 flex flex-col items-center">
+
+            <!-- Ícone -->
+            <div class="flex justify-center mb-4">
+                <div class="w-12 h-12 rounded-full border flex items-center justify-center text-2xl">🍴</div>
+            </div>
+
+            <!-- Seleção de Refeitório -->
+            <div class="mb-6 w-full">
+                <label class="block font-semibold mb-2">REFEITÓRIO SELECIONADO</label>
+                <select class="w-full border rounded p-2">
+                    <option disabled selected>Escolha o Refeitório</option>
+                    <option>Ref. PRADOS (*)</option>
+                    <option>Snack-Bar ECAV</option>
+                    <option>Snack-Bar ECT (*)</option>
+                    <option>Snack-Bar POLO2 ECVA / ESS (*)</option>
+                </select>
+            </div>
+
+            <!-- Refeições -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm w-full">
+                <!-- ALMOÇO -->
+                <div>
+                    <h3 class="font-bold mb-2">ALMOÇO</h3>
+                    <p class="text-xs font-semibold mb-2">SEGUNDA - DIA 07</p>
+
+                    <div class="space-y-4">
+                        <!-- Refeição 1 -->
+                        <div>
+                            <label class="flex items-center gap-2"><input type="checkbox" /> <span>REFEIÇÃO CARNE (2,90€)</span></label>
+                            <button id="btn-desc1" onclick="toggleDescricao('desc1')" class="text-blue-600 text-xs mt-1">[Ver +]</button>
+                            <div id="desc1" class="hidden border p-2 mt-2 rounded text-xs bg-gray-50">
+                                <p><strong>Sopa:</strong> CREME DE LEGUMES</p>
+                                <p><strong>Prato:</strong> PERNA DE PORCO ASSADA</p>
+                                <p><strong>Acompanhamento:</strong> ARROZ DE CENOURA</p>
+                                <p><strong>Salada:</strong> ALFACE, PEPINO, CEBOLA, TOMATE</p>
+                                <p><strong>Sobremesa:</strong> BOLO DE MAÇÃ / IOGURTE / FRUTA</p>
+                            </div>
+                        </div>
+
+                        <!-- Refeição 2 (Indisponível) -->
+                        <div>
+                            <label class="flex items-center gap-2" title="Esta refeição não está disponível hoje">
+                                <div class="w-3 h-3 rounded-full bg-gray-300"></div>
+                                <span>REFEIÇÃO PEIXE (2,90€) — Indisponível</span>
+                            </label>
+                            <button id="btn-desc2" class="text-gray-300 text-xs mt-1 cursor-not-allowed" disabled>[Ver +]</button>
+                        </div>
+
+                        <!-- Refeição 3 -->
+                        <div>
+                            <label class="flex items-center gap-2"><input type="checkbox" /> <span>REFEIÇÃO CARNE (2,90€)</span></label>
+                            <button id="btn-desc3" onclick="toggleDescricao('desc3')" class="text-blue-600 text-xs mt-1">[Ver +]</button>
+                            <div id="desc3" class="hidden border p-2 mt-2 rounded text-xs bg-gray-50">
+                                <p><strong>Sopa:</strong> CALDO VERDE</p>
+                                <p><strong>Prato:</strong> FRANGO ASSADO</p>
+                                <p><strong>Acompanhamento:</strong> BATATA ASSADA E ARROZ</p>
+                                <p><strong>Sobremesa:</strong> MOUSSE DE CHOCOLATE</p>
+                            </div>
+                        </div>
+
+                        <!-- Refeição 4 -->
+                        <div>
+                            <label class="flex items-center gap-2"><input type="checkbox" /> <span>REFEIÇÃO VEGETARIANA (2,90€)</span></label>
+                            <button id="btn-desc4" onclick="toggleDescricao('desc4')" class="text-blue-600 text-xs mt-1">[Ver +]</button>
+                            <div id="desc4" class="hidden border p-2 mt-2 rounded text-xs bg-gray-50">
+                                <p><strong>Sopa:</strong> SOPA DE CENOURA</p>
+                                <p><strong>Prato:</strong> TOFU GRELHADO COM LEGUMES</p>
+                                <p><strong>Acompanhamento:</strong> ARROZ INTEGRAL</p>
+                                <p><strong>Sobremesa:</strong> FRUTA DA ÉPOCA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JANTAR -->
+                <div>
+                    <h3 class="font-bold mb-2">JANTAR</h3>
+
+                    <div class="space-y-4">
+                        <!-- Refeição 5 -->
+                        <div>
+                            <label class="flex items-center gap-2"><input type="checkbox" /> <span>REFEIÇÃO VEGETARIANA (2,90€)</span></label>
+                            <button id="btn-desc5" onclick="toggleDescricao('desc5')" class="text-blue-600 text-xs mt-1">[Ver +]</button>
+                            <div id="desc5" class="hidden border p-2 mt-2 rounded text-xs bg-gray-50">
+                                <p><strong>Sopa:</strong> SOPA DE LEGUMES</p>
+                                <p><strong>Prato:</strong> FEIJÃO ENCARNADO COM LEGUMES</p>
+                                <p><strong>Acompanhamento:</strong> ARROZ INTEGRAL</p>
+                                <p><strong>Sobremesa:</strong> MAÇÃ ASSADA</p>
+                            </div>
+                        </div>
+
+                        <!-- Refeição 6 -->
+                        <div>
+                            <label class="flex items-center gap-2"><input type="checkbox" /> <span>REFEIÇÃO CARNE (2,90€)</span></label>
+                            <button id="btn-desc6" onclick="toggleDescricao('desc6')" class="text-blue-600 text-xs mt-1">[Ver +]</button>
+                            <div id="desc6" class="hidden border p-2 mt-2 rounded text-xs bg-gray-50">
+                                <p><strong>Prato:</strong> BIFE GRELHADO</p>
+                                <p><strong>Acompanhamento:</strong> ARROZ, OVO E LEGUMES</p>
+                                <p><strong>Sobremesa:</strong> IOGURTE OU FRUTA</p>
+                            </div>
+                        </div>
+
+                        <!-- Refeição 7 -->
+                        <div>
+                            <label class="flex items-center gap-2"><input type="checkbox" /> <span>REFEIÇÃO PEIXE (2,90€)</span></label>
+                            <button id="btn-desc7" onclick="toggleDescricao('desc7')" class="text-blue-600 text-xs mt-1">[Ver +]</button>
+                            <div id="desc7" class="hidden border p-2 mt-2 rounded text-xs bg-gray-50">
+                                <p><strong>Prato:</strong> SALMÃO GRELHADO</p>
+                                <p><strong>Acompanhamento:</strong> BATATA COZIDA E ESPINAFRES</p>
+                                <p><strong>Sobremesa:</strong> GELADO OU FRUTA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legenda -->
+            <div class="flex justify-between items-center mt-8 text-sm w-full">
+                <div class="flex gap-4 text-xs text-gray-600 items-center">
+                    <div class="flex items-center gap-1"><div class="w-3 h-3 rounded-full bg-blue-500"></div><span>CONSUMIDA</span></div>
+                    <div class="flex items-center gap-1"><div class="w-3 h-3 rounded-full border border-gray-500"></div><span>NÃO MARCADA</span></div>
+                    <div class="flex items-center gap-1"><div class="w-3 h-3 rounded-full bg-gray-800"></div><span>JÁ MARCADA</span></div>
+                    <div class="flex items-center gap-1"><div class="w-3 h-3 rounded-full bg-gray-300"></div><span>INDISPONÍVEL</span></div>
+                </div>
+            </div>
+
+            <!-- Total centrado -->
+            <div class="flex justify-center items-center mt-10 w-full">
+                <div class="font-semibold text-base text-center">TOTAL: X,XX€</div>
+            </div>
+
+            <!-- Botão Marcar + Fatura -->
+            <div class="flex flex-col items-center mt-2 mb-24">
+                <button class="bg-black text-white px-6 py-2 rounded-full text-sm font-medium flex items-center gap-2 hover:bg-gray-900">
+                    <span class="text-purple-400">✔</span>
+                </button>
+                <p>Marcar Refeição</p>
+                <label class="mt-2 flex items-center gap-2 text-xs text-gray-600">
+                    <input type="checkbox" checked />
+                    Emitir fatura com meu NIF.
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
