@@ -3,18 +3,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/hotkeys-js/dist/hotkeys.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acessibilidade</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin-bottom: 150px;
         }
 
         .container {
             border: 1px solid #ccc;
             padding: 20px;
+            margin-top: 20px;
         }
 
         .section {
@@ -67,12 +69,22 @@
             outline: 3px solid blue;
             outline-offset: 2px;
         }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
     <div class="container" role="main">
         <h2 id="page-title">Acessibilidade</h2>
-
+        <br />
         <form asp-action="GuardarDefinicoes" method="post" role="form">
             <!-- Seção de Acessibilidade -->
             <div class="section" aria-labelledby="acessibilidade-title">
@@ -133,7 +145,7 @@
                             <tr>
                                 <td>@item.Key</td>
                                 <td>
-                                    <input type="text" id="atalho-@item.Key" name="Atalhos[@item.Key]" value="@item.Value" placeholder="Clique aqui para atribuir tecla(s)" aria-label="Atalho para @item.Key" style="width: 200px;" />
+                                    <input type="text" id="atalho-@item.Key" name="Atalhos[@item.Key]" value="@item.Value" placeholder="Clique aqui para atribuir tecla(s)" aria-label="Atalho para @item.Key" style="width: 200px;" readonly />
                                 </td>
                             </tr>
                         }
@@ -155,6 +167,38 @@
             checkbox.addEventListener('change', function () {
                 const audio = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=');
                 audio.play();
+            });
+        });
+
+        // Script para capturar atalhos com Hotkeys.js
+        document.addEventListener('DOMContentLoaded', function () {
+            // Capturar atalhos com Hotkeys.js
+            document.querySelectorAll('input[type="text"][readonly]').forEach(input => {
+                input.addEventListener('focus', function () {
+                    // Remove todos os atalhos existentes
+                    hotkeys.unbind();
+
+                    // Define um novo atalho para capturar a próxima tecla pressionada
+                    hotkeys('*', function (event, handler) {
+                        // Previne o comportamento padrão do navegador
+                        event.preventDefault();
+
+                        // Obtém a tecla pressionada
+                        const key = handler.key.toUpperCase();
+                        const ctrlKey = event.ctrlKey ? 'Ctrl+' : '';
+                        const altKey = event.altKey ? 'Alt+' : '';
+                        const shiftKey = event.shiftKey ? 'Shift+' : '';
+
+                        // Combina as teclas pressionadas
+                        const shortcut = `${ctrlKey}${altKey}${shiftKey}${key}`;
+
+                        // Define o valor do atalho no campo correspondente
+                        input.value = shortcut;
+
+                        // Remove o atalho após capturar a tecla
+                        hotkeys.unbind();
+                    });
+                });
             });
         });
     </script>
