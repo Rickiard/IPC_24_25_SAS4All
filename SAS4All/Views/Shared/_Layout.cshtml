@@ -7,29 +7,233 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SAS4All.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-image: url('@Url.Content("~/Images/BANNER.jpg")');
+            background-size: cover;
+            background-position: center;
+            padding: 10px 20px;
+            color: #000;
+            z-index: 1;
+        }
+
+            .top-bar::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-color: rgba(255, 255, 255, 0.5);
+                z-index: -1;
+            }
+
+        .logo-area .logo {
+            width: 80px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: right;
+        }
+
+            .user-info p {
+                margin: 0;
+                line-height: 1.2;
+            }
+
+        .saldo {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .user-dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 60px;
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            min-width: 140px;
+            z-index: 99;
+        }
+
+            .dropdown-content a {
+                color: #fff;
+                text-decoration: none;
+                display: block;
+                padding: 6px 10px;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: rgba(255, 255, 255, 0.2);
+                }
+
+            .dropdown-content.show {
+                display: block;
+            }
+
+        .menu-bar {
+            display: flex;
+            justify-content: center; /* ou space-around / space-between */
+            align-items: center;
+            gap: 20px; /* espaçamento entre os botões */
+            background-color: #f2f2f2; /* opcional */
+            padding: 10px 0; /* opcional para espaçamento vertical */
+        }
+
+        .menu-item {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 15px;
+            transition: background-color 0.2s ease;
+        }
+
+            .menu-item:hover {
+                background-color: #ddd;
+                border-radius: 5px;
+            }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* O botão será invisível mas ainda acessível com a tecla Tab */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            border: 0;
+            clip: rect(0, 0, 0, 0);
+            clip-path: inset(50%);
+            overflow: hidden;
+        }
+    </style>
 </head>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userIcon = document.getElementById("userIcon");
+        const dropdown = document.getElementById("userDropdown");
+
+        userIcon.addEventListener("click", function (event) {
+            event.stopPropagation(); // Evita fechar imediatamente
+            dropdown.classList.toggle("show");
+        });
+
+        // Fecha o dropdown ao clicar fora
+        document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove("show");
+            }
+        });
+    });
+</script>
+<script>
+        // Selecionando o botão invisível e o conteúdo da página
+    const skipButton = document.getElementById('skipToContentButton');
+    const content = document.getElementById('mainContent');
+
+    // Função para focar no conteúdo ao clicar no botão invisível
+    skipButton.addEventListener('click', function () {
+        content.focus(); // Foca diretamente no conteúdo principal
+    });
+
+    // Também podemos ativar o botão invisível ao pressionar "Tab" para facilitar a navegação
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Tab' && !skipButton.classList.contains('sr-only')) {
+            skipButton.classList.remove('sr-only'); // Torna o botão visível ao pressionar "Tab"
+        }
+    });
+</script>
+<script>
+    // Selecionando o ícone do utilizador e o dropdown
+    const userIcon = document.getElementById('userIcon');
+    const userDropdown = document.getElementById('userDropdown');
+
+    // Função para alternar a visibilidade do dropdown
+    function toggleDropdown() {
+        userDropdown.classList.toggle('show');
+        const isOpen = userDropdown.classList.contains('show');
+        userIcon.setAttribute('aria-expanded', isOpen);
+    }
+
+    // Evento para mostrar o dropdown ao pressionar Enter
+    userIcon.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            toggleDropdown();
+        }
+    });
+
+    // Também pode fechar o dropdown quando clicar fora dele
+    document.addEventListener('click', function (event) {
+        if (!userIcon.contains(event.target) && !userDropdown.contains(event.target)) {
+            userDropdown.classList.remove('show');
+            userIcon.setAttribute('aria-expanded', 'false');
+        }
+    });
+</script>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SAS4All</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <header class="sas4all-header">
+        <div class="top-bar">
+            <div class="logo-area">
+                <img src="~/Images/LOGO.png" alt="SAS4ALL Logo" class="logo">
+            </div>
+            <div class="user-info">
+                <p><strong>Nome do Utilizador</strong><br>Tipo de Utilizador<br><br><strong>Saldo: X.XX€</strong></p>
+                <div class="user-dropdown">
+                    <img src="~/Images/user.png" alt="Utilizador" class="user-icon" id="userIcon" tabindex="0" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown-content" id="userDropdown" tabindex="-1">
+                        <a href="/Account/Profile">Dados do Utilizador</a>
+                        <a href="/Account/Pin">Alteração do PIN</a>
+                        <a href="/Acessibility/Index">Acessibilidade</a>
+                        <a href="#">Sair</a>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Botão invisível para navegação -->
+        <button id="skipToContentButton" class="sr-only">Ir para o conteúdo</button>
+
+        <nav class="menu-bar">
+            <a href="/Home/Index" class="menu-item">
+                <img src="~/Images/HomeBTN.png" alt="Início" class="icon">
+            </a>
+            <a href="/Transactions/Index" class="menu-item">Movimentos</a>
+            <a href="/Meals/Index" class="menu-item">Refeições</a>
+            <a href="/Charging/Index" class="menu-item">Carregamentos</a>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -41,6 +245,7 @@
             &copy; 2025 - SAS4All - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

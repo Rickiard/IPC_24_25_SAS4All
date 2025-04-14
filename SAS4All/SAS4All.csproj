@@ -6,4 +6,26 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="wwwroot\Images\BANNER.jpg" />
+    <None Remove="wwwroot\Images\HomeBTN.png" />
+    <None Remove="wwwroot\Images\LOGO.png" />
+    <None Remove="wwwroot\Images\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\Images\BANNER.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\HomeBTN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\LOGO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\user.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
