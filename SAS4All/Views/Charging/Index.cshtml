@@ -77,14 +77,15 @@
         <div class="charging-option mb-option">
             <img src="~/images/mb.png" alt="MB" class="mb-img" />
             <span style="margin-left: 30px">Carregamento com Entidade e Referência</span>
-            <button>Carregar</button>
+            <button onclick="location.href='@Url.Action("Multibanco", "Charging")'">Carregar</button>
         </div>
 
         <!-- Opção MB WAY -->
         <div class="charging-option">
             <img src="~/images/mbway.png" alt="MB WAY" class="mbway-img" />
             <span>Carregamento por telemóvel</span>
-            <button>Carregar</button>
+            <button onclick="location.href='@Url.Action("MBWay", "Charging")'">Carregar</button>
         </div>
+
     </div>
 </div>
