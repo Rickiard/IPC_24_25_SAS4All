@@ -1,0 +1,143 @@
+﻿@model SAS4ALL.Models.CarregamentosViewModel
+
+<style>
+    .mbway-form-wrapper {
+        font-family: Arial, sans-serif;
+        background-color: #fefefe;
+        padding: 40px 0;
+    }
+
+        .mbway-form-wrapper .container {
+            max-width: 500px;
+            margin: 0 auto;
+            border: 2px solid #00c2ff;
+            padding: 30px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mbway-form-wrapper h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .mbway-form-wrapper form div {
+            margin-bottom: 20px;
+        }
+
+        .mbway-form-wrapper label {
+            display: block;
+            font-weight: bold;
+            color: #00aa00;
+            margin-bottom: 5px;
+        }
+
+        .mbway-form-wrapper input[type="tel"],
+        .mbway-form-wrapper input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .mbway-form-wrapper span {
+            font-size: 14px;
+            color: #333;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .mbway-form-wrapper button,
+        .mbway-form-wrapper a {
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .mbway-form-wrapper button {
+            background-color: #a5d6a7;
+            color: black;
+            transition: background-color 0.3s ease;
+        }
+
+            .mbway-form-wrapper button:hover {
+                background-color: #81c784;
+            }
+
+        .mbway-form-wrapper a {
+            background-color: #eeeeee;
+            color: #333;
+            border: 1px solid #ccc;
+            transition: background-color 0.3s ease;
+        }
+
+            .mbway-form-wrapper a:hover {
+                background-color: #ddd;
+            }
+</style>
+
+<div class="mbway-form-wrapper">
+    <div class="container">
+        <h2>MB Way</h2>
+
+        <form method="post">
+            <div>
+                <label asp-for="Telemovel"></label>
+                <input asp-for="Telemovel" type="tel" required />
+                <span asp-validation-for="Telemovel" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Valor"></label>
+                <input asp-for="Valor" type="number" min="5" max="250" required />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+                <span>Escolha um valor entre 5 € e 250 €</span>
+            </div>
+
+            <div>
+                <button type="submit">GERAR</button>
+                <a asp-controller="Home" asp-action="Index">VOLTAR</a>
+            </div>
+
+        </form>
+
+    </div>
+    <br />
+    <br />
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.querySelector("form").addEventListener("submit", function (e) {
+            e.preventDefault(); // Impede o envio imediato do formulário
+
+            const form = e.target;
+
+            if (form.checkValidity()) {
+                // Se for válido, mostra o popup
+                Swal.fire({
+                    title: 'Pagamento Gerado!',
+                    text: 'Pedido de carregamento enviado, consulte a aplicação de MB Way no telemóvel.Tem 4 minutos para efetuar o pagamento',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Submete o formulário após o popup
+                    }
+                });
+            } else {
+                // Se não for válido, força o browser a mostrar os erros
+                form.reportValidity();
+            }
+        });
+    </script>
+}
+
