@@ -1,0 +1,233 @@
+﻿@{
+    ViewData["Title"] = "Calendário de Refeições";
+
+    var diasDaSemana = new[] { "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo" };
+
+    var calendario = new List<(int Dia, string Estado)> {
+        (1, "indisponivel"),
+        (2, "locked"),
+        (3, "locked"),
+        (4, "locked"),
+        (14, "indisponivel"),
+        (15, "nao-consumida"),
+        (16, "consumida"),
+        (17, "consumida"),
+        (21, "consumida"),
+        (22, "consumida"),
+        (23, "consumida"),
+        (24, "consumida"),
+        (28, "consumida"),
+        (29, "consumida"),
+        (30, "consumida"),
+    };
+
+    string GetClasseEstado(string estado) => $"icon-{estado}";
+
+    string GetIconeEstado(string estado)
+    {
+        return estado switch
+        {
+            "consumida" => "🍽️",
+            "consumida-nao-marcada" => "✅",
+            "nao-consumida" => "❌",
+            "marcada" => "✅",
+            "locked" => "🔒",
+            "disponivel" => "🔵",
+            "indisponivel" => "⚪",
+            _ => ""
+        };
+    }
+}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .calendar-box {
+            border: 2px solid #00aaff;
+            padding: 1rem;
+            border-radius: 8px;
+            max-width: 1000px;
+            margin: 20px auto 100px auto; /* top: 20px, bottom: 100px, left/right: auto */
+        }
+
+
+
+        .calendar-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .nav-btn {
+            background-color: white;
+            border: none;
+            font-size: 1.5rem;
+            color: #00aaff;
+            cursor: pointer;
+        }
+
+        .month-label {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            border: 1px solid #ccc;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .weekday {
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .day-cell {
+            border: 1px solid #ccc;
+            height: 80px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            padding-top: 4px;
+        }
+
+        .dia {
+            color: #444;
+        }
+
+            .dia.azul {
+                color: #00aaff;
+                font-weight: bold;
+            }
+
+        .estado-icon {
+            margin-top: 0.5rem;
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            font-size: 1.3rem;
+            border-radius: 50%;
+        }
+
+        .icon-consumida {
+            background-color: #00aaff;
+            color: white;
+        }
+
+        .icon-consumida-nao-marcada {
+            border: 2px solid #00aaff;
+            background-color: white;
+        }
+
+        .icon-nao-consumida {
+            color: #ef4444;
+        }
+
+        .icon-marcada {
+            color: #10b981;
+        }
+
+        .icon-locked {
+            color: #9ca3af;
+        }
+
+        .icon-disponivel {
+            color: #3b82f6;
+        }
+
+        .icon-indisponivel {
+            color: #d1d5db;
+        }
+
+        .legend-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+
+        .info-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #333;
+        }
+
+            .info-content .check {
+                color: #d98fcd;
+                font-size: 24px;
+            }
+
+
+        .saldo-link {
+            color: #00bfff;
+            text-decoration: none;
+            font-size: 14px;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calendar-box">
+        <div class="calendar-top">
+            <button class="nav-btn">←</button>
+            <div class="month-label">Abril de 2025</div>
+            <button class="nav-btn">→</button>
+        </div>
+
+        <div class="calendar-grid">
+            @foreach (var dia in diasDaSemana)
+            {
+                <div class="weekday">@dia</div>
+            }
+
+            <!-- Espaço em branco para alinhar o início do mês na terça -->
+            <div></div>
+
+            @for (int i = 1; i <= 30; i++)
+            {
+                var estado = calendario.FirstOrDefault(x => x.Dia == i).Estado ?? "locked";
+                var classe = GetClasseEstado(estado);
+                var icone = GetIconeEstado(estado);
+                var numeroDiaClass = i == 14 ? "dia azul" : "dia";
+
+                <div class="day-cell">
+                    <div class="@numeroDiaClass">@i</div>
+                    <div class="estado-icon @classe">@Html.Raw(icone)</div>
+                </div>
+            }
+        </div>
+
+        <div class="legend-box">
+            <div><span class="estado-icon icon-consumida">🍽️</span> Refeição Consumida</div>
+            <div><span class="estado-icon icon-consumida-nao-marcada">✅</span> Refeição Consumida Não Marcada</div>
+            <div><span class="estado-icon icon-nao-consumida">❌</span> Refeição Não Consumida</div>
+            <div><span class="estado-icon icon-marcada">✅</span> Refeição Já Marcada</div>
+            <div><span class="estado-icon icon-locked">🔒</span> Refeição Não Marcada</div>
+            <div><span class="estado-icon icon-disponivel">🔵</span> Refeição Disponível</div>
+            <div><span class="estado-icon icon-indisponivel">⚪</span> Refeição Indisponível</div>
+        </div>
+    </div>
+
+</body>
+</html>

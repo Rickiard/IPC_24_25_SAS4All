@@ -13,7 +13,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always;
 
     // Define a política de consentimento para cookies não essenciais
-    options.CheckConsentNeeded = context => true; // Requer consentimento do usuário para cookies não essenciais
+    options.CheckConsentNeeded = context => true; // Requer consentimento do utilizador para cookies não essenciais
     options.MinimumSameSitePolicy = SameSiteMode.Strict; // Restringe o compartilhamento de cookies entre sites
 });
 
