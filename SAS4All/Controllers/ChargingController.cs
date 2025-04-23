@@ -14,5 +14,13 @@ namespace SAS4All.Controllers
         {
             return View(new CarregamentosViewModel());
         }
+        public IActionResult Multibanco()
+        {
+            return View(new CarregamentosViewModel());
+        }
+        public IActionResult MultibancoConfirmation()
+        {
+            return View(new CarregamentosViewModel());
+        }
     }
 }

@@ -1,6 +1,26 @@
 ﻿@model SAS4ALL.Models.CarregamentosViewModel
 
 <style>
+    .linhas {
+        border-top: 1px solid #666;
+        border-bottom: 1px solid #666;
+    }
+
+        .linhas .linha {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+            border-bottom: 1px solid #ccc;
+            margin: 0; /* previne espaçamentos herdados */
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+            .linhas .linha:last-child {
+                border-bottom: none;
+            }
+
     .mbway-form-wrapper {
         font-family: Arial, sans-serif;
         background-color: #fefefe;
@@ -80,28 +100,35 @@
             .mbway-form-wrapper a:hover {
                 background-color: #ddd;
             }
+
 </style>
 
 <div class="mbway-form-wrapper">
     <div class="container">
-        <h2>MB Way</h2>
+        <h2>Multibanco</h2>
 
         <form method="post">
-            <div>
-                <label asp-for="Telemovel"></label>
-                <input asp-for="Telemovel" type="tel" required />
-                <span asp-validation-for="Telemovel" class="text-danger"></span>
+            <p>
+                Para efetuar o carregamento na rede SIBS, selecione a operação PAGAMENTOS e depois PAGAMENTOS de SERVIÇOS/COMPRAS, introduzindo em seguida, a entidade, a referência e o valor. O talão emitido pela caixa automática faz prova de carregamento, conserve-o
+            </p>
+
+
+            <div class="linhas">
+                <div class="linha">
+                    <span>Entidade</span>
+                    <span>XXXXXXXXX</span>
+                </div>
+                <div class="linha">
+                    <span>Referência</span>
+                    <span>XXXXXXXXX</span>
+                </div>
+                <div class="linha">
+                    <span>Montante</span>
+                    <span>XXX</span>
+                </div>
             </div>
 
             <div>
-                <label asp-for="Valor"></label>
-                <input asp-for="Valor" type="number" min="5" max="250" required />
-                <span asp-validation-for="Valor" class="text-danger"></span>
-                <span>Escolha um valor entre 5 € e 250 €</span>
-            </div>
-
-            <div>
-                <button type="submit">GERAR</button>
                 <a asp-controller="Charging" asp-action="Index">VOLTAR</a>
             </div>
 
@@ -111,34 +138,3 @@
     <br />
     <br />
 </div>
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        document.querySelector("form").addEventListener("submit", function (e) {
-            e.preventDefault(); // Impede o envio imediato do formulário
-
-            const form = e.target;
-
-            if (form.checkValidity()) {
-                // Se for válido, mostra o popup
-                Swal.fire({
-                    title: 'Pagamento Gerado!',
-                    text: 'Pedido de carregamento enviado, consulte a aplicação de MB Way no telemóvel.Tem 4 minutos para efetuar o pagamento',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit(); // Submete o formulário após o popup
-                        window.location.href = '@Url.Action("Index", "Charging")';
-                    }
-                });
-            } else {
-                // Se não for válido, força o browser a mostrar os erros
-                form.reportValidity();
-            }
-        });
-    </script>
-}
-

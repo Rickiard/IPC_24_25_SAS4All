@@ -84,13 +84,11 @@
 
 <div class="mbway-form-wrapper">
     <div class="container">
-        <h2>MB Way</h2>
+        <h2>Multibanco</h2>
 
         <form method="post">
             <div>
-                <label asp-for="Telemovel"></label>
-                <input asp-for="Telemovel" type="tel" required />
-                <span asp-validation-for="Telemovel" class="text-danger"></span>
+                Carregamento por Entidade e Referência
             </div>
 
             <div>
@@ -101,7 +99,7 @@
             </div>
 
             <div>
-                <button type="submit">GERAR</button>
+                <button type="submit" asp-controller="Charging" asp-action="MultibancoConfirmation">GERAR</button>
                 <a asp-controller="Charging" asp-action="Index">VOLTAR</a>
             </div>
 
@@ -111,34 +109,4 @@
     <br />
     <br />
 </div>
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        document.querySelector("form").addEventListener("submit", function (e) {
-            e.preventDefault(); // Impede o envio imediato do formulário
-
-            const form = e.target;
-
-            if (form.checkValidity()) {
-                // Se for válido, mostra o popup
-                Swal.fire({
-                    title: 'Pagamento Gerado!',
-                    text: 'Pedido de carregamento enviado, consulte a aplicação de MB Way no telemóvel.Tem 4 minutos para efetuar o pagamento',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit(); // Submete o formulário após o popup
-                        window.location.href = '@Url.Action("Index", "Charging")';
-                    }
-                });
-            } else {
-                // Se não for válido, força o browser a mostrar os erros
-                form.reportValidity();
-            }
-        });
-    </script>
-}
 
