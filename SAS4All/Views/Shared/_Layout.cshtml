@@ -6,7 +6,13 @@
     <title>@ViewData["Title"] - SAS4All</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/accessibility.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SAS4All.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/accessibility.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
     <style>
         body {
             margin: 0;
@@ -139,7 +145,7 @@
         }
     </style>
 </head>
-<body>
+<body class="@Context.Items["BodyClasses"]">
     <header class="sas4all-header">
         <div class="top-bar">
             <div class="logo-area">
@@ -181,12 +187,15 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2025 - SAS4All - <a asp-area="" asp-controller="Home" asp-action="Privacy" tabindex="0" role="link">Política de Privacidade</a>
+            <button id="toggleVoiceCommands" class="btn btn-sm btn-outline-primary ms-2" aria-label="Toggle voice commands">
+                <i class="bi bi-mic"></i> <span id="voiceCommandStatus">Voice Commands</span>
+            </button>
+            <div id="voiceCommandFeedback" class="d-none text-success ms-2">
+                <i class="bi bi-check-circle"></i> <span>Listening...</span>
+            </div>
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
         // Função para alternar o dropdown
         document.addEventListener("DOMContentLoaded", function () {
@@ -253,7 +262,37 @@
         document.getElementById("skipToContentButton").addEventListener("click", function () {
             document.getElementById("mainContent").focus();
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const voiceHandler = window.voiceHandler;
+            const toggleButton = document.getElementById('toggleVoiceCommands');
+            const statusText = document.getElementById('voiceCommandStatus');
+            const feedbackElement = document.getElementById('voiceCommandFeedback');
+            
+            toggleButton.addEventListener('click', function() {
+                if (voiceHandler.isListening) {
+                    voiceHandler.stopListening();
+                    statusText.textContent = 'Voice Commands';
+                    feedbackElement.classList.add('d-none');
+                    toggleButton.classList.remove('btn-success');
+                    toggleButton.classList.add('btn-outline-primary');
+                } else {
+                    voiceHandler.startListening();
+                    statusText.textContent = 'Stop Listening';
+                    feedbackElement.classList.remove('d-none');
+                    toggleButton.classList.remove('btn-outline-primary');
+                    toggleButton.classList.add('btn-success');
+                }
+            });
+
+            // Add keyboard shortcut for voice commands (Alt+V)
+            document.addEventListener('keydown', function(event) {
+                if (event.altKey && event.key.toLowerCase() === 'v') {
+                    event.preventDefault();
+                    toggleButton.click();
+                }
+            });
+        });
     </script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

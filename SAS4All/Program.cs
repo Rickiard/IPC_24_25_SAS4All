@@ -1,3 +1,5 @@
+using SAS4All.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,8 +14,8 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     // Define se os cookies devem ser marcados como HttpOnly
     options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always;
 
-    // Define a polÌtica de consentimento para cookies n„o essenciais
-    options.CheckConsentNeeded = context => true; // Requer consentimento do utilizador para cookies n„o essenciais
+    // Define a pol√≠tica de consentimento para cookies n√£o essenciais
+    options.CheckConsentNeeded = context => true; // Requer consentimento do utilizador para cookies n√£o essenciais
     options.MinimumSameSitePolicy = SameSiteMode.Strict; // Restringe o compartilhamento de cookies entre sites
 });
 
@@ -31,6 +33,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Add accessibility middleware
+app.UseMiddleware<AccessibilityMiddleware>();
 
 app.UseAuthorization();
 
