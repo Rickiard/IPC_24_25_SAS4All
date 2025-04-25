@@ -43,9 +43,6 @@ namespace SAS4All.Middleware
                 AltoContraste = false,
                 TamanhoFonte = "16px",
                 Espacamento = "normal",
-                FeedbackAuditivo = false,
-                ComandosVoz = false,
-                Atalhos = new Dictionary<string, string>()
             };
         }
 

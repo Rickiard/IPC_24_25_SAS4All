@@ -108,7 +108,7 @@
 
                 <div class="form-group">
                     <label for="tamanho-fonte">Tamanho da Fonte:</label>
-                    <select id="tamanho-fonte" asp-for="TamanhoFonte">
+                    <select id="tamanho-fonte" asp-for="TamanhoFonte" style="width:auto">
                         <option value="16px">Normal (16px)</option>
                         <option value="18px">Médio (18px)</option>
                         <option value="20px">Grande (20px)</option>
@@ -119,16 +119,11 @@
 
                 <div class="form-group">
                     <label for="espacamento">Espaçamento de Texto:</label>
-                    <select id="espacamento" asp-for="Espacamento">
+                    <select id="espacamento" asp-for="Espacamento" style="width:auto">
                         <option value="normal">Normal</option>
                         <option value="wide">Amplo</option>
                         <option value="extra-wide">Extra Amplo</option>
                     </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="feedback-auditivo">Feedback Auditivo:</label>
-                    <input type="checkbox" id="feedback-auditivo" asp-for="FeedbackAuditivo" aria-checked="@Model.FeedbackAuditivo.ToString().ToLower()" />
                 </div>
             </div>
 

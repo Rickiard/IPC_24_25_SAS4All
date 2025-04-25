@@ -60,18 +60,6 @@ namespace SAS4All.Controllers
                 AltoContraste = false,
                 TamanhoFonte = "16px",
                 Espacamento = "normal",
-                FeedbackAuditivo = false,
-                ComandosVoz = false,
-                Atalhos = new Dictionary<string, string>
-                {
-                    { "PaginaInicial", "" },
-                    { "AlteracaoPIN", "" },
-                    { "Acessibilidade", "" },
-                    { "Movimentos", "" },
-                    { "Refeicoes", "" },
-                    { "Perfil", "" },
-                    { "Carregamentos", "" }
-                }
             };
         }
 
