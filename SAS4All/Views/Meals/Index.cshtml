@@ -3,6 +3,11 @@
 
     var diasDaSemana = new[] { "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo" };
 
+    var currentDate = DateTime.Now;
+    var monthNames = new[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+    var currentMonthName = monthNames[currentDate.Month - 1];
+    var currentYear = currentDate.Year;
+
     var calendario = new List<(int Dia, string Estado)> {
         (1, "indisponivel"),
         (2, "locked"),
@@ -191,7 +196,7 @@
     <div class="calendar-box">
         <div class="calendar-top">
             <button class="nav-btn">←</button>
-            <div class="month-label">Abril de 2025</div>
+            <div class="month-label">@currentMonthName de @currentYear</div>
             <button class="nav-btn">→</button>
         </div>
 
@@ -210,11 +215,12 @@
                 var classe = GetClasseEstado(estado);
                 var icone = GetIconeEstado(estado);
                 var numeroDiaClass = i == 14 ? "dia azul" : "dia";
+                var data = new DateTime(2025, 4, i).ToString("yyyy-MM-dd");
 
-                <div class="day-cell">
+                <a href="@Url.Action("Index", "ScheduledMeals", new { date = data })" class="day-cell" style="text-decoration: none; color: inherit;">
                     <div class="@numeroDiaClass">@i</div>
                     <div class="estado-icon @classe">@Html.Raw(icone)</div>
-                </div>
+                </a>
             }
         </div>
 

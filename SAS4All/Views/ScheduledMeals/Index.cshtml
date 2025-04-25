@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewData["Title"] = "Refeições Agendadas";
+    var date = DateTime.Parse(ViewData["Date"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd"));
+    var monthNames = new[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+    var formattedDate = $"{date.Day} de {monthNames[date.Month - 1]} de {date.Year}";
+}
+<!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8" />
@@ -24,7 +30,7 @@
     <div class="w-full px-6 py-4 border-b flex justify-center">
         <div class="flex items-center gap-4">
             <button class="border rounded-full p-2 hover:bg-gray-100">&larr;</button>
-            <span class="text-lg font-semibold">7 de Março de 2025</span>
+            <span class="text-lg font-semibold">@formattedDate</span>
             <button class="border rounded-full p-2 hover:bg-gray-100">&rarr;</button>
         </div>
     </div>
