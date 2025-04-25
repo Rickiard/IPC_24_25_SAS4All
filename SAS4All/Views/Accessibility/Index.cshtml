@@ -80,6 +80,11 @@
             font-family: monospace;
             font-weight: bold;
         }
+
+        .comando-voz {
+            color: #666;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -125,23 +130,19 @@
                     <label for="feedback-auditivo">Feedback Auditivo:</label>
                     <input type="checkbox" id="feedback-auditivo" asp-for="FeedbackAuditivo" aria-checked="@Model.FeedbackAuditivo.ToString().ToLower()" />
                 </div>
-
-                <div class="form-group">
-                    <label for="comandos-voz">Comandos de Voz:</label>
-                    <input type="checkbox" id="comandos-voz" asp-for="ComandosVoz" aria-checked="@Model.ComandosVoz.ToString().ToLower()" />
-                </div>
             </div>
 
             <!-- Seção de Configuração de Atalhos -->
             <div class="section" aria-labelledby="atalhos-title">
-                <h3 id="atalhos-title">Atalhos de Teclado</h3>
-                <p>Esta tabela mostra os atalhos de teclado disponíveis no sistema.</p>
+                <h3 id="atalhos-title">Atalhos de Teclado e Comandos de Voz</h3>
+                <p>Esta tabela mostra os atalhos de teclado e comandos de voz disponíveis no sistema.</p>
 
-                <table class="atalhos-table" aria-label="Tabela de atalhos de teclado">
+                <table class="atalhos-table" aria-label="Tabela de atalhos de teclado e comandos de voz">
                     <thead>
                         <tr>
                             <th scope="col">Opção</th>
-                            <th scope="col">Atalho</th>
+                            <th scope="col">Atalho de Teclado</th>
+                            <th scope="col">Comando de Voz</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -150,11 +151,17 @@
                             <td>
                                 <span class="atalho-display">H</span>
                             </td>
+                            <td class="comando-voz">
+                                "início"
+                            </td>
                         </tr>
                         <tr>
                             <td>Acessibilidade</td>
                             <td>
                                 <span class="atalho-display">A</span>
+                            </td>
+                            <td class="comando-voz">
+                                "acessibilidade"
                             </td>
                         </tr>
                         <tr>
@@ -162,11 +169,17 @@
                             <td>
                                 <span class="atalho-display">P</span>
                             </td>
+                            <td class="comando-voz">
+                                "perfil"
+                            </td>
                         </tr>
                         <tr>
                             <td>Movimentos</td>
                             <td>
                                 <span class="atalho-display">M</span>
+                            </td>
+                            <td class="comando-voz">
+                                "movimentos"
                             </td>
                         </tr>
                         <tr>
@@ -174,15 +187,23 @@
                             <td>
                                 <span class="atalho-display">R</span>
                             </td>
+                            <td class="comando-voz">
+                                "refeições"
+                            </td>
                         </tr>
                         <tr>
                             <td>Carregamentos</td>
                             <td>
                                 <span class="atalho-display">C</span>
                             </td>
+                            <td class="comando-voz">
+                                "carregamentos"
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+
+                <p style="margin-top: 10px; font-size: 0.9em;">Os comandos de voz podem ser ativados clicando no botão de microfone na barra inferior.</p>
             </div>
 
             <!-- Botões de Ação -->
