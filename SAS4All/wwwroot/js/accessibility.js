@@ -10,7 +10,7 @@ class VoiceCommandHandler {
     initialize() {
         // Check for browser compatibility
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        
+
         if (SpeechRecognition) {
             this.recognition = new SpeechRecognition();
             this.recognition.continuous = true;
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize keyboard shortcut handler
     const keyboardHandler = new KeyboardShortcutHandler();
 
-    // Register common shortcuts
+    // Register default shortcuts
     keyboardHandler.registerShortcut('h', () => {
         window.location.href = '/Home';
     });
@@ -123,6 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     keyboardHandler.registerShortcut('p', () => {
         window.location.href = '/Account/Profile';
+    });
+
+    keyboardHandler.registerShortcut('m', () => {
+        window.location.href = '/Transactions';
+    });
+
+    keyboardHandler.registerShortcut('r', () => {
+        window.location.href = '/Meals';
+    });
+
+    keyboardHandler.registerShortcut('c', () => {
+        window.location.href = '/Charging';
     });
 
     // Add skip link
@@ -151,4 +163,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Make voiceHandler available globally
     window.voiceHandler = voiceHandler;
-}); 
+});

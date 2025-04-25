@@ -60,7 +60,6 @@ namespace SAS4All.Controllers
                 AltoContraste = false,
                 TamanhoFonte = "16px",
                 Espacamento = "normal",
-                TemasPredefinidos = false,
                 FeedbackAuditivo = false,
                 ComandosVoz = false,
                 Atalhos = new Dictionary<string, string>

@@ -9,7 +9,6 @@ namespace SAS4All.Models
         public bool AltoContraste { get; set; }
         public string TamanhoFonte { get; set; }
         public string Espacamento { get; set; }
-        public bool TemasPredefinidos { get; set; }
         public bool FeedbackAuditivo { get; set; }
         public bool ComandosVoz { get; set; }
 
