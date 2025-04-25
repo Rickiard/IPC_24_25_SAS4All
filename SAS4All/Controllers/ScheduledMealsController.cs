@@ -4,9 +4,10 @@ namespace SAS4All.Controllers
 {
     public class ScheduledMealsController : Controller
     {
-        public IActionResult Index(DateTime targetDate)
+        public IActionResult Index(DateTime? date)
         {
-            return View(targetDate);
+            ViewData["Date"] = date?.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString("yyyy-MM-dd");
+            return View();
         }
     }
 }

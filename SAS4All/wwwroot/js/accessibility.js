@@ -137,13 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '/Charging';
     });
 
-    // Add skip link
-    const skipLink = document.createElement('a');
-    skipLink.href = '#main-content';
-    skipLink.className = 'skip-link';
-    skipLink.textContent = 'Skip to main content';
-    document.body.insertBefore(skipLink, document.body.firstChild);
-
     // Apply saved settings
     const bodyClasses = document.body.className;
     if (bodyClasses.includes('dark-mode')) {
