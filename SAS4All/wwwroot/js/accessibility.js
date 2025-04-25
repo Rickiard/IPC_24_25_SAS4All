@@ -45,7 +45,6 @@ class VoiceCommandHandler {
             try {
                 this.recognition.start();
                 this.isListening = true;
-                document.body.classList.add('voice-command-active');
                 console.log('Voice recognition started'); // Debug log
             } catch (error) {
                 console.error('Error starting voice recognition:', error);
@@ -59,7 +58,6 @@ class VoiceCommandHandler {
             try {
                 this.recognition.stop();
                 this.isListening = false;
-                document.body.classList.remove('voice-command-active');
                 console.log('Voice recognition stopped'); // Debug log
             } catch (error) {
                 console.error('Error stopping voice recognition:', error);
@@ -137,12 +135,26 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '/Charging';
     });
 
-    // Add skip link
-    const skipLink = document.createElement('a');
-    skipLink.href = '#main-content';
-    skipLink.className = 'skip-link';
-    skipLink.textContent = 'Skip to main content';
-    document.body.insertBefore(skipLink, document.body.firstChild);
+    // New shortcuts
+    keyboardHandler.registerShortcut('i', () => {
+        window.location.href = '/Account/Pin';
+    });
+
+    keyboardHandler.registerShortcut('w', () => {
+        if (window.location.pathname.includes('/Charging')) {
+            window.location.href = '/Charging/MBWay';
+        }
+    });
+
+    keyboardHandler.registerShortcut('b', () => {
+        if (window.location.pathname.includes('/Charging')) {
+            window.location.href = '/Charging/Multibanco';
+        }
+    });
+
+    keyboardHandler.registerShortcut('v', () => {
+        window.location.href = '/Home/Privacy';
+    });
 
     // Apply saved settings
     const bodyClasses = document.body.className;
@@ -160,6 +172,20 @@ document.addEventListener('DOMContentLoaded', () => {
     voiceHandler.registerCommand('movimentos', () => window.location.href = '/Transactions');
     voiceHandler.registerCommand('refeições', () => window.location.href = '/Meals');
     voiceHandler.registerCommand('carregamentos', () => window.location.href = '/Charging');
+
+    // New voice commands
+    voiceHandler.registerCommand('pin', () => window.location.href = '/Account/Pin');
+    voiceHandler.registerCommand('telemóvel', () => {
+        if (window.location.pathname.includes('/Charging')) {
+            window.location.href = '/Charging/MBWay';
+        }
+    });
+    voiceHandler.registerCommand('multibanco', () => {
+        if (window.location.pathname.includes('/Charging')) {
+            window.location.href = '/Charging/Multibanco';
+        }
+    });
+    voiceHandler.registerCommand('privacidade', () => window.location.href = '/Home/Privacy');
 
     // Make voiceHandler available globally
     window.voiceHandler = voiceHandler;
