@@ -4,16 +4,84 @@
     color: #ffffff !important;
 }
 
-.dark-mode .navbar,
+.dark-mode p,
+.dark-mode span {
+    color: #ffffff !important;
+}
+
+.dark-mode .icon-circle {
+    background-color: #1a1a1a !important;
+    color: #fff !important;
+}
+
+.dark-mode .comando-voz {
+    color: #fff !important;
+}
+
+.dark-mode .atalho-display {
+    background-color: #333 !important;
+    color: #fff !important;
+}
+
+.dark-mode th, .dark-mode thead {
+    background-color: #333 !important;
+    color: #fff !important;
+}
+
 .dark-mode .card,
 .dark-mode .modal-content {
-    background-color: #2d2d2d !important;
+    background-color: #333 !important;
+    color: #fff !important;
+}
+
+.dark-mode .nav-btn {
+    background-color: #333 !important;
+}
+
+.dark-mode .euro-icon {
+    background-color: #1a1a1a !important;
+    color: #fff !important;
+}
+
+.dark-mode .navbar {
+    background-color: #000000 !important;
     color: #ffffff !important;
 }
 
 .dark-mode .btn-outline-primary {
     color: #ffffff;
     border-color: #ffffff;
+}
+
+.dark-mode .charging-box {
+    background-color: #1a1a1a !important;
+    color: #fff !important;
+}
+
+.dark-mode .charging-box img {
+    background-color: #1a1a1a !important;
+}
+
+.dark-mode .charging-box button {
+    background-color: #333 !important;
+
+}
+
+.dark-mode .perfil-box {
+    background-color: #1a1a1a !important;
+    color: #fff !important;
+}
+
+.perfil-icon-img {
+    background-color: #1a1a1a !important;
+}
+
+.dark-mode .menu-bar {
+    background-color: #333 !important;
+}
+
+.dark-mode .sas4all-header p {
+    color: #1a1a1a !important;
 }
 
 /* High Contrast */
@@ -102,4 +170,8 @@
     100% {
         box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
     }
-} 
+}
+
+
+
+
