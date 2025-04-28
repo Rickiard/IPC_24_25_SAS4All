@@ -85,164 +85,248 @@
             color: #666;
             font-style: italic;
         }
+
+        /* Estilos para navegação por teclado */
+        .atalhos-table th:focus,
+        .atalhos-table td:focus,
+        .atalhos-table kbd:focus,
+        .atalhos-table span:focus {
+            background-color: #e6f3ff;
+            box-shadow: 0 0 0 2px #0066cc;
+            position: relative;
+            z-index: 1;
+        }
+
+        .atalhos-table th[tabindex]:focus,
+        .atalhos-table td[tabindex]:focus {
+            outline: none;
+        }
+
+        .atalhos-table kbd:focus,
+        .atalhos-table span:focus {
+            outline: none;
+            background-color: #e6f3ff;
+            box-shadow: 0 0 0 2px #0066cc;
+        }
     </style>
 </head>
 <body>
     <div class="container" role="main">
         <h2 id="page-title">Acessibilidade</h2>
         <br />
-        <form asp-action="GuardarDefinicoes" method="post" role="form">
+        <form asp-action="GuardarDefinicoes" method="post" role="form" aria-labelledby="page-title">
             <!-- Seção de Acessibilidade -->
             <div class="section" aria-labelledby="acessibilidade-title">
                 <h3 id="acessibilidade-title">Configurações de Acessibilidade</h3>
 
                 <div class="form-group">
-                    <label for="modo-escuro">Modo Escuro:</label>
-                    <input type="checkbox" id="modo-escuro" asp-for="ModoEscuro" aria-checked="@Model.ModoEscuro.ToString().ToLower()" />
+                    <label for="modo-escuro">Modo Escuro</label>
+                    <input type="checkbox" id="modo-escuro" asp-for="ModoEscuro" aria-checked="@Model.ModoEscuro.ToString().ToLower()" role="switch" />
                 </div>
 
                 <div class="form-group">
-                    <label for="alto-contraste">Alto Contraste:</label>
-                    <input type="checkbox" id="alto-contraste" asp-for="AltoContraste" aria-checked="@Model.AltoContraste.ToString().ToLower()" />
+                    <label for="alto-contraste">Alto Contraste</label>
+                    <input type="checkbox" id="alto-contraste" asp-for="AltoContraste" aria-checked="@Model.AltoContraste.ToString().ToLower()" role="switch" />
                 </div>
 
                 <div class="form-group">
-                    <label for="tamanho-fonte">Tamanho da Fonte:</label>
-                    <select id="tamanho-fonte" asp-for="TamanhoFonte" style="width:auto">
+                    <label for="tamanho-fonte">Tamanho da Fonte</label>
+                    <select id="tamanho-fonte" asp-for="TamanhoFonte" style="width:auto" aria-describedby="tamanho-fonte-desc">
                         <option value="16px">Normal (16px)</option>
                         <option value="18px">Médio (18px)</option>
                         <option value="20px">Grande (20px)</option>
                         <option value="22px">Muito Grande (22px)</option>
                         <option value="24px">Extra Grande (24px)</option>
                     </select>
+                    <span id="tamanho-fonte-desc" class="sr-only">Selecione o tamanho da fonte desejado</span>
                 </div>
 
                 <div class="form-group">
-                    <label for="espacamento">Espaçamento de Texto:</label>
-                    <select id="espacamento" asp-for="Espacamento" style="width:auto">
+                    <label for="espacamento">Espaçamento de Texto</label>
+                    <select id="espacamento" asp-for="Espacamento" style="width:auto" aria-describedby="espacamento-desc">
                         <option value="normal">Normal</option>
                         <option value="wide">Amplo</option>
                         <option value="extra-wide">Extra Amplo</option>
                     </select>
+                    <span id="espacamento-desc" class="sr-only">Selecione o espaçamento de texto desejado</span>
                 </div>
             </div>
 
             <!-- Seção de Configuração de Atalhos -->
             <div class="section" aria-labelledby="atalhos-title">
                 <h3 id="atalhos-title">Atalhos de Teclado e Comandos de Voz</h3>
-                <p>Esta tabela mostra os atalhos de teclado e comandos de voz disponíveis no sistema.</p>
+                <p id="table-desc">Esta tabela mostra os atalhos de teclado e comandos de voz disponíveis no sistema.</p>
 
-                <table class="atalhos-table" aria-label="Tabela de atalhos de teclado e comandos de voz">
+                <table class="atalhos-table" role="table" aria-label="Tabela de atalhos de teclado e comandos de voz" aria-describedby="table-desc" tabindex="0">
+                    <caption class="sr-only">Tabela com atalhos de teclado e comandos de voz para navegação no sistema</caption>
                     <thead>
-                        <tr>
-                            <th scope="col">Opção</th>
-                            <th scope="col">Atalho de Teclado</th>
-                            <th scope="col">Comando de Voz</th>
+                        <tr role="row">
+                            <th scope="col" role="columnheader" tabindex="0">Opção</th>
+                            <th scope="col" role="columnheader" tabindex="0">Atalho de Teclado</th>
+                            <th scope="col" role="columnheader" tabindex="0">Comando de Voz</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Página Principal</td>
-                            <td>
-                                <span class="atalho-display">H</span>
+                        <tr role="row">
+                            <th scope="row" role="rowheader" tabindex="0">Página Principal</th>
+                            <td role="cell" tabindex="0">
+                                <kbd aria-label="Pressione a tecla H para acessar a Página Principal" tabindex="0">H</kbd>
                             </td>
-                            <td class="comando-voz">
-                                "início"
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Acessibilidade</td>
-                            <td>
-                                <span class="atalho-display">A</span>
-                            </td>
-                            <td class="comando-voz">
-                                "acessibilidade"
+                            <td role="cell" tabindex="0">
+                                <span aria-label="Diga 'início' para acessar a Página Principal" tabindex="0">"início"</span>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Perfil</td>
-                            <td>
-                                <span class="atalho-display">P</span>
+                        <tr role="row">
+                            <th scope="row" role="rowheader" tabindex="0">Acessibilidade</th>
+                            <td role="cell" tabindex="0">
+                                <kbd aria-label="Pressione a tecla A para acessar as configurações de Acessibilidade" tabindex="0">A</kbd>
                             </td>
-                            <td class="comando-voz">
-                                "perfil"
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Movimentos</td>
-                            <td>
-                                <span class="atalho-display">M</span>
-                            </td>
-                            <td class="comando-voz">
-                                "movimentos"
+                            <td role="cell" tabindex="0">
+                                <span aria-label="Diga 'acessibilidade' para acessar as configurações de Acessibilidade" tabindex="0">"acessibilidade"</span>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Refeições</td>
-                            <td>
-                                <span class="atalho-display">R</span>
+                        <tr role="row">
+                            <th scope="row" role="rowheader" tabindex="0">Perfil</th>
+                            <td role="cell" tabindex="0">
+                                <kbd aria-label="Pressione a tecla P para acessar o Perfil" tabindex="0">P</kbd>
                             </td>
-                            <td class="comando-voz">
-                                "refeições"
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Carregamentos</td>
-                            <td>
-                                <span class="atalho-display">C</span>
-                            </td>
-                            <td class="comando-voz">
-                                "carregamentos"
+                            <td role="cell" tabindex="0">
+                                <span aria-label="Diga 'perfil' para acessar o Perfil" tabindex="0">"perfil"</span>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Alterar PIN</td>
-                            <td>
-                                <span class="atalho-display">I</span>
+                        <tr role="row">
+                            <th scope="row" role="rowheader" tabindex="0">Movimentos</th>
+                            <td role="cell" tabindex="0">
+                                <kbd aria-label="Pressione a tecla M para acessar os Movimentos" tabindex="0">M</kbd>
                             </td>
-                            <td class="comando-voz">
-                                "pin"
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>MBWay (em Carregamentos)</td>
-                            <td>
-                                <span class="atalho-display">W</span>
-                            </td>
-                            <td class="comando-voz">
-                                "mbway"
+                            <td role="cell" tabindex="0">
+                                <span aria-label="Diga 'movimentos' para acessar os Movimentos" tabindex="0">"movimentos"</span>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Multibanco (em Carregamentos)</td>
-                            <td>
-                                <span class="atalho-display">B</span>
+                        <tr role="row">
+                            <th scope="row" role="rowheader" tabindex="0">Refeições</th>
+                            <td role="cell" tabindex="0">
+                                <kbd aria-label="Pressione a tecla R para acessar as Refeições" tabindex="0">R</kbd>
                             </td>
-                            <td class="comando-voz">
-                                "multibanco"
+                            <td role="cell" tabindex="0">
+                                <span aria-label="Diga 'refeições' para acessar as Refeições" tabindex="0">"refeições"</span>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Política de Privacidade</td>
-                            <td>
-                                <span class="atalho-display">V</span>
+                        <tr role="row">
+                            <th scope="row" role="rowheader" tabindex="0">Carregamentos</th>
+                            <td role="cell" tabindex="0">
+                                <kbd aria-label="Pressione a tecla C para acessar os Carregamentos" tabindex="0">C</kbd>
                             </td>
-                            <td class="comando-voz">
-                                "privacidade"
+                            <td role="cell" tabindex="0">
+                                <span aria-label="Diga 'carregamentos' para acessar os Carregamentos" tabindex="0">"carregamentos"</span>
+                            </td>
+                        </tr>
+                        <tr role="row">
+                            <th scope="row" role="rowheader" tabindex="0">Alterar PIN</th>
+                            <td role="cell" tabindex="0">
+                                <kbd aria-label="Pressione a tecla I para alterar o PIN" tabindex="0">I</kbd>
+                            </td>
+                            <td role="cell" tabindex="0">
+                                <span aria-label="Diga 'pin' para alterar o PIN" tabindex="0">"pin"</span>
+                            </td>
+                        </tr>
+                        <tr role="row">
+                            <th scope="row" role="rowheader" tabindex="0">MBWay (em Carregamentos)</th>
+                            <td role="cell" tabindex="0">
+                                <kbd aria-label="Pressione a tecla W para acessar o MBWay na seção de Carregamentos" tabindex="0">W</kbd>
+                            </td>
+                            <td role="cell" tabindex="0">
+                                <span aria-label="Diga 'mbway' para acessar o MBWay na seção de Carregamentos" tabindex="0">"mbway"</span>
+                            </td>
+                        </tr>
+                        <tr role="row">
+                            <th scope="row" role="rowheader" tabindex="0">Multibanco (em Carregamentos)</th>
+                            <td role="cell" tabindex="0">
+                                <kbd aria-label="Pressione a tecla B para acessar o Multibanco na seção de Carregamentos" tabindex="0">B</kbd>
+                            </td>
+                            <td role="cell" tabindex="0">
+                                <span aria-label="Diga 'multibanco' para acessar o Multibanco na seção de Carregamentos" tabindex="0">"multibanco"</span>
+                            </td>
+                        </tr>
+                        <tr role="row">
+                            <th scope="row" role="rowheader" tabindex="0">Política de Privacidade</th>
+                            <td role="cell" tabindex="0">
+                                <kbd aria-label="Pressione a tecla V para acessar a Política de Privacidade" tabindex="0">V</kbd>
+                            </td>
+                            <td role="cell" tabindex="0">
+                                <span aria-label="Diga 'privacidade' para acessar a Política de Privacidade" tabindex="0">"privacidade"</span>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-                <p style="margin-top: 10px; font-size: 0.9em;">Os comandos de voz podem ser ativados clicando no botão de microfone na barra inferior.</p>
+                <p style="margin-top: 10px; font-size: 0.9em;" aria-label="Instrução: Os comandos de voz podem ser ativados clicando no botão de microfone na barra inferior da página">Os comandos de voz podem ser ativados clicando no botão de microfone na barra inferior.</p>
             </div>
 
             <!-- Botões de Ação -->
             <div class="buttons">
                 <button type="button" onclick="history.back()" aria-label="Voltar à página anterior">Voltar</button>
-                <button type="submit" aria-label="Guardar definições">Guardar</button>
+                <button type="submit" aria-label="Guardar definições de acessibilidade">Guardar</button>
             </div>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const table = document.querySelector('.atalhos-table');
+            const focusableElements = table.querySelectorAll('[tabindex="0"]');
+            
+            // Adiciona navegação por teclado
+            table.addEventListener('keydown', function(e) {
+                const currentIndex = Array.from(focusableElements).indexOf(document.activeElement);
+                
+                switch(e.key) {
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        if (currentIndex < focusableElements.length - 1) {
+                            focusableElements[currentIndex + 1].focus();
+                        }
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        if (currentIndex > 0) {
+                            focusableElements[currentIndex - 1].focus();
+                        }
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if (currentIndex + 3 < focusableElements.length) {
+                            focusableElements[currentIndex + 3].focus();
+                        }
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if (currentIndex - 3 >= 0) {
+                            focusableElements[currentIndex - 3].focus();
+                        }
+                        break;
+                    case 'Home':
+                        e.preventDefault();
+                        focusableElements[0].focus();
+                        break;
+                    case 'End':
+                        e.preventDefault();
+                        focusableElements[focusableElements.length - 1].focus();
+                        break;
+                }
+            });
+
+            // Adiciona feedback visual ao focar
+            focusableElements.forEach(element => {
+                element.addEventListener('focus', function() {
+                    this.setAttribute('aria-selected', 'true');
+                });
+                
+                element.addEventListener('blur', function() {
+                    this.removeAttribute('aria-selected');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

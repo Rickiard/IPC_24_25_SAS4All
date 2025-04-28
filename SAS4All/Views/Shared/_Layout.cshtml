@@ -147,7 +147,7 @@
     </style>
 </head>
 <body class="@Context.Items["BodyClasses"]">
-    <header class="sas4all-header">
+    <header class="sas4all-header" role="banner">
         <div class="top-bar">
             <div class="logo-area">
                 <img src="~/Images/LOGO.png" alt="Logo da SAS4ALL" class="logo">
@@ -155,8 +155,8 @@
             <div class="user-info">
                 <p><strong>Nome do Utilizador</strong><br>Tipo de Utilizador<br><br><strong>Saldo: X.XX€</strong></p>
                 <div class="user-dropdown">
-                    <img src="~/Images/user.png" alt="Ícone do utilizador" class="user-icon" id="userIcon" tabindex="0" aria-haspopup="menu" aria-expanded="false">
-                    <div class="dropdown-content" id="userDropdown" tabindex="-1">
+                    <img src="~/Images/user.png" alt="Ícone do utilizador" class="user-icon" id="userIcon" tabindex="0" aria-haspopup="true" aria-expanded="false" role="button">
+                    <div class="dropdown-content" id="userDropdown" role="menu" aria-labelledby="userIcon">
                         <a href="/Account/Profile" tabindex="0" role="menuitem">Dados do Utilizador</a>
                         <a href="/Account/Pin" tabindex="0" role="menuitem">Alteração do PIN</a>
                         <a href="/Accessibility/Index" tabindex="0" role="menuitem">Acessibilidade</a>
