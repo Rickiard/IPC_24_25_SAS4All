@@ -110,6 +110,104 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize keyboard shortcut handler
     const keyboardHandler = new KeyboardShortcutHandler();
 
+    // Apply accessibility settings
+    function applyAccessibilitySettings() {
+        const settings = getCookie('UserSettings');
+        if (settings) {
+            try {
+                const userSettings = JSON.parse(settings);
+                
+                // Apply high contrast mode
+                if (userSettings.AltoContraste) {
+                    document.body.classList.add('high-contrast');
+                    document.documentElement.setAttribute('data-contrast', 'high');
+                    
+                    // Force high contrast on dynamically loaded content
+                    const observer = new MutationObserver((mutations) => {
+                        mutations.forEach((mutation) => {
+                            if (mutation.addedNodes.length) {
+                                mutation.addedNodes.forEach((node) => {
+                                    if (node.nodeType === 1) { // Element node
+                                        applyHighContrastToElement(node);
+                                    }
+                                });
+                            }
+                        });
+                    });
+
+                    observer.observe(document.body, {
+                        childList: true,
+                        subtree: true
+                    });
+                } else {
+                    document.body.classList.remove('high-contrast');
+                    document.documentElement.removeAttribute('data-contrast');
+                }
+
+                // Apply dark mode
+                if (userSettings.ModoEscuro) {
+                    document.body.classList.add('dark-mode');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    document.documentElement.removeAttribute('data-theme');
+                }
+
+                // Apply font size
+                if (userSettings.TamanhoFonte) {
+                    document.body.style.fontSize = userSettings.TamanhoFonte;
+                    document.body.classList.remove('font-size-18', 'font-size-20', 'font-size-22', 'font-size-24');
+                    if (userSettings.TamanhoFonte !== '16px') {
+                        document.body.classList.add(`font-size-${userSettings.TamanhoFonte.replace('px', '')}`);
+                    }
+                }
+
+                // Apply spacing
+                if (userSettings.Espacamento) {
+                    document.body.classList.remove('spacing-wide', 'spacing-extra-wide');
+                    if (userSettings.Espacamento !== 'normal') {
+                        document.body.classList.add(`spacing-${userSettings.Espacamento}`);
+                    }
+                }
+            } catch (error) {
+                console.error('Error applying accessibility settings:', error);
+            }
+        }
+    }
+
+    // Helper function to apply high contrast to a specific element and its children
+    function applyHighContrastToElement(element) {
+        if (element.nodeType === 1) { // Element node
+            // Apply high contrast styles based on element type
+            if (element.matches('a, button, input, select, textarea')) {
+                element.style.backgroundColor = '#000000';
+                element.style.color = '#ffff00';
+                element.style.border = '2px solid #ffff00';
+            } else if (element.matches('p, span, div, h1, h2, h3, h4, h5, h6')) {
+                element.style.color = '#ffffff';
+                element.style.backgroundColor = '#000000';
+            }
+
+            // Process children
+            element.childNodes.forEach(child => {
+                applyHighContrastToElement(child);
+            });
+        }
+    }
+
+    // Helper function to get cookie value
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    // Apply settings on page load
+    applyAccessibilitySettings();
+
+    // Apply settings when they change
+    document.addEventListener('accessibilitySettingsChanged', applyAccessibilitySettings);
+
     // Register default shortcuts
     keyboardHandler.registerShortcut('h', () => {
         window.location.href = '/Home';
@@ -155,15 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
     keyboardHandler.registerShortcut('v', () => {
         window.location.href = '/Home/Privacy';
     });
-
-    // Apply saved settings
-    const bodyClasses = document.body.className;
-    if (bodyClasses.includes('dark-mode')) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    }
-    if (bodyClasses.includes('high-contrast')) {
-        document.documentElement.setAttribute('data-contrast', 'high');
-    }
 
     // Register voice commands
     voiceHandler.registerCommand('início', () => window.location.href = '/Home');

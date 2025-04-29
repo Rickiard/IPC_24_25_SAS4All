@@ -236,7 +236,7 @@
                                 <kbd aria-label="Pressione a tecla W para acessar o MBWay na seção de Carregamentos" tabindex="0">W</kbd>
                             </td>
                             <td role="cell" tabindex="0">
-                                <span aria-label="Diga 'mbway' para acessar o MBWay na seção de Carregamentos" tabindex="0">"mbway"</span>
+                                <span aria-label="Diga 'telemóvel' para acessar o MBWay na seção de Carregamentos" tabindex="0">"telemóvel"</span>
                             </td>
                         </tr>
                         <tr role="row">
@@ -324,6 +324,17 @@
                 
                 element.addEventListener('blur', function() {
                     this.removeAttribute('aria-selected');
+                });
+            });
+
+            // Get all form inputs
+            const inputs = document.querySelectorAll('input[type="checkbox"], select');
+            
+            // Add change event listener to each input
+            inputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    // Dispatch custom event when settings change
+                    document.dispatchEvent(new CustomEvent('accessibilitySettingsChanged'));
                 });
             });
         });

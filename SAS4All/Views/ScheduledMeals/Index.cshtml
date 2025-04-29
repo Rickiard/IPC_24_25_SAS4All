@@ -22,6 +22,41 @@
             btn.textContent = '[Ver +]';
           }
         }
+
+        function navigateDate(direction) {
+            const currentDate = new Date('@date.ToString("yyyy-MM-dd")');
+            const newDate = new Date(currentDate);
+            
+            if (direction === 'prev') {
+                newDate.setDate(currentDate.getDate() - 1);
+            } else {
+                newDate.setDate(currentDate.getDate() + 1);
+            }
+
+            // Check if the new date is within April 2025
+            if (newDate.getMonth() === 3 && newDate.getFullYear() === 2025) {
+                window.location.href = `?date=${newDate.toISOString().split('T')[0]}`;
+            }
+        }
+
+        // Disable navigation buttons if at the start or end of April 2025
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentDate = new Date('@date.ToString("yyyy-MM-dd")');
+            const prevButton = document.getElementById('prevDay');
+            const nextButton = document.getElementById('nextDay');
+
+            // Disable prev button if at April 1, 2025
+            if (currentDate.getDate() === 1 && currentDate.getMonth() === 3 && currentDate.getFullYear() === 2025) {
+                prevButton.disabled = true;
+                prevButton.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+
+            // Disable next button if at April 30, 2025
+            if (currentDate.getDate() === 30 && currentDate.getMonth() === 3 && currentDate.getFullYear() === 2025) {
+                nextButton.disabled = true;
+                nextButton.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        });
     </script>
 </head>
 <body class="bg-white text-gray-800 font-sans" style="margin-bottom:100px">
@@ -29,9 +64,9 @@
     <!-- Cabeçalho -->
     <div class="w-full px-6 py-4 border-b flex justify-center">
         <div class="flex items-center gap-4">
-            <button class="border rounded-full p-2 hover:bg-gray-100">&larr;</button>
+            <button id="prevDay" onclick="navigateDate('prev')" class="border rounded-full p-2 hover:bg-gray-100 transition-colors duration-200">&larr;</button>
             <span class="text-lg font-semibold">@formattedDate</span>
-            <button class="border rounded-full p-2 hover:bg-gray-100">&rarr;</button>
+            <button id="nextDay" onclick="navigateDate('next')" class="border rounded-full p-2 hover:bg-gray-100 transition-colors duration-200">&rarr;</button>
         </div>
     </div>
 

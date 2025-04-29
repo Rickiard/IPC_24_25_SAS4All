@@ -84,24 +84,316 @@
     color: #1a1a1a !important;
 }
 
-/* High Contrast */
+/* Enhanced High Contrast */
 .high-contrast {
     background-color: #000000 !important;
     color: #ffffff !important;
 }
 
+/* Base text elements */
+.high-contrast p,
+.high-contrast span,
+.high-contrast label,
+.high-contrast h1,
+.high-contrast h2,
+.high-contrast h3,
+.high-contrast h4,
+.high-contrast h5,
+.high-contrast h6,
+.high-contrast div,
+.high-contrast li,
+.high-contrast ul,
+.high-contrast ol,
+.high-contrast blockquote,
+.high-contrast pre,
+.high-contrast code,
+.high-contrast strong,
+.high-contrast em,
+.high-contrast i,
+.high-contrast b,
+.high-contrast small,
+.high-contrast mark,
+.high-contrast del,
+.high-contrast ins,
+.high-contrast sub,
+.high-contrast sup,
+.high-contrast .text-muted,
+.high-contrast .text-secondary,
+.high-contrast .text-primary,
+.high-contrast .text-success,
+.high-contrast .text-danger,
+.high-contrast .text-warning,
+.high-contrast .text-info,
+.high-contrast .text-light,
+.high-contrast .text-dark {
+    color: #ffffff !important;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Interactive elements */
+.high-contrast a,
+.high-contrast .btn,
+.high-contrast .nav-btn,
+.high-contrast .link,
+.high-contrast .nav-link,
+.high-contrast .dropdown-item,
+.high-contrast .menu-item,
+.high-contrast .saldo-link,
+.high-contrast .nav-tabs .nav-link,
+.high-contrast .nav-tabs .nav-link.active,
+.high-contrast .calendar-box a,
+.high-contrast .day-cell,
+.high-contrast .mbway-form-wrapper a,
+.high-contrast .mbway-form-wrapper button,
+.high-contrast .mbway-form-wrapper label,
+.high-contrast .mbway-form-wrapper span,
+.high-contrast .mbway-form-wrapper input[type="tel"],
+.high-contrast .mbway-form-wrapper input[type="number"],
+.high-contrast .mbway-form-wrapper select,
+.high-contrast .mbway-form-wrapper textarea,
+.high-contrast .mbway-form-wrapper p,
+.high-contrast .mbway-form-wrapper div,
+.high-contrast .mbway-form-wrapper h2,
+.high-contrast .mbway-form-wrapper h3,
+.high-contrast .mbway-form-wrapper h4,
+.high-contrast .mbway-form-wrapper h5,
+.high-contrast .mbway-form-wrapper h6,
+.high-contrast .mbway-form-wrapper strong,
+.high-contrast .mbway-form-wrapper em,
+.high-contrast .mbway-form-wrapper i,
+.high-contrast .mbway-form-wrapper b,
+.high-contrast .mbway-form-wrapper small,
+.high-contrast .mbway-form-wrapper mark,
+.high-contrast .mbway-form-wrapper del,
+.high-contrast .mbway-form-wrapper ins,
+.high-contrast .mbway-form-wrapper sub,
+.high-contrast .mbway-form-wrapper sup,
+.high-contrast .mbway-form-wrapper .text-muted,
+.high-contrast .mbway-form-wrapper .text-secondary,
+.high-contrast .mbway-form-wrapper .text-primary,
+.high-contrast .mbway-form-wrapper .text-success,
+.high-contrast .mbway-form-wrapper .text-danger,
+.high-contrast .mbway-form-wrapper .text-warning,
+.high-contrast .mbway-form-wrapper .text-info,
+.high-contrast .mbway-form-wrapper .text-light,
+.high-contrast .mbway-form-wrapper .text-dark,
+.high-contrast .mbway-form-wrapper .linha span,
+.high-contrast .mbway-form-wrapper .linha div,
+.high-contrast .mbway-form-wrapper .linha p,
+.high-contrast .mbway-form-wrapper .linha strong,
+.high-contrast .mbway-form-wrapper .linha em,
+.high-contrast .mbway-form-wrapper .linha i,
+.high-contrast .mbway-form-wrapper .linha b,
+.high-contrast .mbway-form-wrapper .linha small,
+.high-contrast .mbway-form-wrapper .linha mark,
+.high-contrast .mbway-form-wrapper .linha del,
+.high-contrast .mbway-form-wrapper .linha ins,
+.high-contrast .mbway-form-wrapper .linha sub,
+.high-contrast .mbway-form-wrapper .linha sup,
+.high-contrast .mbway-form-wrapper .linha .text-muted,
+.high-contrast .mbway-form-wrapper .linha .text-secondary,
+.high-contrast .mbway-form-wrapper .linha .text-primary,
+.high-contrast .mbway-form-wrapper .linha .text-success,
+.high-contrast .mbway-form-wrapper .linha .text-danger,
+.high-contrast .mbway-form-wrapper .linha .text-warning,
+.high-contrast .mbway-form-wrapper .linha .text-info,
+.high-contrast .mbway-form-wrapper .linha .text-light,
+.high-contrast .mbway-form-wrapper .linha .text-dark {
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+    background-color: #000000 !important;
+    text-decoration: underline !important;
+}
+
+/* Hover states for interactive elements */
+.high-contrast a:hover,
+.high-contrast .btn:hover,
+.high-contrast .nav-btn:hover,
+.high-contrast .link:hover,
+.high-contrast .nav-link:hover,
+.high-contrast .dropdown-item:hover,
+.high-contrast .menu-item:hover,
+.high-contrast .saldo-link:hover,
+.high-contrast .nav-tabs .nav-link:hover,
+.high-contrast .nav-tabs .nav-link.active:hover,
+.high-contrast .calendar-box a:hover,
+.high-contrast .day-cell:hover,
+.high-contrast .mbway-form-wrapper a:hover,
+.high-contrast .mbway-form-wrapper button:hover,
+.high-contrast .mbway-form-wrapper label:hover,
+.high-contrast .mbway-form-wrapper span:hover,
+.high-contrast .mbway-form-wrapper input[type="tel"]:hover,
+.high-contrast .mbway-form-wrapper input[type="number"]:hover,
+.high-contrast .mbway-form-wrapper select:hover,
+.high-contrast .mbway-form-wrapper textarea:hover,
+.high-contrast .mbway-form-wrapper p:hover,
+.high-contrast .mbway-form-wrapper div:hover,
+.high-contrast .mbway-form-wrapper h2:hover,
+.high-contrast .mbway-form-wrapper h3:hover,
+.high-contrast .mbway-form-wrapper h4:hover,
+.high-contrast .mbway-form-wrapper h5:hover,
+.high-contrast .mbway-form-wrapper h6:hover,
+.high-contrast .mbway-form-wrapper strong:hover,
+.high-contrast .mbway-form-wrapper em:hover,
+.high-contrast .mbway-form-wrapper i:hover,
+.high-contrast .mbway-form-wrapper b:hover,
+.high-contrast .mbway-form-wrapper small:hover,
+.high-contrast .mbway-form-wrapper mark:hover,
+.high-contrast .mbway-form-wrapper del:hover,
+.high-contrast .mbway-form-wrapper ins:hover,
+.high-contrast .mbway-form-wrapper sub:hover,
+.high-contrast .mbway-form-wrapper sup:hover,
+.high-contrast .mbway-form-wrapper .text-muted:hover,
+.high-contrast .mbway-form-wrapper .text-secondary:hover,
+.high-contrast .mbway-form-wrapper .text-primary:hover,
+.high-contrast .mbway-form-wrapper .text-success:hover,
+.high-contrast .mbway-form-wrapper .text-danger:hover,
+.high-contrast .mbway-form-wrapper .text-warning:hover,
+.high-contrast .mbway-form-wrapper .text-info:hover,
+.high-contrast .mbway-form-wrapper .text-light:hover,
+.high-contrast .mbway-form-wrapper .text-dark:hover,
+.high-contrast .mbway-form-wrapper .linha span:hover,
+.high-contrast .mbway-form-wrapper .linha div:hover,
+.high-contrast .mbway-form-wrapper .linha p:hover,
+.high-contrast .mbway-form-wrapper .linha strong:hover,
+.high-contrast .mbway-form-wrapper .linha em:hover,
+.high-contrast .mbway-form-wrapper .linha i:hover,
+.high-contrast .mbway-form-wrapper .linha b:hover,
+.high-contrast .mbway-form-wrapper .linha small:hover,
+.high-contrast .mbway-form-wrapper .linha mark:hover,
+.high-contrast .mbway-form-wrapper .linha del:hover,
+.high-contrast .mbway-form-wrapper .linha ins:hover,
+.high-contrast .mbway-form-wrapper .linha sub:hover,
+.high-contrast .mbway-form-wrapper .linha sup:hover,
+.high-contrast .mbway-form-wrapper .linha .text-muted:hover,
+.high-contrast .mbway-form-wrapper .linha .text-secondary:hover,
+.high-contrast .mbway-form-wrapper .linha .text-primary:hover,
+.high-contrast .mbway-form-wrapper .linha .text-success:hover,
+.high-contrast .mbway-form-wrapper .linha .text-danger:hover,
+.high-contrast .mbway-form-wrapper .linha .text-warning:hover,
+.high-contrast .mbway-form-wrapper .linha .text-info:hover,
+.high-contrast .mbway-form-wrapper .linha .text-light:hover,
+.high-contrast .mbway-form-wrapper .linha .text-dark:hover {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+/* Focus states */
+.high-contrast a:focus,
+.high-contrast .btn:focus,
+.high-contrast .nav-btn:focus,
+.high-contrast .link:focus,
+.high-contrast .nav-link:focus,
+.high-contrast .dropdown-item:focus,
+.high-contrast .menu-item:focus,
+.high-contrast .saldo-link:focus,
+.high-contrast .nav-tabs .nav-link:focus,
+.high-contrast .nav-tabs .nav-link.active:focus,
+.high-contrast .calendar-box a:focus,
+.high-contrast .day-cell:focus,
+.high-contrast .mbway-form-wrapper a:focus,
+.high-contrast .mbway-form-wrapper button:focus,
+.high-contrast .mbway-form-wrapper label:focus,
+.high-contrast .mbway-form-wrapper span:focus,
+.high-contrast .mbway-form-wrapper input[type="tel"]:focus,
+.high-contrast .mbway-form-wrapper input[type="number"]:focus,
+.high-contrast .mbway-form-wrapper select:focus,
+.high-contrast .mbway-form-wrapper textarea:focus {
+    outline: 3px solid #ffff00 !important;
+    outline-offset: 2px !important;
+}
+
+/* Form elements */
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+.high-contrast input:focus,
+.high-contrast select:focus,
+.high-contrast textarea:focus {
+    border: 2px solid #ffff00 !important;
+    outline: none !important;
+}
+
+/* Containers and sections */
 .high-contrast .navbar,
 .high-contrast .card,
-.high-contrast .modal-content {
+.high-contrast .modal-content,
+.high-contrast .menu-bar,
+.high-contrast .charging-box,
+.high-contrast .perfil-box,
+.high-contrast .top-bar,
+.high-contrast .dropdown-content,
+.high-contrast .footer,
+.high-contrast .mbway-form-wrapper,
+.high-contrast .mbway-form-wrapper .container,
+.high-contrast .calendar-box,
+.high-contrast .calendar-grid,
+.high-contrast .day-cell,
+.high-contrast .legend-box {
     background-color: #000000 !important;
     color: #ffffff !important;
     border: 2px solid #ffffff !important;
 }
 
-.high-contrast a,
-.high-contrast .btn {
+/* Tables */
+.high-contrast th,
+.high-contrast thead {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+.high-contrast td {
+    border: 2px solid #ffffff !important;
+    color: #ffffff !important;
+}
+
+/* Icons and special elements */
+.high-contrast .icon-circle,
+.high-contrast .euro-icon,
+.high-contrast .perfil-icon-img {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+.high-contrast .comando-voz {
     color: #ffff00 !important;
-    border: 2px solid #ffff00 !important;
+}
+
+.high-contrast .atalho-display {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+/* Alerts and notifications */
+.high-contrast .alert {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+.high-contrast .alert-success {
+    border-color: #00ff00 !important;
+}
+
+.high-contrast .alert-danger {
+    border-color: #ff0000 !important;
+}
+
+.high-contrast .alert-warning {
+    border-color: #ffff00 !important;
+}
+
+.high-contrast .alert-info {
+    border-color: #00ffff !important;
 }
 
 /* Font Sizes */
