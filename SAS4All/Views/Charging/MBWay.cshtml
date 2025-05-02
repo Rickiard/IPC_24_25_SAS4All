@@ -1,4 +1,4 @@
-﻿@model SAS4ALL.Models.CarregamentosViewModel
+﻿﻿﻿@model SAS4ALL.Models.CarregamentosViewModel
 
 <style>
     .mbway-form-wrapper {
@@ -86,22 +86,22 @@
     <div class="container">
         <h2>MBWay</h2>
 
-        <form method="post" role="form" aria-label="Formulário de pagamento MBWay">
+        <form id="mbwayForm" role="form" aria-label="Formulário de pagamento MBWay">
             <div>
-                <label asp-for="Telemovel" for="Telemovel">Número de Telemóvel</label>
-                <input asp-for="Telemovel" type="tel" required aria-required="true" aria-describedby="telemovel-error" />
-                <span asp-validation-for="Telemovel" class="text-danger" id="telemovel-error" role="alert"></span>
+                <label for="Telemovel">Número de Telemóvel</label>
+                <input id="Telemovel" name="Telemovel" type="tel" required aria-required="true" aria-describedby="telemovel-error" />
+                <span class="text-danger" id="telemovel-error" role="alert"></span>
             </div>
 
             <div>
-                <label asp-for="Valor" for="Valor">Valor a Pagar</label>
-                <input asp-for="Valor" type="number" min="5" max="250" required aria-required="true" aria-describedby="valor-error valor-info" />
-                <span asp-validation-for="Valor" class="text-danger" id="valor-error" role="alert"></span>
+                <label for="Valor">Valor a Pagar</label>
+                <input id="Valor" name="Valor" type="number" min="5" max="250" required aria-required="true" aria-describedby="valor-error valor-info" />
+                <span class="text-danger" id="valor-error" role="alert"></span>
                 <span id="valor-info">Escolha um valor entre 5 € e 250 €</span>
             </div>
 
             <div>
-                <button type="submit" aria-label="Gerar pagamento MBWay">GERAR</button>
+                <button id="gerarBtn" type="button" aria-label="Gerar pagamento MBWay">GERAR</button>
                 <a asp-controller="Charging" asp-action="Index" role="button" aria-label="Voltar à página anterior">VOLTAR</a>
             </div>
         </form>
@@ -110,33 +110,54 @@
     <br />
     <br />
 </div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
-        document.querySelector("form").addEventListener("submit", function (e) {
-            e.preventDefault(); // Impede o envio imediato do formulário
-
-            const form = e.target;
-
-            if (form.checkValidity()) {
-                // Se for válido, mostra o popup
-                Swal.fire({
-                    title: 'Pagamento Gerado!',
-                    text: 'Pedido de carregamento enviado, consulte a aplicação de MB Way no telemóvel.Tem 4 minutos para efetuar o pagamento',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit(); // Submete o formulário após o popup
-                        window.location.href = '@Url.Action("Index", "Charging")';
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the button and form elements
+            const gerarBtn = document.getElementById('gerarBtn');
+            const mbwayForm = document.getElementById('mbwayForm');
+            
+            // Add click event listener to the GERAR button
+            gerarBtn.addEventListener('click', function() {
+                // Check form validity
+                if (mbwayForm.checkValidity()) {
+                    // Get form data
+                    const telemovel = document.getElementById('Telemovel').value;
+                    const valor = document.getElementById('Valor').value;
+                    
+                    // Check if high contrast mode is active
+                    const isHighContrast = document.body.classList.contains('high-contrast');
+                    
+                    // Configure SweetAlert with appropriate styling
+                    const swalConfig = {
+                        title: 'Pagamento Gerado!',
+                        text: 'Pedido de carregamento enviado, consulte a aplicação de MB Way no telemóvel. Tem 4 minutos para efetuar o pagamento',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        allowOutsideClick: false
+                    };
+                    
+                    // Add high contrast specific options if needed
+                    if (isHighContrast) {
+                        swalConfig.background = '#000000';
+                        swalConfig.color = '#ffff00';
+                        swalConfig.confirmButtonColor = '#000000';
                     }
-                });
-            } else {
-                // Se não for válido, força o browser a mostrar os erros
-                form.reportValidity();
-            }
+                    
+                    // Show the popup
+                    Swal.fire(swalConfig).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to Index after confirmation
+                            window.location.href = '@Url.Action("Index", "Charging")';
+                        }
+                    });
+                } else {
+                    // If form is not valid, show validation errors
+                    mbwayForm.reportValidity();
+                }
+            });
         });
     </script>
 }

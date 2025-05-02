@@ -117,6 +117,17 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const userSettings = JSON.parse(settings);
                 
+                // Special handling for PIN input
+                if (userSettings.AltoContraste) {
+                    const pinInput = document.getElementById('pin');
+                    if (pinInput) {
+                        pinInput.style.backgroundColor = '#000000';
+                        pinInput.style.color = '#ffff00';
+                        pinInput.style.border = '2px solid #ffff00';
+                        pinInput.style.fontWeight = 'bold';
+                    }
+                }
+                
                 // Apply high contrast mode
                 if (userSettings.AltoContraste) {
                     document.body.classList.add('high-contrast');
@@ -128,7 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (mutation.addedNodes.length) {
                                 mutation.addedNodes.forEach((node) => {
                                     if (node.nodeType === 1) { // Element node
-                                        applyHighContrastToElement(node);
+                                        // Skip SweetAlert elements
+                                        if (!node.classList.contains('swal2-container') && 
+                                            !node.closest('.swal2-container')) {
+                                            applyHighContrastToElement(node);
+                                        }
                                     }
                                 });
                             }
@@ -184,8 +199,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 element.style.color = '#ffff00';
                 element.style.border = '2px solid #ffff00';
             } else if (element.matches('p, span, div, h1, h2, h3, h4, h5, h6')) {
-                element.style.color = '#ffffff';
+                element.style.color = '#ffff00'; // Changed to yellow for better visibility
                 element.style.backgroundColor = '#000000';
+            } else if (element.matches('img')) {
+                // Handle images for better visibility in high contrast mode
+                if (element.classList.contains('user-icon') || 
+                    (element.src && element.src.includes('user.png')) || 
+                    (element.src && element.src.includes('Breezeicons-actions-22-im-user'))) {
+                    // User profile icon
+                    element.style.border = '3px solid #ffff00';
+                    element.style.backgroundColor = '#ffffff';
+                    element.style.padding = '3px';
+                    element.style.filter = 'invert(1)';
+                } else if (element.classList.contains('logo')) {
+                    // Logo
+                    element.style.border = '3px solid #ffffff';
+                    element.style.backgroundColor = '#ffffff';
+                    element.style.padding = '5px';
+                    element.style.filter = 'brightness(1.2) contrast(1.5)';
+                } else if (element.closest('.menu-item')) {
+                    // Menu icons
+                    element.style.filter = 'invert(1) brightness(1.5)';
+                    element.style.backgroundColor = 'transparent';
+                    element.style.border = 'none';
+                } else if (element.classList.contains('mb-img') || element.classList.contains('mbway-img')) {
+                    // Payment method images - consistent styling for both
+                    element.style.backgroundColor = '#ffffff';
+                    element.style.border = '3px solid #ffff00';
+                    element.style.padding = '8px';
+                    element.style.margin = '5px';
+                    element.style.borderRadius = '5px';
+                    element.style.boxShadow = '0 0 0 2px #000000';
+                    // Remove any filters that might affect the image
+                    element.style.filter = 'none';
+                }
             }
 
             // Process children

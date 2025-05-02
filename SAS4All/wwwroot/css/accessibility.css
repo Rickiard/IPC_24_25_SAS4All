@@ -81,7 +81,7 @@
 }
 
 .dark-mode .sas4all-header p {
-    color: #1a1a1a !important;
+    color: #ffffff !important;
 }
 
 /* Enhanced High Contrast */
@@ -90,10 +90,42 @@
     color: #ffffff !important;
 }
 
+/* Banner specific styles for high contrast mode */
+.high-contrast .top-bar {
+    /* Keep the background image but with a semi-transparent overlay */
+    background-image: url('../Images/BANNER.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffffff !important;
+    position: relative !important;
+    padding: 15px 20px !important;
+}
+
+/* Add a semi-transparent overlay to increase contrast with the banner image */
+.high-contrast .top-bar::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    background-color: rgba(0, 0, 0, 0.7) !important; /* Semi-transparent black overlay */
+    z-index: 0 !important;
+}
+
+/* Position content above the overlay */
+.high-contrast .top-bar > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
 /* Base text elements */
 .high-contrast p,
 .high-contrast span,
 .high-contrast label,
+.high-contrast label[for="pin"],
 .high-contrast h1,
 .high-contrast h2,
 .high-contrast h3,
@@ -126,8 +158,10 @@
 .high-contrast .text-info,
 .high-contrast .text-light,
 .high-contrast .text-dark {
-    color: #ffffff !important;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5) !important;
+    color: #ffff00 !important; /* Changed to yellow for better visibility */
+    text-shadow: none !important; /* Remove text shadow for cleaner text */
+    font-weight: 500 !important; /* Slightly bolder text for better readability */
+    letter-spacing: 0.03em !important; /* Slightly increased letter spacing */
 }
 
 /* Interactive elements */
@@ -137,7 +171,6 @@
 .high-contrast .link,
 .high-contrast .nav-link,
 .high-contrast .dropdown-item,
-.high-contrast .menu-item,
 .high-contrast .saldo-link,
 .high-contrast .nav-tabs .nav-link,
 .high-contrast .nav-tabs .nav-link.active,
@@ -205,7 +238,7 @@
     text-decoration: underline !important;
 }
 
-/* Hover states for interactive elements */
+/* Hover states for interactive elements - only apply to actual interactive elements */
 .high-contrast a:hover,
 .high-contrast .btn:hover,
 .high-contrast .nav-btn:hover,
@@ -217,66 +250,190 @@
 .high-contrast .nav-tabs .nav-link:hover,
 .high-contrast .nav-tabs .nav-link.active:hover,
 .high-contrast .calendar-box a:hover,
-.high-contrast .day-cell:hover,
-.high-contrast .mbway-form-wrapper a:hover,
-.high-contrast .mbway-form-wrapper button:hover,
-.high-contrast .mbway-form-wrapper label:hover,
-.high-contrast .mbway-form-wrapper span:hover,
-.high-contrast .mbway-form-wrapper input[type="tel"]:hover,
-.high-contrast .mbway-form-wrapper input[type="number"]:hover,
-.high-contrast .mbway-form-wrapper select:hover,
-.high-contrast .mbway-form-wrapper textarea:hover,
-.high-contrast .mbway-form-wrapper p:hover,
-.high-contrast .mbway-form-wrapper div:hover,
-.high-contrast .mbway-form-wrapper h2:hover,
-.high-contrast .mbway-form-wrapper h3:hover,
-.high-contrast .mbway-form-wrapper h4:hover,
-.high-contrast .mbway-form-wrapper h5:hover,
-.high-contrast .mbway-form-wrapper h6:hover,
-.high-contrast .mbway-form-wrapper strong:hover,
-.high-contrast .mbway-form-wrapper em:hover,
-.high-contrast .mbway-form-wrapper i:hover,
-.high-contrast .mbway-form-wrapper b:hover,
-.high-contrast .mbway-form-wrapper small:hover,
-.high-contrast .mbway-form-wrapper mark:hover,
-.high-contrast .mbway-form-wrapper del:hover,
-.high-contrast .mbway-form-wrapper ins:hover,
-.high-contrast .mbway-form-wrapper sub:hover,
-.high-contrast .mbway-form-wrapper sup:hover,
-.high-contrast .mbway-form-wrapper .text-muted:hover,
-.high-contrast .mbway-form-wrapper .text-secondary:hover,
-.high-contrast .mbway-form-wrapper .text-primary:hover,
-.high-contrast .mbway-form-wrapper .text-success:hover,
-.high-contrast .mbway-form-wrapper .text-danger:hover,
-.high-contrast .mbway-form-wrapper .text-warning:hover,
-.high-contrast .mbway-form-wrapper .text-info:hover,
-.high-contrast .mbway-form-wrapper .text-light:hover,
-.high-contrast .mbway-form-wrapper .text-dark:hover,
-.high-contrast .mbway-form-wrapper .linha span:hover,
-.high-contrast .mbway-form-wrapper .linha div:hover,
-.high-contrast .mbway-form-wrapper .linha p:hover,
-.high-contrast .mbway-form-wrapper .linha strong:hover,
-.high-contrast .mbway-form-wrapper .linha em:hover,
-.high-contrast .mbway-form-wrapper .linha i:hover,
-.high-contrast .mbway-form-wrapper .linha b:hover,
-.high-contrast .mbway-form-wrapper .linha small:hover,
-.high-contrast .mbway-form-wrapper .linha mark:hover,
-.high-contrast .mbway-form-wrapper .linha del:hover,
-.high-contrast .mbway-form-wrapper .linha ins:hover,
-.high-contrast .mbway-form-wrapper .linha sub:hover,
-.high-contrast .mbway-form-wrapper .linha sup:hover,
-.high-contrast .mbway-form-wrapper .linha .text-muted:hover,
-.high-contrast .mbway-form-wrapper .linha .text-secondary:hover,
-.high-contrast .mbway-form-wrapper .linha .text-primary:hover,
-.high-contrast .mbway-form-wrapper .linha .text-success:hover,
-.high-contrast .mbway-form-wrapper .linha .text-danger:hover,
-.high-contrast .mbway-form-wrapper .linha .text-warning:hover,
-.high-contrast .mbway-form-wrapper .linha .text-info:hover,
-.high-contrast .mbway-form-wrapper .linha .text-light:hover,
-.high-contrast .mbway-form-wrapper .linha .text-dark:hover {
+.high-contrast .day-cell:hover {
     background-color: #ffff00 !important;
     color: #000000 !important;
     text-decoration: none !important;
+}
+
+/* Specific hover states for form elements */
+.high-contrast .mbway-form-wrapper a:hover,
+.high-contrast .mbway-form-wrapper button:hover {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+/* Prevent hover effect on non-interactive elements */
+.high-contrast .mbway-form-wrapper label,
+.high-contrast .mbway-form-wrapper span,
+.high-contrast .mbway-form-wrapper p,
+.high-contrast .mbway-form-wrapper div,
+.high-contrast .mbway-form-wrapper h2,
+.high-contrast .mbway-form-wrapper h3,
+.high-contrast .mbway-form-wrapper h4,
+.high-contrast .mbway-form-wrapper h5,
+.high-contrast .mbway-form-wrapper h6,
+.high-contrast .mbway-form-wrapper strong,
+.high-contrast .mbway-form-wrapper em,
+.high-contrast .mbway-form-wrapper i,
+.high-contrast .mbway-form-wrapper b,
+.high-contrast .mbway-form-wrapper small,
+.high-contrast .mbway-form-wrapper mark,
+.high-contrast .mbway-form-wrapper del,
+.high-contrast .mbway-form-wrapper ins,
+.high-contrast .mbway-form-wrapper sub,
+.high-contrast .mbway-form-wrapper sup,
+.high-contrast .mbway-form-wrapper .text-muted,
+.high-contrast .mbway-form-wrapper .text-secondary,
+.high-contrast .mbway-form-wrapper .text-primary,
+.high-contrast .mbway-form-wrapper .text-success,
+.high-contrast .mbway-form-wrapper .text-danger,
+.high-contrast .mbway-form-wrapper .text-warning,
+.high-contrast .mbway-form-wrapper .text-info,
+.high-contrast .mbway-form-wrapper .text-light,
+.high-contrast .mbway-form-wrapper .text-dark {
+    background-color: transparent !important;
+}
+
+/* MBWay form wrapper specific styles */
+.high-contrast .mbway-form-wrapper {
+    background-color: #000000 !important;
+}
+
+.high-contrast .mbway-form-wrapper .container {
+    background-color: #000000 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+.high-contrast .mbway-form-wrapper h2 {
+    color: #ffff00 !important;
+    border-bottom: 1px solid #ffff00 !important;
+    padding-bottom: 10px !important;
+}
+
+.high-contrast .mbway-form-wrapper label {
+    color: #ffff00 !important;
+}
+
+.high-contrast .mbway-form-wrapper input[type="tel"],
+.high-contrast .mbway-form-wrapper input[type="number"] {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+/* SweetAlert styles for high contrast mode */
+.swal2-popup {
+    background-color: #000000 !important;
+    border: 3px solid #ffff00 !important;
+}
+
+.swal2-title,
+.swal2-content,
+.swal2-html-container {
+    color: #ffff00 !important;
+}
+
+.swal2-confirm {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+.swal2-confirm:hover {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+}
+
+/* Accessibility page styles */
+.high-contrast .container {
+    background-color: #000000 !important;
+    border: 2px solid #ffff00 !important;
+    color: #ffff00 !important;
+}
+
+.high-contrast .section h3 {
+    color: #ffff00 !important;
+    border-bottom: 1px solid #ffff00 !important;
+    padding-bottom: 5px !important;
+}
+
+.high-contrast .form-group label {
+    color: #ffff00 !important;
+    font-weight: bold !important;
+}
+
+.high-contrast .form-group select {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+    padding: 5px !important;
+}
+
+.high-contrast .form-group input[type="checkbox"] {
+    outline: 2px solid #ffff00 !important;
+    margin-right: 10px !important;
+}
+
+.high-contrast .buttons button {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+    padding: 8px 16px !important;
+    margin: 5px !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    border-radius: 4px !important;
+}
+
+.high-contrast .buttons button:hover,
+.high-contrast .buttons button:focus {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+/* Accessibility page table styles */
+.high-contrast .atalhos-table {
+    border: 2px solid #ffff00 !important;
+    border-collapse: collapse !important;
+}
+
+.high-contrast .atalhos-table th,
+.high-contrast .atalhos-table td {
+    border: 1px solid #ffff00 !important;
+    color: #ffff00 !important;
+    padding: 10px !important;
+}
+
+.high-contrast .atalhos-table th {
+    background-color: #000000 !important;
+    font-weight: bold !important;
+    border-bottom: 2px solid #ffff00 !important;
+}
+
+.high-contrast .atalhos-table kbd {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffff00 !important;
+    padding: 2px 5px !important;
+    border-radius: 3px !important;
+    font-family: monospace !important;
+}
+
+.high-contrast .atalhos-table tr:hover,
+.high-contrast .atalhos-table tr:focus {
+    background-color: #333333 !important;
+}
+
+.high-contrast .atalhos-table th:focus,
+.high-contrast .atalhos-table td:focus,
+.high-contrast .atalhos-table kbd:focus,
+.high-contrast .atalhos-table span:focus {
+    background-color: #333333 !important;
+    box-shadow: 0 0 0 2px #ffff00 !important;
+    outline: none !important;
 }
 
 /* Focus states */
@@ -329,9 +486,7 @@
 .high-contrast .perfil-box,
 .high-contrast .top-bar,
 .high-contrast .dropdown-content,
-.high-contrast .footer,
-.high-contrast .mbway-form-wrapper,
-.high-contrast .mbway-form-wrapper .container,
+.high-contrast #userDropdown,
 .high-contrast .calendar-box,
 .high-contrast .calendar-grid,
 .high-contrast .day-cell,
@@ -345,22 +500,205 @@
 .high-contrast th,
 .high-contrast thead {
     background-color: #000000 !important;
-    color: #ffffff !important;
+    color: #ffff00 !important;
     border: 2px solid #ffffff !important;
 }
 
 .high-contrast td {
     border: 2px solid #ffffff !important;
-    color: #ffffff !important;
+    color: #ffff00 !important;
 }
 
 /* Icons and special elements */
 .high-contrast .icon-circle,
 .high-contrast .euro-icon,
-.high-contrast .perfil-icon-img {
+.high-contrast .perfil-icon-img,
+.high-contrast img[src*="user.png"],
+.high-contrast img[src*="Breezeicons-actions-22-im-user"] {
+    background-color: #ffffff !important;
+    border: 3px solid #ffff00 !important;
+    padding: 3px !important;
+    filter: invert(1) !important; /* Invert colors to make black icon visible */
+}
+
+/* User info in banner */
+.high-contrast .user-info {
+    background-color: #000000 !important;
+    border: 2px solid #ffffff !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+}
+
+.high-contrast .user-info p,
+.high-contrast .user-info span,
+.high-contrast .user-info strong,
+.high-contrast .user-info div,
+.high-contrast .saldo {
+    color: #ffff00 !important;
+    text-shadow: none !important;
+    font-weight: bold !important;
+}
+
+/* Logo area */
+.high-contrast .logo-area .logo {
+    border: 3px solid #ffffff !important;
+    background-color: #ffffff !important; /* White background to make logo visible */
+    padding: 5px !important;
+    filter: brightness(1.2) contrast(1.5) !important; /* Enhance visibility */
+}
+
+.high-contrast .user-icon {
+    border: 3px solid #ffff00 !important;
+    background-color: #ffffff !important; /* White background to make black icon visible */
+    padding: 3px !important;
+    filter: invert(1) !important; /* Invert colors to make black icon visible */
+}
+
+.high-contrast .dropdown-content a {
+    color: #ffff00 !important;
+    background-color: #000000 !important;
+    border: 1px solid #ffff00 !important;
+    margin-bottom: 2px !important;
+    text-decoration: underline !important;
+}
+
+.high-contrast .dropdown-content a:hover,
+.high-contrast .dropdown-content a:focus {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+/* Menu items specific styling */
+.high-contrast .menu-item {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+    margin: 0 5px !important;
+    padding: 8px 15px !important;
+    text-decoration: underline !important;
+}
+
+/* Menu icons */
+.high-contrast .menu-item img,
+.high-contrast .icon {
+    filter: invert(1) brightness(1.5) !important; /* Make icons visible */
+    background-color: transparent !important;
+    border: none !important;
+    padding: 2px !important;
+}
+
+.high-contrast .menu-item:hover,
+.high-contrast .menu-item:focus {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+.high-contrast .menu-bar {
+    background-color: #000000 !important;
+    border-top: 2px solid #ffffff !important;
+    border-bottom: 2px solid #ffffff !important;
+    padding: 10px 0 !important;
+}
+
+/* Footer styling */
+.high-contrast footer,
+.high-contrast .footer {
     background-color: #000000 !important;
     color: #ffffff !important;
-    border: 2px solid #ffffff !important;
+    border-top: 2px solid #ffffff !important;
+    padding: 15px 0 !important;
+}
+
+.high-contrast footer a,
+.high-contrast .footer a {
+    color: #ffff00 !important;
+    text-decoration: underline !important;
+}
+
+.high-contrast footer a:hover,
+.high-contrast footer a:focus,
+.high-contrast .footer a:hover,
+.high-contrast .footer a:focus {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+.high-contrast #toggleVoiceCommands {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+.high-contrast #toggleVoiceCommands:hover,
+.high-contrast #toggleVoiceCommands:focus {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+}
+
+/* PIN specific styles */
+.high-contrast label[for="pin"] {
+    color: #ffff00 !important;
+    font-weight: bold !important;
+    background-color: #000000 !important;
+    padding: 2px 5px !important;
+    border-radius: 3px !important;
+}
+
+.high-contrast input#pin {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+    font-weight: bold !important;
+}
+
+/* Fix for placeholder text */
+.high-contrast input::placeholder,
+.high-contrast textarea::placeholder,
+.high-contrast select::placeholder,
+.high-contrast input#pin::placeholder {
+    color: #ffff00 !important;
+    opacity: 0.7 !important;
+}
+
+/* Charging images styles - make both consistent in high contrast mode */
+.high-contrast .mb-img,
+.high-contrast .mbway-img {
+    background-color: #ffffff !important;
+    border: 3px solid #ffff00 !important;
+    padding: 8px !important;
+    margin: 5px !important;
+    border-radius: 5px !important;
+    box-shadow: 0 0 0 2px #000000 !important;
+}
+
+.high-contrast .charging-option {
+    background-color: #000000 !important;
+    border: 2px solid #ffff00 !important;
+    margin: 15px 0 !important;
+    padding: 10px !important;
+    border-radius: 5px !important;
+}
+
+.high-contrast .charging-option span {
+    color: #ffff00 !important;
+    font-weight: bold !important;
+    font-size: 1.1em !important;
+}
+
+.high-contrast .charging-option button {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+    font-weight: bold !important;
+}
+
+.high-contrast .charging-option button:hover,
+.high-contrast .charging-option button:focus {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
 }
 
 .high-contrast .comando-voz {
