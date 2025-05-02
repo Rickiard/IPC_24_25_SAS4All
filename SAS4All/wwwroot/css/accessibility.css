@@ -488,6 +488,8 @@
 .high-contrast .dropdown-content,
 .high-contrast #userDropdown,
 .high-contrast .calendar-box,
+.high-contrast .box,
+.high-contrast .saldo-box,
 .high-contrast .calendar-grid,
 .high-contrast .day-cell,
 .high-contrast .legend-box {
@@ -801,6 +803,30 @@
         box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
     }
 }
+
+/* Corre��o para quando ambos os modos est�o ativos */
+.dark-mode.high-contrast .icon-circle{
+    background-color: #000000 !important; /* Fundo preto para alto contraste */
+    color: #ffff00 !important; /* Cor amarela para visibilidade */
+    border: 2px solid #ffff00 !important; /* Borda amarela */
+    filter: none !important; /* Remove qualquer invers�o de cor */
+}
+
+.dark-mode.high-contrast .euro-icon {
+    background-color: #000000 !important; /* Fundo preto para alto contraste */
+    color: #ffff00 !important; /* Cor amarela para visibilidade */
+    border: 2px solid #ffff00 !important; /* Borda amarela */
+    filter: none !important; /* Remove qualquer invers�o de cor */
+}
+
+.dark-mode .high-contrast .box,
+.dark-mode .high-contrast .saldo-box {
+    border: #ffffff !important;
+}
+
+
+
+
 
 
 
