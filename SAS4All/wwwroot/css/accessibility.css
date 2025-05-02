@@ -4,9 +4,22 @@
     color: #ffffff !important;
 }
 
+.dark-mode main,
+.dark-mode main.pb-3 {
+    background-color: #1a1a1a !important;
+}
+
+.dark-mode .sas4all-header p {
+    color: #000000 !important;
+}
+
 .dark-mode p,
 .dark-mode span {
     color: #ffffff !important;
+}
+
+.dark-mode .container {
+    background-color: #1a1a1a !important;
 }
 
 .dark-mode .icon-circle {
@@ -54,17 +67,17 @@
 }
 
 .dark-mode .charging-box {
-    background-color: #1a1a1a !important;
-    color: #fff !important;
+    background-color: #000000 !important;
+    color: #ffffff !important;
 }
 
 .dark-mode .charging-box img {
-    background-color: #1a1a1a !important;
+    background-color: #ffffff !important;
 }
 
 .dark-mode .charging-box button {
-    background-color: #333 !important;
-
+    background-color: #000000 !important;
+    color: #ffffff !important;
 }
 
 .dark-mode .perfil-box {
@@ -80,13 +93,231 @@
     background-color: #333 !important;
 }
 
-.dark-mode .sas4all-header p {
+.dark-mode .calendar-box .day-cell,
+.dark-mode .calendar-box .day-cell-header {
     color: #ffffff !important;
+}
+
+.dark-mode .charging-box img,
+.dark-mode .mb-img,
+.dark-mode .mbway-img {
+    background-color: #ffffff !important;
+}
+
+/* MBWay and Multibanco Forms in Dark Mode */
+.dark-mode .mbway-form-wrapper,
+.dark-mode .multibanco-form-wrapper,
+.dark-mode .multibanco-confirmation-wrapper {
+    background-color: #1a1a1a !important; /* Match the page background */
+    color: #ffffff !important;
+    padding: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+/* Target the parent element of the form wrapper */
+.dark-mode main,
+.dark-mode main > div,
+.dark-mode #mainContent,
+.dark-mode #mainContent > div {
+    background-color: #1a1a1a !important;
+}
+
+/* Fix for black background in charging pages */
+.dark-mode .container > main,
+.dark-mode main > div,
+.dark-mode div[class^="container"],
+.dark-mode div[class*=" container"],
+.dark-mode .container-fluid {
+    background-color: #1a1a1a !important;
+}
+
+.dark-mode .mbway-form-wrapper .container,
+.dark-mode .multibanco-form-wrapper .container,
+.dark-mode .multibanco-confirmation-wrapper .container {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #555555 !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1) !important;
+    max-width: 500px !important;
+    margin: 20px auto !important;
+    border-radius: 8px !important;
+}
+
+/* Fix for black background in main content area */
+.dark-mode #mainContent,
+.dark-mode main,
+.dark-mode main > *,
+.dark-mode .container,
+.dark-mode .container > *,
+.dark-mode .container-fluid,
+.dark-mode .container-fluid > * {
+    background-color: #1a1a1a !important;
+}
+
+/* Target the specific black background in charging pages */
+.dark-mode body > div:not(.container):not(.container-fluid),
+.dark-mode body > main > div:not(.container):not(.container-fluid),
+.dark-mode .mbway-form-wrapper > *:not(.container),
+.dark-mode .multibanco-form-wrapper > *:not(.container),
+.dark-mode .multibanco-confirmation-wrapper > *:not(.container) {
+    background-color: #1a1a1a !important;
+}
+
+.dark-mode .mbway-form-wrapper label,
+.dark-mode .multibanco-form-wrapper label,
+.dark-mode .multibanco-confirmation-wrapper label {
+    color: #ffffff !important;
+}
+
+.dark-mode .mbway-form-wrapper input,
+.dark-mode .multibanco-form-wrapper input,
+.dark-mode .multibanco-confirmation-wrapper input {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border-color: #555555 !important;
+}
+
+.dark-mode .mbway-form-wrapper span,
+.dark-mode .multibanco-form-wrapper span,
+.dark-mode .multibanco-confirmation-wrapper span {
+    color: #ffffff !important;
+}
+
+.dark-mode .mbway-form-wrapper button,
+.dark-mode .multibanco-form-wrapper button,
+.dark-mode .multibanco-confirmation-wrapper button {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+/* MBWay Popup Styling */
+/* Light Mode (Default) */
+body:not(.dark-mode):not(.high-contrast) .swal2-popup {
+    background-color: #ffffff !important;
+    border: 2px solid #00aaff !important;
+    color: #333333 !important;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+body:not(.dark-mode):not(.high-contrast) .swal2-popup .swal2-title {
+    color: #00aaff !important;
+    font-weight: bold !important;
+}
+
+body:not(.dark-mode):not(.high-contrast) .swal2-popup .swal2-content,
+body:not(.dark-mode):not(.high-contrast) .swal2-popup .swal2-html-container {
+    color: #333333 !important;
+}
+
+body:not(.dark-mode):not(.high-contrast) .swal2-popup .swal2-confirm {
+    background-color: #a5d6a7 !important;
+    color: #000000 !important;
+    border: none !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+body:not(.dark-mode):not(.high-contrast) .swal2-popup .swal2-confirm:hover {
+    background-color: #81c784 !important;
+}
+
+/* Dark Mode */
+.dark-mode:not(.high-contrast) .swal2-popup,
+.dark-mode:not(.high-contrast) .mbway-popup {
+    background-color: #333333 !important;
+    border: 2px solid #555555 !important;
+    color: #ffffff !important;
+}
+
+.dark-mode:not(.high-contrast) .swal2-popup .swal2-title,
+.dark-mode:not(.high-contrast) .swal2-popup .swal2-content,
+.dark-mode:not(.high-contrast) .swal2-popup .swal2-html-container {
+    color: #ffffff !important;
+}
+
+.dark-mode:not(.high-contrast) .swal2-popup .swal2-confirm {
+    background-color: #444444 !important;
+    color: #ffffff !important;
+    border: 1px solid #666666 !important;
+}
+
+/* Calendar styling for Meals/Index */
+.dark-mode .calendar-box .weekday,
+.dark-mode .calendar-box .day-cell,
+.dark-mode .calendar-box .dia {
+    color: #ffffff !important;
+}
+
+.dark-mode .charging-form {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.dark-mode .mbway-popup {
+    background-color: #333333 !important;
+    border: 2px solid #666666 !important;
 }
 
 /* Enhanced High Contrast */
 .high-contrast {
     background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.high-contrast.dark-mode {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+}
+
+.dark-mode.high-contrast {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+}
+
+/* High Contrast MBWay Popup Styling */
+.high-contrast .swal2-popup,
+.high-contrast .mbway-popup {
+    background-color: #000000 !important;
+    border: 3px solid yellow !important;
+    color: #ffff00 !important;
+}
+
+.high-contrast .swal2-popup .swal2-title,
+.high-contrast .swal2-popup .swal2-content,
+.high-contrast .swal2-popup .swal2-html-container {
+    color: #ffff00 !important;
+}
+
+.high-contrast .swal2-popup .swal2-confirm {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+.dark-mode.high-contrast .charging-box {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.dark-mode.high-contrast .charging-box img {
+    background-color: #ffffff !important;
+}
+
+.dark-mode.high-contrast .charging-box button {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.dark-mode.high-contrast .calendar-box .day-cell {
+    color: #ffffff !important;
+}
+
+.dark-mode .calendar-box .day-cell-header {
+    color: #ffffff !important;
+}
+
+.dark-mode.high-contrast .calendar-box .day-cell-header {
     color: #ffffff !important;
 }
 
@@ -824,10 +1055,83 @@
     border: #ffffff !important;
 }
 
+.dark-mode .sas4all-header p {
+    color: #000000 !important;
+}
 
+.dark-mode .calendar-box .day-cell,
+.dark-mode .calendar-box .day-cell-header {
+    color: #ffffff !important;
+}
 
+.dark-mode .charging-box img,
+.dark-mode .mb-img,
+.dark-mode .mbway-img {
+    background-color: #ffffff !important;
+}
 
+.dark-mode .mbway-form-wrapper,
+.dark-mode .multibanco-form-wrapper {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
 
+.dark-mode .mbway-form-wrapper button,
+.dark-mode .multibanco-form-wrapper button,
+.dark-mode .multibanco-confirmation-wrapper button {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
 
+.dark-mode.high-contrast {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+}
 
+.dark-mode.high-contrast .charging-box {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
 
+.dark-mode.high-contrast .charging-box img {
+    background-color: #ffffff !important;
+}
+
+.dark-mode.high-contrast .charging-box button {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.dark-mode.high-contrast .calendar-box .day-cell {
+    color: #ffffff !important;
+}
+
+.dark-mode .calendar-box .day-cell-header {
+    color: #ffffff !important;
+}
+
+.dark-mode.high-contrast .calendar-box .day-cell-header {
+    color: #ffffff !important;
+}
+
+/* Logo Preservation - Keep original in all modes */
+.high-contrast .logo,
+.dark-mode .logo,
+.high-contrast.dark-mode .logo,
+.high-contrast img[src*="LOGO"],
+.dark-mode img[src*="LOGO"],
+.high-contrast.dark-mode img[src*="LOGO"],
+.high-contrast .logo-img,
+.dark-mode .logo-img,
+.high-contrast.dark-mode .logo-img {
+    filter: none !important;
+    -webkit-filter: none !important;
+    background-color: transparent !important;
+    opacity: 1 !important;
+    border: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    mix-blend-mode: normal !important;
+    isolation: isolate !important;
+}
