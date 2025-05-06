@@ -58,6 +58,19 @@
             }
         });
     </script>
+    <style>
+        /* Add styles for dark mode to ensure contrast for the combobox */
+        body.dark-mode select {
+            background-color: #333; /* Dark background */
+            color: #fff; /* Light text */
+            border: 1px solid #555; /* Subtle border for visibility */
+        }
+
+        body.dark-mode select option {
+            background-color: #333; /* Match combobox background */
+            color: #fff; /* Ensure text is visible */
+        }
+    </style>
 </head>
 <body class="bg-white text-gray-800 font-sans" style="margin-bottom:100px">
 

@@ -168,6 +168,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.documentElement.removeAttribute('data-theme');
                 }
 
+                // Ensure logo remains unchanged in both modes
+                const logo = document.querySelector('.logo-area .logo');
+                if (userSettings.ModoEscuro && userSettings.AltoContraste) {
+                    logo.style.filter = 'none';
+                    logo.style.background = 'none';
+                    logo.style.border = 'none';
+                } else {
+                    logo.style.filter = '';
+                    logo.style.background = '';
+                    logo.style.border = '';
+                }
+
                 // Apply font size
                 if (userSettings.TamanhoFonte) {
                     document.body.style.fontSize = userSettings.TamanhoFonte;

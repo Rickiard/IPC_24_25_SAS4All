@@ -49,6 +49,13 @@
             width: 80px;
         }
 
+        /* Ensure the logo remains unchanged in dark mode and high-contrast mode */
+        body.dark-mode.high-contrast .logo-area .logo {
+            filter: none !important;
+            background: none !important;
+            border: none !important;
+        }
+
         .user-info {
             display: flex;
             align-items: center;
