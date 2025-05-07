@@ -85,7 +85,7 @@
     color: #fff !important;
 }
 
-.perfil-icon-img {
+.dark-mode .perfil-icon-img {
     background-color: #1a1a1a !important;
 }
 
@@ -1134,4 +1134,8 @@ body:not(.dark-mode):not(.high-contrast) .swal2-popup .swal2-confirm:hover {
     transform: none !important;
     mix-blend-mode: normal !important;
     isolation: isolate !important;
+}
+
+.perfil-icon-img {
+    background-color: #ffffff !important;
 }
