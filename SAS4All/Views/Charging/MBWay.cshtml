@@ -29,7 +29,7 @@
         .mbway-form-wrapper label {
             display: block;
             font-weight: bold;
-            color: #00aa00;
+            color: #007700; /* Cor verde mais escura para melhor contraste (4.5:1) */
             margin-bottom: 5px;
         }
 
@@ -89,14 +89,15 @@
         <form id="mbwayForm" action="/Charging/MBWay" method="post" role="form" aria-label="Formulário de pagamento MBWay">
             <div>
                 <label for="Telemovel">Número de Telemóvel</label>
-                <input id="Telemovel" name="Telemovel" type="tel" required aria-required="true" aria-describedby="telemovel-error" />
-                <span class="text-danger" id="telemovel-error" role="alert"></span>
+                <input id="Telemovel" name="Telemovel" type="tel" required aria-required="true" aria-describedby="telemovel-error telemovel-info" />
+                <span class="text-danger" id="telemovel-error" role="alert" aria-live="assertive"></span>
+                <span id="telemovel-info" class="sr-only">Insira o seu número de telemóvel</span>
             </div>
 
             <div>
                 <label for="Valor">Valor a Pagar</label>
                 <input id="Valor" name="Valor" type="number" min="5" max="250" required aria-required="true" aria-describedby="valor-error valor-info" />
-                <span class="text-danger" id="valor-error" role="alert"></span>
+                <span class="text-danger" id="valor-error" role="alert" aria-live="assertive"></span>
                 <span id="valor-info">Escolha um valor entre 5 € e 250 €</span>
             </div>
 

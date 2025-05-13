@@ -29,7 +29,7 @@
         .mbway-form-wrapper label {
             display: block;
             font-weight: bold;
-            color: #00aa00;
+            color: #007700; /* Cor verde mais escura para melhor contraste (4.5:1) */
             margin-bottom: 5px;
         }
 
@@ -93,9 +93,9 @@
 
             <div>
                 <label asp-for="Valor"></label>
-                <input asp-for="Valor" type="number" min="5" max="250" required />
-                <span asp-validation-for="Valor" class="text-danger"></span>
-                <span>Escolha um valor entre 5 € e 250 €</span>
+                <input asp-for="Valor" type="number" min="5" max="250" required aria-required="true" aria-describedby="valor-info" />
+                <span asp-validation-for="Valor" class="text-danger" role="alert" aria-live="assertive"></span>
+                <span id="valor-info">Escolha um valor entre 5 € e 250 €</span>
             </div>
 
             <div>

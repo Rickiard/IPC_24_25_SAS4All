@@ -995,10 +995,59 @@ body:not(.dark-mode):not(.high-contrast) .swal2-popup .swal2-confirm:hover {
     line-height: 2 !important;
 }
 
-/* Focus Styles */
+/* Classe para elementos visíveis apenas para leitores de tela */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Focus Styles - Melhorado para acessibilidade */
 :focus {
     outline: 3px solid #0066cc !important;
     outline-offset: 2px !important;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.5) !important;
+}
+
+/* Estilos de foco específicos para elementos interativos */
+a:focus, 
+button:focus, 
+input:focus, 
+select:focus, 
+textarea:focus, 
+[role="button"]:focus,
+.btn:focus,
+.nav-link:focus {
+    outline: 3px solid #0066cc !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.5) !important;
+    text-decoration: underline !important;
+    position: relative !important;
+    z-index: 2 !important; /* Garante que o elemento com foco fique acima de outros elementos */
+}
+
+/* Estilo de foco para modo de alto contraste */
+.high-contrast :focus {
+    outline: 3px solid #ffff00 !important;
+    box-shadow: 0 0 0 3px rgba(255, 255, 0, 0.5) !important;
+}
+
+.high-contrast a:focus, 
+.high-contrast button:focus, 
+.high-contrast input:focus, 
+.high-contrast select:focus, 
+.high-contrast textarea:focus, 
+.high-contrast [role="button"]:focus,
+.high-contrast .btn:focus,
+.high-contrast .nav-link:focus {
+    outline: 3px solid #ffff00 !important;
+    box-shadow: 0 0 0 3px rgba(255, 255, 0, 0.5) !important;
 }
 
 /* Skip Link */
@@ -1113,6 +1162,44 @@ body:not(.dark-mode):not(.high-contrast) .swal2-popup .swal2-confirm:hover {
 
 .dark-mode.high-contrast .calendar-box .day-cell-header {
     color: #ffffff !important;
+}
+
+/* Estilos para mensagens de erro - Melhorado para acessibilidade */
+.text-danger {
+    color: #d32f2f !important; /* Vermelho mais escuro para melhor contraste */
+    font-weight: bold !important;
+    display: block !important;
+    font-size: 0.95em !important;
+}
+
+/* Aplicar estilos visuais apenas quando houver conteúdo na mensagem de erro */
+.text-danger:not(:empty) {
+    padding: 4px 8px !important;
+    margin: 4px 0 !important;
+    border-left: 3px solid #d32f2f !important;
+    background-color: rgba(211, 47, 47, 0.1) !important;
+    border-radius: 2px !important;
+}
+
+/* Mensagens de erro em modo escuro */
+.dark-mode .text-danger {
+    color: #ff6b6b !important; /* Vermelho mais claro para melhor contraste em fundo escuro */
+}
+
+.dark-mode .text-danger:not(:empty) {
+    background-color: rgba(255, 107, 107, 0.2) !important;
+    border-left: 3px solid #ff6b6b !important;
+}
+
+/* Mensagens de erro em modo de alto contraste */
+.high-contrast .text-danger {
+    color: #ffffff !important;
+}
+
+.high-contrast .text-danger:not(:empty) {
+    background-color: #800000 !important;
+    border: 2px solid #ffffff !important;
+    border-left: 5px solid #ffffff !important;
 }
 
 /* Logo Preservation - Keep original in all modes */
