@@ -60,10 +60,8 @@
             padding: 1rem;
             border-radius: 8px;
             max-width: 1000px;
-            margin: 20px auto 100px auto; /* top: 20px, bottom: 100px, left/right: auto */
+            margin: 20px auto 100px auto;
         }
-
-
 
         .calendar-top {
             display: flex;
@@ -163,10 +161,9 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1rem;
-            margin-top: 2rem;
+            margin-bottom: 2rem;
             font-size: 0.9rem;
         }
-
 
         .info-content {
             display: flex;
@@ -179,7 +176,6 @@
                 color: #d98fcd;
                 font-size: 24px;
             }
-
 
         .saldo-link {
             color: #00bfff;
@@ -194,6 +190,19 @@
 <body>
 
     <div class="calendar-box">
+
+        <!-- ✅ LEGENDA ACIMA DO CALENDÁRIO -->
+        <div class="legend-box">
+            <div><span class="estado-icon icon-consumida">🍽️</span> Refeição Consumida</div>
+            <div><span class="estado-icon icon-consumida-nao-marcada">✅</span> Refeição Consumida Não Marcada</div>
+            <div><span class="estado-icon icon-nao-consumida">❌</span> Refeição Não Consumida</div>
+            <div><span class="estado-icon icon-marcada">✅</span> Refeição Já Marcada</div>
+            <div><span class="estado-icon icon-locked">🔒</span> Refeição Não Marcada</div>
+            <div><span class="estado-icon icon-disponivel">🔵</span> Refeição Disponível</div>
+            <div><span class="estado-icon icon-indisponivel">⚪</span> Refeição Indisponível</div>
+        </div>
+
+        <!-- CALENDÁRIO -->
         <div class="calendar-top">
             <button class="nav-btn">←</button>
             <div class="month-label">Abril de 2025</div>
@@ -206,9 +215,7 @@
                 <div class="weekday">@dia</div>
             }
 
-            <!-- Espaço em branco para alinhar o início do mês na terça -->
-            <div></div>
-
+            <div></div> <!-- espaço branco para alinhar início -->
             @for (int i = 1; i <= 30; i++)
             {
                 var estado = calendario.FirstOrDefault(x => x.Dia == i).Estado ?? "locked";
@@ -222,16 +229,6 @@
                     <div class="estado-icon @classe">@Html.Raw(icone)</div>
                 </a>
             }
-        </div>
-
-        <div class="legend-box">
-            <div><span class="estado-icon icon-consumida">🍽️</span> Refeição Consumida</div>
-            <div><span class="estado-icon icon-consumida-nao-marcada">✅</span> Refeição Consumida Não Marcada</div>
-            <div><span class="estado-icon icon-nao-consumida">❌</span> Refeição Não Consumida</div>
-            <div><span class="estado-icon icon-marcada">✅</span> Refeição Já Marcada</div>
-            <div><span class="estado-icon icon-locked">🔒</span> Refeição Não Marcada</div>
-            <div><span class="estado-icon icon-disponivel">🔵</span> Refeição Disponível</div>
-            <div><span class="estado-icon icon-indisponivel">⚪</span> Refeição Indisponível</div>
         </div>
     </div>
 
