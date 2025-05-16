@@ -82,6 +82,57 @@ class VoiceCommandHandler {
     }
 }
 
+// Text to Speech Support
+class TextToSpeechHandler {
+    constructor() {
+        this.synthesis = window.speechSynthesis;
+        this.voice = null;
+        this.initialize();
+    }
+
+    initialize() {
+        // Aguarda as vozes serem carregadas
+        if (this.synthesis.onvoiceschanged !== undefined) {
+            this.synthesis.onvoiceschanged = () => {
+                this.setPortugueseVoice();
+            };
+        }
+        this.setPortugueseVoice();
+    }
+
+    setPortugueseVoice() {
+        const voices = this.synthesis.getVoices();
+        // Procura por uma voz em português
+        this.voice = voices.find(voice => 
+            voice.lang.includes('pt') || 
+            voice.name.includes('Portuguese') || 
+            voice.name.includes('Portugues')
+        ) || voices[0]; // Se não encontrar, usa a primeira voz disponível
+    }
+
+    speak(text) {
+        if (this.synthesis) {
+            // Cancela qualquer fala em andamento
+            this.synthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.voice = this.voice;
+            utterance.lang = 'pt-PT';
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+
+            this.synthesis.speak(utterance);
+        }
+    }
+
+    stop() {
+        if (this.synthesis) {
+            this.synthesis.cancel();
+        }
+    }
+}
+
 // Keyboard Shortcuts
 class KeyboardShortcutHandler {
     constructor() {
@@ -106,7 +157,10 @@ class KeyboardShortcutHandler {
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize voice command handler
     const voiceHandler = new VoiceCommandHandler();
-
+    
+    // Initialize text to speech handler
+    const ttsHandler = new TextToSpeechHandler();
+    
     // Initialize keyboard shortcut handler
     const keyboardHandler = new KeyboardShortcutHandler();
 
@@ -195,6 +249,33 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (userSettings.Espacamento !== 'normal') {
                         document.body.classList.add(`spacing-${userSettings.Espacamento}`);
                     }
+                }
+
+                // Adiciona leitura de texto para elementos importantes
+                if (userSettings.LeitorTela) {
+                    // Função para ler o texto de um elemento quando ele recebe foco
+                    function readElementOnFocus(element) {
+                        if (element && element.getAttribute('aria-label')) {
+                            ttsHandler.speak(element.getAttribute('aria-label'));
+                        } else if (element && element.textContent) {
+                            ttsHandler.speak(element.textContent.trim());
+                        }
+                    }
+
+                    // Adiciona leitura para elementos interativos
+                    document.querySelectorAll('a, button, input, select, [role="button"]').forEach(element => {
+                        element.addEventListener('focus', () => readElementOnFocus(element));
+                    });
+
+                    // Adiciona leitura para cabeçalhos
+                    document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(element => {
+                        element.addEventListener('focus', () => readElementOnFocus(element));
+                    });
+
+                    // Adiciona leitura para mensagens importantes
+                    document.querySelectorAll('.alert, .notification').forEach(element => {
+                        element.addEventListener('focus', () => readElementOnFocus(element));
+                    });
                 }
             } catch (error) {
                 console.error('Error applying accessibility settings:', error);
@@ -335,6 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     voiceHandler.registerCommand('privacidade', () => window.location.href = '/Home/Privacy');
 
-    // Make voiceHandler available globally
+    // Make handlers available globally
     window.voiceHandler = voiceHandler;
+    window.ttsHandler = ttsHandler;
 });
