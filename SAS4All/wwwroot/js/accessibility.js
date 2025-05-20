@@ -211,29 +211,31 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             document.body.classList.add(`font-size-${this.value}`);
         });
-    }    // Apply accessibility settings
-    function applyAccessibilitySettings() {
+    }    // Apply accessibility settings    function applyAccessibilitySettings() {
         try {
             const cookie = getCookie('UserSettings');
             if (cookie) {
                 const settings = JSON.parse(cookie);
                 
-                // Apply high contrast first
+                // Remove all special mode classes first
+                document.body.classList.remove('high-contrast', 'dark-mode');
+                document.documentElement.removeAttribute('data-contrast');
+                document.documentElement.removeAttribute('data-theme');
+                
+                // Handle both modes independently
                 if (settings.AltoContraste) {
                     document.body.classList.add('high-contrast');
                     document.documentElement.setAttribute('data-contrast', 'high');
-                } else {
-                    document.body.classList.remove('high-contrast');
-                    document.documentElement.removeAttribute('data-contrast');
                 }
-
-                // Apply dark mode only if high contrast is not enabled
-                if (settings.ModoEscuro && !settings.AltoContraste) {
+                
+                if (settings.ModoEscuro) {
                     document.body.classList.add('dark-mode');
                     document.documentElement.setAttribute('data-theme', 'dark');
-                } else {
-                    document.body.classList.remove('dark-mode');
-                    document.documentElement.removeAttribute('data-theme');
+                }
+                
+                // Enforce high contrast styles over dark mode when both are enabled
+                if (settings.AltoContraste && settings.ModoEscuro) {
+                    document.documentElement.setAttribute('data-theme', 'high-contrast');
                 }
 
                 // Apply font size
@@ -326,23 +328,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-    // Helper function to check and handle accessibility mode conflicts
+    }    // Helper function to handle accessibility mode changes
     function checkAccessibilityModeConflicts() {
         const darkModeCheckbox = document.getElementById('modo-escuro');
         const highContrastCheckbox = document.getElementById('alto-contraste');
         
         if (darkModeCheckbox && highContrastCheckbox) {
-            // Se alto contraste estiver ativo, desativa o modo escuro
-            if (highContrastCheckbox.checked) {
-                darkModeCheckbox.checked = false;
-                darkModeCheckbox.disabled = true;
-                darkModeCheckbox.parentElement.style.opacity = '0.5';
-            } else {
-                darkModeCheckbox.disabled = false;
-                darkModeCheckbox.parentElement.style.opacity = '1';
-            }
+            // Both modes can now be active simultaneously
+            // High contrast will take precedence in the styling
+            highContrastCheckbox.disabled = false;
+            darkModeCheckbox.disabled = false;
+            darkModeCheckbox.parentElement.style.opacity = '1';
+            highContrastCheckbox.parentElement.style.opacity = '1';
+            
+            // Update the appearance based on both modes
+            const settings = {};
+            settings.ModoEscuro = darkModeCheckbox.checked;
+            settings.AltoContraste = highContrastCheckbox.checked;
+            
+            // Save settings to cookie
+            document.cookie = `UserSettings=${JSON.stringify(settings)}; path=/; max-age=31536000`;
+            
+            // Apply the settings immediately
+            applyAccessibilitySettings();
         }
     }
 

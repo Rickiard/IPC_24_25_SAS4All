@@ -265,14 +265,28 @@ body:not(.dark-mode):not(.high-contrast) .swal2-popup .swal2-confirm:hover {
     color: #ffffff !important;
 }
 
-.high-contrast.dark-mode {
+.high-contrast.dark-mode,
+.dark-mode.high-contrast {
     background-color: #000000 !important;
     color: #ffff00 !important;
 }
 
-.dark-mode.high-contrast {
+/* Ensure high contrast overrides dark mode colors when both are active */
+.high-contrast.dark-mode *,
+.dark-mode.high-contrast * {
     background-color: #000000 !important;
     color: #ffff00 !important;
+    border-color: #ffff00 !important;
+}
+
+/* Exception for images and logo when both modes are active */
+.high-contrast.dark-mode img,
+.dark-mode.high-contrast img,
+.high-contrast.dark-mode .logo,
+.dark-mode.high-contrast .logo {
+    background-color: transparent !important;
+    border: none !important;
+    filter: none !important;
 }
 
 /* High Contrast MBWay Popup Styling */

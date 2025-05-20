@@ -192,38 +192,34 @@
         }
 
         .spacing-demo {
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: white;
-        }
-
-        .spacing-normal {
-            line-height: 1.5;
-            letter-spacing: normal;
-        }
-
-        .spacing-wide {
-            line-height: 1.8;
-            letter-spacing: 0.05em;
-        }
-
-        .spacing-extra-wide {
-            line-height: 2.2;
-            letter-spacing: 0.1em;
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
         }
 
         .spacing-demo-text {
             margin: 0;
-            padding: 10px;
-            border-radius: 4px;
+            line-height: 1.4;
         }
 
-        .spacing-label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #666;
+        .spacing-demo-text.spacing-normal {
+            letter-spacing: normal;
+            word-spacing: normal;
+            line-height: 1.4;
+        }
+
+        .spacing-demo-text.spacing-wide {
+            letter-spacing: 0.05em;
+            word-spacing: 0.1em;
+            line-height: 1.6;
+        }
+
+        .spacing-demo-text.spacing-extra-wide {
+            letter-spacing: 0.1em;
+            word-spacing: 0.15em;
+            line-height: 2;
         }
 
         /* Modo Escuro */
@@ -404,10 +400,13 @@
                         <option value="wide">Amplo</option>
                         <option value="extra-wide">Extra Amplo</option>
                     </select>
-                    <div class="setting-info">Ajuste o espaçamento entre linhas e letras para melhorar a legibilidade do texto.</div>
-                      <div class="spacing-demo" role="region" aria-label="Demonstração do espaçamento de texto">
+                    <div class="setting-info">Ajuste o espaçamento entre linhas e letras para melhorar a legibilidade do texto.</div>                      <div class="spacing-demo" role="region" aria-label="Demonstração do espaçamento de texto">
                         <div id="spacing-demo-container">
-                            <p class="spacing-demo-text spacing-normal"></p>
+                            <p class="spacing-demo-text spacing-normal">
+                                Este é um exemplo de texto para demonstrar o espaçamento selecionado. 
+                                O ajuste do espaçamento pode tornar o texto mais fácil de ler para algumas pessoas.
+                                Experimente diferentes configurações para encontrar o que funciona melhor para você.
+                            </p>
                         </div>
                     </div></div>
             </div>
