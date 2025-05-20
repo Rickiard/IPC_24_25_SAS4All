@@ -134,12 +134,24 @@
             border-left: 3px solid #0066cc;
             background-color: white;
             border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
         }
 
-        .faq-item h4 {
-            color: #0066cc;
-            margin-top: 0;
-            margin-bottom: 10px;
+        .faq-item:focus,
+        .faq-item:focus-within {
+            outline: 3px solid #0066cc;
+            outline-offset: 2px;
+            background-color: #f0f7ff;
+        }
+
+        .faq-item h4:focus,
+        .faq-item p:focus,
+        .faq-item li:focus {
+            outline: 2px solid #0066cc;
+            outline-offset: 2px;
+            background-color: #e6f3ff;
+            padding: 2px 5px;
+            border-radius: 3px;
         }
 
         .faq-item ul {
@@ -150,6 +162,7 @@
         .faq-item li {
             margin: 5px 0;
             color: #444;
+            padding: 2px;
         }
     </style>
 </head>
@@ -308,49 +321,40 @@
                         </tr>
                     </tbody>
                 </table>                <p style="margin-top: 10px; font-size: 0.9em;" aria-label="Instrução: Os comandos de voz podem ser ativados clicando no botão de microfone na barra inferior da página">Os comandos de voz podem ser ativados clicando no botão de microfone na barra inferior.</p>
-            </div>
-
-            <!-- Seção de FAQ -->
+            </div>            <!-- Seção de FAQ -->
             <div class="section" aria-labelledby="faq-title">
-                <h3 id="faq-title">Perguntas Frequentes</h3>
+                <h3 id="faq-title" tabindex="0">Perguntas Frequentes</h3>
                 
-                <div class="faq-item">
-                    <h4>Como o Modo Escuro ajuda na acessibilidade?</h4>
-                    <p>O Modo Escuro reduz a emissão de luz azul e o cansaço visual, sendo especialmente útil para:</p>
-                    <ul>
-                        <li>Usuários com sensibilidade à luz</li>
-                        <li>Uso noturno ou em ambientes com pouca iluminação</li>
-                        <li>Pessoas que passam muito tempo em frente à tela</li>
+                <div class="faq-item" role="article" tabindex="0">
+                    <h4 id="faq-dark-mode" tabindex="0">Como o Modo Escuro ajuda na acessibilidade?</h4>
+                    <p tabindex="0">O Modo Escuro reduz a emissão de luz azul e o cansaço visual, sendo especialmente útil para:</p>                    <ul role="list">
+                        <li tabindex="0">Usuários com sensibilidade à luz</li>
+                        <li tabindex="0">Uso noturno ou em ambientes com pouca iluminação</li>
+                        <li tabindex="0">Pessoas que passam muito tempo em frente à tela</li>
                     </ul>
-                </div>
-
-                <div class="faq-item">
-                    <h4>Quais são os benefícios do Alto Contraste?</h4>
-                    <p>O Alto Contraste é fundamental para:</p>
-                    <ul>
-                        <li>Pessoas com baixa visão</li>
-                        <li>Usuários com daltonismo</li>
-                        <li>Melhor visualização em ambientes muito claros</li>
+                </div>                <div class="faq-item" role="article" tabindex="0">
+                    <h4 id="faq-contrast" tabindex="0">Quais são os benefícios do Alto Contraste?</h4>
+                    <p tabindex="0">O Alto Contraste é fundamental para:</p>
+                    <ul role="list">
+                        <li tabindex="0">Pessoas com baixa visão</li>
+                        <li tabindex="0">Usuários com daltonismo</li>
+                        <li tabindex="0">Melhor visualização em ambientes muito claros</li>
                     </ul>
-                </div>
-
-                <div class="faq-item">
-                    <h4>Por que oferecemos diferentes tamanhos de fonte?</h4>
-                    <p>O ajuste de tamanho da fonte auxilia:</p>
-                    <ul>
-                        <li>Pessoas com dificuldades visuais</li>
-                        <li>Usuários que preferem textos maiores para leitura confortável</li>
-                        <li>Adequação a diferentes distâncias de visualização</li>
+                </div>                <div class="faq-item" role="article" tabindex="0">
+                    <h4 id="faq-font-size" tabindex="0">Por que oferecemos diferentes tamanhos de fonte?</h4>
+                    <p tabindex="0">O ajuste de tamanho da fonte auxilia:</p>
+                    <ul role="list">
+                        <li tabindex="0">Pessoas com dificuldades visuais</li>
+                        <li tabindex="0">Usuários que preferem textos maiores para leitura confortável</li>
+                        <li tabindex="0">Adequação a diferentes distâncias de visualização</li>
                     </ul>
-                </div>
-
-                <div class="faq-item">
-                    <h4>Como o espaçamento de texto ajuda na leitura?</h4>
-                    <p>O ajuste de espaçamento é particularmente útil para:</p>
-                    <ul>
-                        <li>Pessoas com dislexia, facilitando a distinção entre palavras</li>
-                        <li>Melhor compreensão do texto em geral</li>
-                        <li>Redução da fadiga durante a leitura de textos longos</li>
+                </div><div class="faq-item" role="article" tabindex="0">
+                    <h4 id="faq-spacing" tabindex="0">Como o espaçamento de texto ajuda na leitura?</h4>
+                    <p tabindex="0">O ajuste de espaçamento é particularmente útil para:</p>
+                    <ul role="list">
+                        <li tabindex="0">Pessoas com dislexia, facilitando a distinção entre palavras</li>
+                        <li tabindex="0">Melhor compreensão do texto em geral</li>
+                        <li tabindex="0">Redução da fadiga durante a leitura de textos longos</li>
                     </ul>
                 </div>
             </div>
