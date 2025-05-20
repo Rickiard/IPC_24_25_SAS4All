@@ -161,9 +161,12 @@ class KeyboardShortcutHandler {
 
     registerShortcut(key, callback) {
         this.shortcuts.set(key.toLowerCase(), callback);
-    }
-
-    handleKeyPress(event) {
+    }    handleKeyPress(event) {
+        // Verifica se alguma tecla modificadora está pressionada (Ctrl, Alt, Shift, Meta/Windows)
+        if (event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) {
+            return;
+        }
+        
         const key = event.key.toLowerCase();
         if (this.shortcuts.has(key)) {
             event.preventDefault();
