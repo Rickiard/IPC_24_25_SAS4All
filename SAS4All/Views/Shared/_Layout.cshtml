@@ -1,5 +1,5 @@
 ﻿﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,6 +15,14 @@
     <script src="~/js/accessibility.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aplica as configurações de acessibilidade ao carregar a página
+            if (typeof applyAccessibilitySettings === 'function') {
+                applyAccessibilitySettings();
+            }
+        });
+    </script>
     <style>
         body {
             margin: 0;

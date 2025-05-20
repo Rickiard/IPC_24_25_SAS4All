@@ -48,18 +48,20 @@ namespace SAS4All.Middleware
                 TamanhoFonte = 16,
                 Espacamento = "normal",
             };
-        }
-
-        private void ApplySettingsToResponse(HttpContext context, AcessibilidadeModel settings)
+        }        private void ApplySettingsToResponse(HttpContext context, AcessibilidadeModel settings)
         {
             // Add CSS classes to body based on settings
             var bodyClasses = new List<string>();
-
-            if (settings.ModoEscuro)
-                bodyClasses.Add("dark-mode");
             
+            // Alto contraste tem prioridade sobre o modo escuro
             if (settings.AltoContraste)
+            {
                 bodyClasses.Add("high-contrast");
+            }
+            else if (settings.ModoEscuro)
+            {
+                bodyClasses.Add("dark-mode");
+            }
 
             if (settings.TamanhoFonte != 16)
                 bodyClasses.Add($"font-size-{settings.TamanhoFonte}");
@@ -67,7 +69,11 @@ namespace SAS4All.Middleware
             if (settings.Espacamento != "normal")
                 bodyClasses.Add($"spacing-{settings.Espacamento}");
 
+            // Adiciona as classes ao contexto para uso nas views
             context.Items["BodyClasses"] = string.Join(" ", bodyClasses);
+            
+            // Adiciona as configurações completas ao contexto
+            context.Items["AccessibilitySettings"] = settings;
         }
     }
 }

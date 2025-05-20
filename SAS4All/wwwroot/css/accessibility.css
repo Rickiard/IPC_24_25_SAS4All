@@ -774,10 +774,15 @@ body:not(.dark-mode):not(.high-contrast) .swal2-popup .swal2-confirm:hover {
 
 /* Logo area */
 .high-contrast .logo-area .logo {
-    border: 3px solid #ffffff !important;
-    background-color: #ffffff !important; /* White background to make logo visible */
+    border: none !important;
+    background-color: transparent !important;
     padding: 5px !important;
-    filter: brightness(1.2) contrast(1.5) !important; /* Enhance visibility */
+    filter: none !important;
+    -webkit-filter: none !important;
+    opacity: 1 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    mix-blend-mode: normal !important;
 }
 
 .high-contrast .user-icon {
@@ -1353,4 +1358,23 @@ input[type="range"]:focus::-moz-range-thumb {
 .high-contrast input[type="range"]:focus::-moz-range-thumb {
     box-shadow: 0 0 0 3px rgba(255, 255, 0, 0.5);
     outline: 3px solid #ffff00;
+}
+
+/* Prioridade para Alto Contraste */
+body.high-contrast {
+    /* Força a remoção do modo escuro quando alto contraste está ativo */
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+}
+
+body.high-contrast.dark-mode {
+    /* Garante que as configurações de alto contraste prevaleçam */
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+}
+
+/* Impede que o modo escuro afete elementos quando alto contraste está ativo */
+body.high-contrast .dark-mode * {
+    background-color: inherit !important;
+    color: inherit !important;
 }
