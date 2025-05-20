@@ -419,4 +419,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // Make handlers available globally
     window.voiceHandler = voiceHandler;
     window.ttsHandler = ttsHandler;
+
+    // Pré-visualização em tempo real de modo escuro e alto contraste
+    const body = document.body;
+    const darkModeCheckbox = document.getElementById('modo-escuro');
+    const contrastCheckbox = document.getElementById('alto-contraste');
+
+    function applyAccessibilityPreview() {
+        // Modo escuro
+        if (darkModeCheckbox && darkModeCheckbox.checked) {
+            body.classList.add('dark-mode');
+        } else {
+            body.classList.remove('dark-mode');
+        }
+        // Alto contraste
+        if (contrastCheckbox && contrastCheckbox.checked) {
+            body.classList.add('high-contrast');
+        } else {
+            body.classList.remove('high-contrast');
+        }
+    }
+
+    if (darkModeCheckbox) {
+        darkModeCheckbox.addEventListener('change', applyAccessibilityPreview);
+    }
+    if (contrastCheckbox) {
+        contrastCheckbox.addEventListener('change', applyAccessibilityPreview);
+    }
+
+    // Aplicar pré-visualização ao carregar a página
+    applyAccessibilityPreview();
 });
