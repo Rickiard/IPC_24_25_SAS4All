@@ -4,6 +4,7 @@ class VoiceCommandHandler {
         this.recognition = null;
         this.isListening = false;
         this.commands = new Map();
+        this.tts = null;
         this.initialize();
     }
 
@@ -46,6 +47,9 @@ class VoiceCommandHandler {
                 this.recognition.start();
                 this.isListening = true;
                 console.log('Voice recognition started'); // Debug log
+                if (this.tts) {
+                    this.tts.speak('Comandos de voz ativados');
+                }
             } catch (error) {
                 console.error('Error starting voice recognition:', error);
                 this.stopListening();
@@ -59,6 +63,9 @@ class VoiceCommandHandler {
                 this.recognition.stop();
                 this.isListening = false;
                 console.log('Voice recognition stopped'); // Debug log
+                if (this.tts) {
+                    this.tts.speak('Comandos de voz desativados');
+                }
             } catch (error) {
                 console.error('Error stopping voice recognition:', error);
             }
@@ -70,12 +77,24 @@ class VoiceCommandHandler {
         console.log(`Command registered: ${command}`); // Debug log
     }
 
+    setTTSHandler(ttsHandler) {
+        this.tts = ttsHandler;
+    }
+
     handleCommand(command) {
         console.log('Available commands:', Array.from(this.commands.keys())); // Debug log
         for (const [registeredCommand, callback] of this.commands) {
             if (command.includes(registeredCommand)) {
                 console.log(`Executing command: ${registeredCommand}`); // Debug log
-                callback();
+                if (this.tts) {
+                    // Announce what command was recognized
+                    this.tts.speak(`Comando reconhecido: ${registeredCommand}`);
+                    setTimeout(() => {
+                        callback();
+                    }, 1500); // Wait for the speech to finish before executing
+                } else {
+                    callback();
+                }
                 break;
             }
         }
@@ -160,6 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize text to speech handler
     const ttsHandler = new TextToSpeechHandler();
+    
+    // Connect TTS to voice handler
+    voiceHandler.setTTSHandler(ttsHandler);
     
     // Initialize keyboard shortcut handler
     const keyboardHandler = new KeyboardShortcutHandler();
