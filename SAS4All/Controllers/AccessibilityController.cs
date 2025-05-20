@@ -30,10 +30,13 @@ namespace SAS4All.Controllers
                 // Guarda as definições do utilizador no cookie
                 GuardarDefinicoesNoCookie(modelo);
 
+                // Adiciona mensagem de sucesso
+                TempData["SuccessMessage"] = "Definições de acessibilidade guardadas com sucesso!";
+
                 // Redireciona para a página inicial ou outra página específica
                 return RedirectToAction("Index", "Home");
             }
-            catch (Exception ex)
+            catch
             {
                 // Regista o erro e retorna uma mensagem amigável ao utilizador
                 ModelState.AddModelError("", "Ocorreu um erro ao guardar as definições. Por favor, tente novamente.");
@@ -50,7 +53,14 @@ namespace SAS4All.Controllers
             // Se o cookie existir, desserializa o JSON para o modelo
             if (!string.IsNullOrEmpty(jsonDefinicoes))
             {
-                return JsonConvert.DeserializeObject<AcessibilidadeModel>(jsonDefinicoes);
+                var settings = JsonConvert.DeserializeObject<AcessibilidadeModel>(jsonDefinicoes);
+                return settings ?? new AcessibilidadeModel
+                {
+                    ModoEscuro = false,
+                    AltoContraste = false,
+                    TamanhoFonte = "16px",
+                    Espacamento = "normal",
+                };
             }
 
             // Se o cookie não existir, retorna um modelo com valores padrão

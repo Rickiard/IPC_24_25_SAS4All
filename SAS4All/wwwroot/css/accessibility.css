@@ -1226,3 +1226,41 @@ textarea:focus,
 .perfil-icon-img {
     background-color: #ffffff !important;
 }
+
+/* Toast notification styles */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    background-color: #28a745;
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    min-width: 250px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+/* High contrast mode styles for toast */
+body.high-contrast .toast {
+    background-color: #000000;
+    color: #ffff00;
+    border: 2px solid #ffff00;
+}
+
+/* Dark mode styles for toast */
+body.dark-mode .toast {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+}

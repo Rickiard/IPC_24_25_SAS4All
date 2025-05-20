@@ -152,9 +152,61 @@
             clip-path: inset(50%);
             overflow: hidden;
         }
+
+        /* Toast notification styles */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: none;
+            min-width: 250px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .toast.show {
+            display: block;
+            animation: fadeInOut 3s ease-in-out;
+        }
+
+        @@keyframes fadeInOut {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        body.high-contrast .toast {
+            background-color: #000000;
+            color: #ffff00;
+            border: 2px solid #ffff00;
+        }
     </style>
 </head>
 <body class="@Context.Items["BodyClasses"]">
+    <!-- Toast notifications -->
+    <div class="toast-container">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="toast" role="status" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <span>@TempData["SuccessMessage"]</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
     <header class="sas4all-header" role="banner">
         <div class="top-bar">
             <div class="logo-area">
@@ -298,6 +350,32 @@
                     toggleButton.click();
                 }
             });
+        });
+
+        // Toast notification function
+        function showToast(message) {
+            const toastContainer = document.querySelector('.toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast show';
+            toast.role = 'alert';
+            toast.ariaLive = 'assertive';
+            toast.ariaAtomic = 'true';
+            toast.innerHTML = message;
+            
+            toastContainer.appendChild(toast);
+
+            // Remove the toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toastContainer.removeChild(toast);
+                }, 300); // Delay removal to allow fade out animation
+            }, 3000);
+        }
+
+        // Example: show a toast notification on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            showToast('Bem-vindo ao SAS4All!');
         });
     </script>
 </body>
