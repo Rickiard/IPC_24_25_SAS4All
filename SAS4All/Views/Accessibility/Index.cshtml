@@ -72,6 +72,31 @@
 
             .buttons button {
                 margin-left: 10px;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                background-color: #0066cc;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .buttons button:hover {
+                background-color: #0052a3;
+            }
+
+            .buttons button:focus {
+                outline: 3px solid #0066cc;
+                outline-offset: 2px;
+            }
+
+            .buttons button[type="button"] {
+                background-color: #666;
+            }
+
+            .buttons button[type="button"]:hover {
+                background-color: #555;
             }
 
         :focus {
@@ -164,6 +189,41 @@
             color: #444;
             padding: 2px;
         }
+
+        .spacing-demo {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+        }
+
+        .spacing-normal {
+            line-height: 1.5;
+            letter-spacing: normal;
+        }
+
+        .spacing-wide {
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        .spacing-extra-wide {
+            line-height: 2.2;
+            letter-spacing: 0.1em;
+        }
+
+        .spacing-demo-text {
+            margin: 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .spacing-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -202,17 +262,20 @@
                         <span id="tamanho-fonte-value" class="font-size-value">16px</span>
                     </div>
                     <div class="setting-info">Ajuste o tamanho do texto movendo o controle deslizante. O tamanho varia de 16px a 24px.</div>
-                </div>
-
-                <div class="form-group">
+                </div>                <div class="form-group">
                     <label for="espacamento" title="Aumentar o espaçamento entre linhas e letras ajuda na leitura, especialmente para pessoas com dislexia.">Espaçamento de Texto</label>
-                    <select id="espacamento" asp-for="Espacamento" style="width:auto" aria-describedby="espacamento-desc">
+                    <select id="espacamento" asp-for="Espacamento" style="width:auto" aria-describedby="espacamento-desc" onchange="updateSpacingDemo(this.value)">
                         <option value="normal">Normal</option>
                         <option value="wide">Amplo</option>
                         <option value="extra-wide">Extra Amplo</option>
                     </select>
                     <div class="setting-info">Ajuste o espaçamento entre linhas e letras para melhorar a legibilidade do texto.</div>
-                </div>            </div>
+                      <div class="spacing-demo" role="region" aria-label="Demonstração do espaçamento de texto">
+                        <div id="spacing-demo-container">
+                            <p class="spacing-demo-text spacing-normal"></p>
+                        </div>
+                    </div></div>
+            </div>
             
             <!-- Seção de Configuração de Atalhos -->
             <div class="section" aria-labelledby="atalhos-title">
@@ -365,10 +428,35 @@
                 <button type="submit" aria-label="Guardar definições de acessibilidade">Guardar</button>
             </div>
         </form>
-    </div>
+    </div>    <script>        function updateSpacingDemo(value) {
+            const demoText = document.querySelector('.spacing-demo-text');
+            demoText.className = 'spacing-demo-text';
+            
+            let demoContent = '';
+            switch(value) {
+                case 'normal':
+                    demoText.classList.add('spacing-normal');
+                    demoContent = 'Este é um exemplo de texto com espaçamento normal. O texto é apresentado com o espaçamento padrão entre linhas e letras, adequado para leitura em condições normais.';
+                    break;
+                case 'wide':
+                    demoText.classList.add('spacing-wide');
+                    demoContent = 'Este texto demonstra o espaçamento amplo. Observe como as letras e linhas têm mais espaço entre si, facilitando a leitura para pessoas com dificuldades visuais ou dislexia.';
+                    break;
+                case 'extra-wide':
+                    demoText.classList.add('spacing-extra-wide');
+                    demoContent = 'Com o espaçamento extra amplo, cada letra e linha tem um espaço maior. Esta configuração é especialmente útil para pessoas que precisam de maior distinção entre os elementos do texto.';
+                    break;
+            }
+            demoText.textContent = demoContent;
+        }
 
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Inicializa a demonstração de espaçamento
+            const espacamentoSelect = document.getElementById('espacamento');
+            if (espacamentoSelect) {
+                updateSpacingDemo(espacamentoSelect.value);
+            }
+
             const table = document.querySelector('.atalhos-table');
             const focusableElements = table.querySelectorAll('[tabindex="0"]');
             
