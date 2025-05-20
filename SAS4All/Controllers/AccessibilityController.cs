@@ -58,7 +58,7 @@ namespace SAS4All.Controllers
                 {
                     ModoEscuro = false,
                     AltoContraste = false,
-                    TamanhoFonte = "16px",
+                    TamanhoFonte = 16,
                     Espacamento = "normal",
                 };
             }
@@ -68,7 +68,7 @@ namespace SAS4All.Controllers
             {
                 ModoEscuro = false,
                 AltoContraste = false,
-                TamanhoFonte = "16px",
+                TamanhoFonte = 16,
                 Espacamento = "normal",
             };
         }

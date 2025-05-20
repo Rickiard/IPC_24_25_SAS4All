@@ -176,14 +176,19 @@
 
                 <div class="form-group">
                     <label for="tamanho-fonte" title="Aumentar o tamanho da fonte torna o texto mais fácil de ler para pessoas com dificuldades visuais.">Tamanho da Fonte</label>
-                    <select id="tamanho-fonte" asp-for="TamanhoFonte" style="width:auto" aria-describedby="tamanho-fonte-desc">
-                        <option value="16px">Normal (16px)</option>
-                        <option value="18px">Médio (18px)</option>
-                        <option value="20px">Grande (20px)</option>
-                        <option value="22px">Muito Grande (22px)</option>
-                        <option value="24px">Extra Grande (24px)</option>
-                    </select>
-                    <div class="setting-info">Ajuste o tamanho do texto para melhor conforto na leitura.</div>
+                    <div class="font-size-control">
+                        <input type="range" 
+                               id="tamanho-fonte" 
+                               asp-for="TamanhoFonte" 
+                               min="16" 
+                               max="24" 
+                               step="1" 
+                               aria-describedby="tamanho-fonte-desc tamanho-fonte-value" 
+                               oninput="document.getElementById('tamanho-fonte-value').textContent = this.value + 'px'"
+                        />
+                        <span id="tamanho-fonte-value" class="font-size-value">16px</span>
+                    </div>
+                    <div class="setting-info">Ajuste o tamanho do texto movendo o controle deslizante. O tamanho varia de 16px a 24px.</div>
                 </div>
 
                 <div class="form-group">

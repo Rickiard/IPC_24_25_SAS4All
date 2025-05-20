@@ -189,125 +189,88 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize keyboard shortcut handler
     const keyboardHandler = new KeyboardShortcutHandler();
 
+    // Initialize font size value display and slider
+    const fontSizeInput = document.getElementById('tamanho-fonte');
+    const fontSizeValue = document.getElementById('tamanho-fonte-value');
+    
+    if (fontSizeInput && fontSizeValue) {
+        // Set initial value
+        fontSizeValue.textContent = `${fontSizeInput.value}px`;
+        document.body.style.fontSize = `${fontSizeInput.value}px`;
+        
+        // Update value display and apply font size in real-time
+        fontSizeInput.addEventListener('input', function() {
+            const size = `${this.value}px`;
+            fontSizeValue.textContent = size;
+            document.body.style.fontSize = size;
+            // Dynamically update class for consistent styling
+            document.body.classList.forEach(cls => {
+                if (cls.startsWith('font-size-')) {
+                    document.body.classList.remove(cls);
+                }
+            });
+            document.body.classList.add(`font-size-${this.value}`);
+        });
+    }
+
     // Apply accessibility settings
     function applyAccessibilitySettings() {
-        const settings = getCookie('UserSettings');
-        if (settings) {
-            try {
-                const userSettings = JSON.parse(settings);
+        try {
+            const userSettings = localStorage.getItem('accessibilitySettings');
+            if (userSettings) {
+                const settings = JSON.parse(userSettings);
                 
-                // Special handling for PIN input
-                if (userSettings.AltoContraste) {
-                    const pinInput = document.getElementById('pin');
-                    if (pinInput) {
-                        pinInput.style.backgroundColor = '#000000';
-                        pinInput.style.color = '#ffff00';
-                        pinInput.style.border = '2px solid #ffff00';
-                        pinInput.style.fontWeight = 'bold';
-                    }
-                }
-                
-                // Apply high contrast mode
-                if (userSettings.AltoContraste) {
-                    document.body.classList.add('high-contrast');
-                    document.documentElement.setAttribute('data-contrast', 'high');
-                    
-                    // Force high contrast on dynamically loaded content
-                    const observer = new MutationObserver((mutations) => {
-                        mutations.forEach((mutation) => {
-                            if (mutation.addedNodes.length) {
-                                mutation.addedNodes.forEach((node) => {
-                                    if (node.nodeType === 1) { // Element node
-                                        // Skip SweetAlert elements
-                                        if (!node.classList.contains('swal2-container') && 
-                                            !node.closest('.swal2-container')) {
-                                            applyHighContrastToElement(node);
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    });
-
-                    observer.observe(document.body, {
-                        childList: true,
-                        subtree: true
-                    });
-                } else {
-                    document.body.classList.remove('high-contrast');
-                    document.documentElement.removeAttribute('data-contrast');
-                }
-
                 // Apply dark mode
-                if (userSettings.ModoEscuro) {
+                if (settings.ModoEscuro) {
                     document.body.classList.add('dark-mode');
                     document.documentElement.setAttribute('data-theme', 'dark');
                 } else {
                     document.body.classList.remove('dark-mode');
                     document.documentElement.removeAttribute('data-theme');
                 }
-
-                // Ensure logo remains unchanged in both modes
-                const logo = document.querySelector('.logo-area .logo');
-                if (userSettings.ModoEscuro && userSettings.AltoContraste) {
-                    logo.style.filter = 'none';
-                    logo.style.background = 'none';
-                    logo.style.border = 'none';
+                
+                // Apply high contrast
+                if (settings.AltoContraste) {
+                    document.body.classList.add('high-contrast');
+                    document.documentElement.setAttribute('data-contrast', 'high');
                 } else {
-                    logo.style.filter = '';
-                    logo.style.background = '';
-                    logo.style.border = '';
+                    document.body.classList.remove('high-contrast');
+                    document.documentElement.removeAttribute('data-contrast');
                 }
-
+                
                 // Apply font size
-                if (userSettings.TamanhoFonte) {
-                    document.body.style.fontSize = userSettings.TamanhoFonte;
-                    document.body.classList.remove('font-size-18', 'font-size-20', 'font-size-22', 'font-size-24');
-                    if (userSettings.TamanhoFonte !== '16px') {
-                        document.body.classList.add(`font-size-${userSettings.TamanhoFonte.replace('px', '')}`);
+                if (settings.TamanhoFonte) {
+                    const fontSize = `${settings.TamanhoFonte}px`;
+                    document.body.style.fontSize = fontSize;
+                    if (fontSizeInput && fontSizeValue) {
+                        fontSizeInput.value = settings.TamanhoFonte;
+                        fontSizeValue.textContent = fontSize;
                     }
-                }
-
-                // Apply spacing
-                if (userSettings.Espacamento) {
-                    document.body.classList.remove('spacing-wide', 'spacing-extra-wide');
-                    if (userSettings.Espacamento !== 'normal') {
-                        document.body.classList.add(`spacing-${userSettings.Espacamento}`);
-                    }
-                }
-
-                // Adiciona leitura de texto para elementos importantes
-                if (userSettings.LeitorTela) {
-                    // Função para ler o texto de um elemento quando ele recebe foco
-                    function readElementOnFocus(element) {
-                        if (element && element.getAttribute('aria-label')) {
-                            ttsHandler.speak(element.getAttribute('aria-label'));
-                        } else if (element && element.textContent) {
-                            ttsHandler.speak(element.textContent.trim());
+                    
+                    // Update font size classes
+                    document.body.classList.forEach(cls => {
+                        if (cls.startsWith('font-size-')) {
+                            document.body.classList.remove(cls);
                         }
+                    });
+                    if (settings.TamanhoFonte !== 16) {
+                        document.body.classList.add(`font-size-${settings.TamanhoFonte}`);
                     }
-
-                    // Adiciona leitura para elementos interativos
-                    document.querySelectorAll('a, button, input, select, [role="button"]').forEach(element => {
-                        element.addEventListener('focus', () => readElementOnFocus(element));
-                    });
-
-                    // Adiciona leitura para cabeçalhos
-                    document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(element => {
-                        element.addEventListener('focus', () => readElementOnFocus(element));
-                    });
-
-                    // Adiciona leitura para mensagens importantes
-                    document.querySelectorAll('.alert, .notification').forEach(element => {
-                        element.addEventListener('focus', () => readElementOnFocus(element));
-                    });
                 }
-            } catch (error) {
-                console.error('Error applying accessibility settings:', error);
+                
+                // Apply spacing
+                if (settings.Espacamento) {
+                    document.body.classList.remove('spacing-wide', 'spacing-extra-wide');
+                    if (settings.Espacamento !== 'normal') {
+                        document.body.classList.add(`spacing-${settings.Espacamento}`);
+                    }
+                }
             }
+        } catch (error) {
+            console.error('Error applying accessibility settings:', error);
         }
     }
-
+    
     // Helper function to apply high contrast to a specific element and its children
     function applyHighContrastToElement(element) {
         if (element.nodeType === 1) { // Element node

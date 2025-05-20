@@ -33,15 +33,19 @@ namespace SAS4All.Middleware
             var jsonSettings = context.Request.Cookies["UserSettings"];
             if (!string.IsNullOrEmpty(jsonSettings))
             {
-                return JsonConvert.DeserializeObject<AcessibilidadeModel>(jsonSettings);
+                var settings = JsonConvert.DeserializeObject<AcessibilidadeModel>(jsonSettings);
+                if (settings != null)
+                {
+                    return settings;
+                }
             }
 
-            // Return default settings if no cookie exists
+            // Return default settings if no cookie exists or deserialization failed
             return new AcessibilidadeModel
             {
                 ModoEscuro = false,
                 AltoContraste = false,
-                TamanhoFonte = "16px",
+                TamanhoFonte = 16,
                 Espacamento = "normal",
             };
         }
@@ -57,8 +61,8 @@ namespace SAS4All.Middleware
             if (settings.AltoContraste)
                 bodyClasses.Add("high-contrast");
 
-            if (settings.TamanhoFonte != "16px")
-                bodyClasses.Add($"font-size-{settings.TamanhoFonte.Replace("px", "")}");
+            if (settings.TamanhoFonte != 16)
+                bodyClasses.Add($"font-size-{settings.TamanhoFonte}");
 
             if (settings.Espacamento != "normal")
                 bodyClasses.Add($"spacing-{settings.Espacamento}");
@@ -66,4 +70,4 @@ namespace SAS4All.Middleware
             context.Items["BodyClasses"] = string.Join(" ", bodyClasses);
         }
     }
-} 
+}
