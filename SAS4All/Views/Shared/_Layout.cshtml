@@ -373,9 +373,12 @@
             }, 3000);
         }
 
-        // Example: show a toast notification on page load
+        // Show welcome message only on first visit
         document.addEventListener('DOMContentLoaded', () => {
-            showToast('Bem-vindo ao SAS4All!');
+            if (!localStorage.getItem('welcomed')) {
+                showToast('Bem-vindo ao SAS4All!');
+                localStorage.setItem('welcomed', 'true');
+            }
         });
     </script>
 </body>
