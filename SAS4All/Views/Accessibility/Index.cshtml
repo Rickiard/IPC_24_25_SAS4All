@@ -19,26 +19,36 @@
         }
 
         .section {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
         }
 
         .form-group {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            position: relative;
         }
 
-            .form-group label {
-                display: inline-block;
-                width: 200px;
-            }
+        .form-group label {
+            display: inline-block;
+            width: 200px;
+            font-weight: bold;
+            cursor: help;
+        }
 
-            .form-group input[type="checkbox"] {
-                transform: scale(1.5);
-                margin-right: 10px;
-            }
+        .form-group label:hover {
+            color: #0066cc;
+        }
 
-            .form-group select {
-                width: 100px;
-            }
+        .form-group input[type="checkbox"] {
+            transform: scale(1.5);
+            margin-right: 10px;
+        }
+
+        .form-group select {
+            width: 100px;
+        }
 
         .atalhos-table {
             width: 100%;
@@ -108,6 +118,39 @@
             background-color: #e6f3ff;
             box-shadow: 0 0 0 2px #0066cc;
         }
+
+        .setting-info {
+            margin-top: 5px;
+            margin-left: 200px;
+            font-size: 0.9em;
+            color: #666;
+            max-width: 400px;
+        }
+
+        /* Estilos para FAQ */
+        .faq-item {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-left: 3px solid #0066cc;
+            background-color: white;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .faq-item h4 {
+            color: #0066cc;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .faq-item ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .faq-item li {
+            margin: 5px 0;
+            color: #444;
+        }
     </style>
 </head>
 <body>
@@ -120,17 +163,19 @@
                 <h3 id="acessibilidade-title">Configurações de Acessibilidade</h3>
 
                 <div class="form-group">
-                    <label for="modo-escuro">Modo Escuro</label>
+                    <label for="modo-escuro" title="O Modo Escuro reduz a luz emitida pela tela e ajuda a reduzir o cansaço visual, especialmente em ambientes com pouca luz.">Modo Escuro</label>
                     <input type="checkbox" id="modo-escuro" asp-for="ModoEscuro" aria-checked="@Model.ModoEscuro.ToString().ToLower()" role="switch" />
+                    <div class="setting-info">Reduz a luz emitida pela tela, ideal para uso noturno ou ambientes escuros.</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="alto-contraste">Alto Contraste</label>
+                    <label for="alto-contraste" title="O Alto Contraste melhora a legibilidade para pessoas com baixa visão, usando cores de alto contraste como texto amarelo em fundo preto.">Alto Contraste</label>
                     <input type="checkbox" id="alto-contraste" asp-for="AltoContraste" aria-checked="@Model.AltoContraste.ToString().ToLower()" role="switch" />
+                    <div class="setting-info">Aumenta o contraste das cores para melhor legibilidade, especialmente útil para pessoas com baixa visão.</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="tamanho-fonte">Tamanho da Fonte</label>
+                    <label for="tamanho-fonte" title="Aumentar o tamanho da fonte torna o texto mais fácil de ler para pessoas com dificuldades visuais.">Tamanho da Fonte</label>
                     <select id="tamanho-fonte" asp-for="TamanhoFonte" style="width:auto" aria-describedby="tamanho-fonte-desc">
                         <option value="16px">Normal (16px)</option>
                         <option value="18px">Médio (18px)</option>
@@ -138,20 +183,19 @@
                         <option value="22px">Muito Grande (22px)</option>
                         <option value="24px">Extra Grande (24px)</option>
                     </select>
-                    <span id="tamanho-fonte-desc" class="sr-only">Selecione o tamanho da fonte desejado</span>
+                    <div class="setting-info">Ajuste o tamanho do texto para melhor conforto na leitura.</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="espacamento">Espaçamento de Texto</label>
+                    <label for="espacamento" title="Aumentar o espaçamento entre linhas e letras ajuda na leitura, especialmente para pessoas com dislexia.">Espaçamento de Texto</label>
                     <select id="espacamento" asp-for="Espacamento" style="width:auto" aria-describedby="espacamento-desc">
                         <option value="normal">Normal</option>
                         <option value="wide">Amplo</option>
                         <option value="extra-wide">Extra Amplo</option>
                     </select>
-                    <span id="espacamento-desc" class="sr-only">Selecione o espaçamento de texto desejado</span>
-                </div>
-            </div>
-
+                    <div class="setting-info">Ajuste o espaçamento entre linhas e letras para melhorar a legibilidade do texto.</div>
+                </div>            </div>
+            
             <!-- Seção de Configuração de Atalhos -->
             <div class="section" aria-labelledby="atalhos-title">
                 <h3 id="atalhos-title">Atalhos de Teclado e Comandos de Voz</h3>
@@ -258,9 +302,52 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </table>                <p style="margin-top: 10px; font-size: 0.9em;" aria-label="Instrução: Os comandos de voz podem ser ativados clicando no botão de microfone na barra inferior da página">Os comandos de voz podem ser ativados clicando no botão de microfone na barra inferior.</p>
+            </div>
 
-                <p style="margin-top: 10px; font-size: 0.9em;" aria-label="Instrução: Os comandos de voz podem ser ativados clicando no botão de microfone na barra inferior da página">Os comandos de voz podem ser ativados clicando no botão de microfone na barra inferior.</p>
+            <!-- Seção de FAQ -->
+            <div class="section" aria-labelledby="faq-title">
+                <h3 id="faq-title">Perguntas Frequentes</h3>
+                
+                <div class="faq-item">
+                    <h4>Como o Modo Escuro ajuda na acessibilidade?</h4>
+                    <p>O Modo Escuro reduz a emissão de luz azul e o cansaço visual, sendo especialmente útil para:</p>
+                    <ul>
+                        <li>Usuários com sensibilidade à luz</li>
+                        <li>Uso noturno ou em ambientes com pouca iluminação</li>
+                        <li>Pessoas que passam muito tempo em frente à tela</li>
+                    </ul>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Quais são os benefícios do Alto Contraste?</h4>
+                    <p>O Alto Contraste é fundamental para:</p>
+                    <ul>
+                        <li>Pessoas com baixa visão</li>
+                        <li>Usuários com daltonismo</li>
+                        <li>Melhor visualização em ambientes muito claros</li>
+                    </ul>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Por que oferecemos diferentes tamanhos de fonte?</h4>
+                    <p>O ajuste de tamanho da fonte auxilia:</p>
+                    <ul>
+                        <li>Pessoas com dificuldades visuais</li>
+                        <li>Usuários que preferem textos maiores para leitura confortável</li>
+                        <li>Adequação a diferentes distâncias de visualização</li>
+                    </ul>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Como o espaçamento de texto ajuda na leitura?</h4>
+                    <p>O ajuste de espaçamento é particularmente útil para:</p>
+                    <ul>
+                        <li>Pessoas com dislexia, facilitando a distinção entre palavras</li>
+                        <li>Melhor compreensão do texto em geral</li>
+                        <li>Redução da fadiga durante a leitura de textos longos</li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Botões de Ação -->
