@@ -218,10 +218,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cookie) {
                 const settings = JSON.parse(cookie);
                 
+                // Store the settings in a data attribute for reference
+                document.documentElement.setAttribute('data-settings', cookie);
+                
                 // Apply high contrast first
                 if (settings.AltoContraste) {
                     document.body.classList.add('high-contrast');
                     document.documentElement.setAttribute('data-contrast', 'high');
+                    // Update checkbox if it exists
+                    const contrastCheckbox = document.getElementById('alto-contraste');
+                    if (contrastCheckbox) {
+                        contrastCheckbox.checked = true;
+                    }
                 } else {
                     document.body.classList.remove('high-contrast');
                     document.documentElement.removeAttribute('data-contrast');
@@ -231,6 +239,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (settings.ModoEscuro && !settings.AltoContraste) {
                     document.body.classList.add('dark-mode');
                     document.documentElement.setAttribute('data-theme', 'dark');
+                    // Update checkbox if it exists
+                    const darkModeCheckbox = document.getElementById('modo-escuro');
+                    if (darkModeCheckbox) {
+                        darkModeCheckbox.checked = true;
+                    }
                 } else {
                     document.body.classList.remove('dark-mode');
                     document.documentElement.removeAttribute('data-theme');
@@ -430,27 +443,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const contrastCheckbox = document.getElementById('alto-contraste');
 
     function applyAccessibilityPreview() {
+        // Only apply preview if we're on the accessibility settings page
+        if (!window.location.pathname.includes('/Accessibility')) {
+            return;
+        }
+
+        // Get the current saved settings
+        const savedSettings = document.documentElement.getAttribute('data-settings');
+        const settings = savedSettings ? JSON.parse(savedSettings) : null;
+
         // Modo escuro
         if (darkModeCheckbox && darkModeCheckbox.checked) {
             body.classList.add('dark-mode');
+            document.documentElement.setAttribute('data-theme', 'dark');
         } else {
             body.classList.remove('dark-mode');
+            document.documentElement.removeAttribute('data-theme');
         }
+        
         // Alto contraste
         if (contrastCheckbox && contrastCheckbox.checked) {
             body.classList.add('high-contrast');
+            document.documentElement.setAttribute('data-contrast', 'high');
         } else {
             body.classList.remove('high-contrast');
+            document.documentElement.removeAttribute('data-contrast');
         }
     }
 
+    // Apply settings first, then set up event listeners
+    applyAccessibilitySettings();
+
     if (darkModeCheckbox) {
-        darkModeCheckbox.addEventListener('change', applyAccessibilityPreview);
+        darkModeCheckbox.addEventListener('change', () => {
+            applyAccessibilityPreview();
+            checkAccessibilityModeConflicts();
+        });
     }
     if (contrastCheckbox) {
-        contrastCheckbox.addEventListener('change', applyAccessibilityPreview);
+        contrastCheckbox.addEventListener('change', () => {
+            applyAccessibilityPreview();
+            checkAccessibilityModeConflicts();
+        });
     }
 
-    // Aplicar pré-visualização ao carregar a página
-    applyAccessibilityPreview();
+    // Only apply preview if we're on the accessibility settings page
+    if (window.location.pathname.includes('/Accessibility')) {
+        applyAccessibilityPreview();
+    }
 });

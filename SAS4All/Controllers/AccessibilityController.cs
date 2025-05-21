@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SAS4All.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace SAS4All.Controllers
 {
@@ -75,17 +76,17 @@ namespace SAS4All.Controllers
 
         // Método auxiliar: Guarda as definições do utilizador no cookie
         private void GuardarDefinicoesNoCookie(AcessibilidadeModel modelo)
-        {
-            // Serializa o modelo para JSON
+        {            // Serializa o modelo para JSON
             var jsonDefinicoes = JsonConvert.SerializeObject(modelo);
 
             // Cria um cookie com as definições serializadas
-            var opcoesCookie = new Microsoft.AspNetCore.Http.CookieOptions
+            var opcoesCookie = new CookieOptions
             {
-                Expires = DateTime.Now.AddDays(30), // Define a validade do cookie (30 dias)
-                HttpOnly = true, // Impede que o cookie seja acedido via JavaScript
-                Secure = true,   // Garante que o cookie só seja transmitido via HTTPS
-                IsEssential = true // Marca o cookie como essencial
+                Expires = DateTime.Now.AddDays(30),
+                HttpOnly = false, // Permite que o cookie seja acessado via JavaScript
+                Secure = true,    // Garante que o cookie só seja transmitido via HTTPS
+                IsEssential = true, // Marca o cookie como essencial
+                SameSite = SameSiteMode.Strict // Proteção adicional contra CSRF
             };
 
             HttpContext.Response.Cookies.Append("UserSettings", jsonDefinicoes, opcoesCookie);
