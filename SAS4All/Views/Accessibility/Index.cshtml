@@ -433,12 +433,15 @@
     document.addEventListener('DOMContentLoaded', function() {
         var slider = document.getElementById('tamanho-fonte');
         var preview = document.getElementById('font-size-preview');
-        if (slider && preview) {
+        var valueSpan = document.getElementById('tamanho-fonte-value');
+        if (slider && preview && valueSpan) {
             slider.addEventListener('input', function() {
                 preview.style.fontSize = this.value + 'px';
+                valueSpan.textContent = this.value + 'px';
             });
-            // Garante preview correto ao carregar
+            // Garante preview e valor corretos ao carregar
             preview.style.fontSize = slider.value + 'px';
+            valueSpan.textContent = slider.value + 'px';
         }
     });
 </script>                    <div class="setting-info" id="tamanho-fonte-desc">Ajuste o tamanho do texto movendo o controle deslizante. O tamanho varia de 16px a 24px.</div>
