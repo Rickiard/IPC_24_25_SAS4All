@@ -424,7 +424,24 @@
                                aria-describedby="tamanho-fonte-desc tamanho-fonte-value"
                         />
                         <span id="tamanho-fonte-value" class="font-size-value" role="status" aria-live="polite">@(Model.TamanhoFonte)px</span>
-                    </div>                    <div class="setting-info" id="tamanho-fonte-desc">Ajuste o tamanho do texto movendo o controle deslizante. O tamanho varia de 16px a 24px.</div>
+                    </div>
+                    <div class="font-size-preview" id="font-size-preview" aria-live="polite" style="font-size:@(Model.TamanhoFonte)px">
+    <p>Exemplo de texto com o tamanho selecionado.</p>
+    <p>O tamanho da fonte será aplicado a todo o site.</p>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var slider = document.getElementById('tamanho-fonte');
+        var preview = document.getElementById('font-size-preview');
+        if (slider && preview) {
+            slider.addEventListener('input', function() {
+                preview.style.fontSize = this.value + 'px';
+            });
+            // Garante preview correto ao carregar
+            preview.style.fontSize = slider.value + 'px';
+        }
+    });
+</script>                    <div class="setting-info" id="tamanho-fonte-desc">Ajuste o tamanho do texto movendo o controle deslizante. O tamanho varia de 16px a 24px.</div>
                 </div>                <div class="form-group">                    <label for="espacamento" title="Aumentar o espaçamento entre linhas e letras ajuda na leitura, especialmente para pessoas com dislexia.">Espaçamento de Texto</label>
                     <select id="espacamento" asp-for="Espacamento" style="width:auto" aria-describedby="espacamento-desc">
                         <option value="normal">Normal</option>
