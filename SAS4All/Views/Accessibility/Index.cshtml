@@ -7,10 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acessibilidade</title>
     <style>
+        :root {
+            --base-font-size: @(Model.TamanhoFonte)px;
+        }
+        
         body {
             font-family: Arial, sans-serif;
             margin-bottom: 150px;
             transition: all 0.3s ease;
+            font-size: var(--base-font-size);
         }
 
         .container {
@@ -143,14 +148,38 @@
             outline: none;
             background-color: #e6f3ff;
             box-shadow: 0 0 0 2px #0066cc;
-        }
-
-        .setting-info {
+        }        .setting-info {
             margin-top: 5px;
             margin-left: 200px;
             font-size: 0.9em;
             color: #666;
             max-width: 400px;
+        }
+
+        .font-size-preview {
+            margin: 10px 0 10px 200px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            max-width: 500px;
+            transition: font-size 0.3s ease;
+        }
+
+        .font-size-preview p {
+            margin: 5px 0;
+        }
+
+        body.dark-mode .font-size-preview {
+            background-color: #2d2d2d;
+            border-color: #444;
+            color: #ffffff;
+        }
+
+        body.high-contrast .font-size-preview {
+            background-color: #000000;
+            border: 2px solid #ffff00;
+            color: #ffff00;
         }
 
         /* Estilos para FAQ */
@@ -380,9 +409,7 @@
                     <label for="alto-contraste" title="O Alto Contraste melhora a legibilidade para pessoas com baixa visão, usando cores de alto contraste como texto amarelo em fundo preto.">Alto Contraste</label>
                     <input type="checkbox" id="alto-contraste" asp-for="AltoContraste" aria-checked="@Model.AltoContraste.ToString().ToLower()" role="switch" />
                     <div class="setting-info">Aumenta o contraste das cores para melhor legibilidade, especialmente útil para pessoas com baixa visão.</div>
-                </div>
-
-                <div class="form-group">
+                </div>                <div class="form-group">
                     <label for="tamanho-fonte" title="Aumentar o tamanho da fonte torna o texto mais fácil de ler para pessoas com dificuldades visuais.">Tamanho da Fonte</label>
                     <div class="font-size-control">
                         <input type="range" 
@@ -391,25 +418,21 @@
                                min="16" 
                                max="24" 
                                step="1" 
-                               aria-describedby="tamanho-fonte-desc tamanho-fonte-value" 
-                               oninput="document.getElementById('tamanho-fonte-value').textContent = this.value + 'px'"
+                               aria-valuemin="16"
+                               aria-valuemax="24"
+                               aria-valuenow="@(Model.TamanhoFonte)"
+                               aria-describedby="tamanho-fonte-desc tamanho-fonte-value"
                         />
-                        <span id="tamanho-fonte-value" class="font-size-value">16px</span>
-                    </div>
-                    <div class="setting-info">Ajuste o tamanho do texto movendo o controle deslizante. O tamanho varia de 16px a 24px.</div>
-                </div>                <div class="form-group">
-                    <label for="espacamento" title="Aumentar o espaçamento entre linhas e letras ajuda na leitura, especialmente para pessoas com dislexia.">Espaçamento de Texto</label>
-                    <select id="espacamento" asp-for="Espacamento" style="width:auto" aria-describedby="espacamento-desc" onchange="updateSpacingDemo(this.value)">
+                        <span id="tamanho-fonte-value" class="font-size-value" role="status" aria-live="polite">@(Model.TamanhoFonte)px</span>
+                    </div>                    <div class="setting-info" id="tamanho-fonte-desc">Ajuste o tamanho do texto movendo o controle deslizante. O tamanho varia de 16px a 24px.</div>
+                </div>                <div class="form-group">                    <label for="espacamento" title="Aumentar o espaçamento entre linhas e letras ajuda na leitura, especialmente para pessoas com dislexia.">Espaçamento de Texto</label>
+                    <select id="espacamento" asp-for="Espacamento" style="width:auto" aria-describedby="espacamento-desc">
                         <option value="normal">Normal</option>
                         <option value="wide">Amplo</option>
                         <option value="extra-wide">Extra Amplo</option>
                     </select>
                     <div class="setting-info">Ajuste o espaçamento entre linhas e letras para melhorar a legibilidade do texto.</div>
-                      <div class="spacing-demo" role="region" aria-label="Demonstração do espaçamento de texto">
-                        <div id="spacing-demo-container">
-                            <p class="spacing-demo-text spacing-normal"></p>
-                        </div>
-                    </div></div>
+                </div>
             </div>
             
             <!-- Seção de Configuração de Atalhos -->
@@ -563,164 +586,6 @@
                 <button type="submit" aria-label="Guardar definições de acessibilidade">Guardar</button>
             </div>
         </form>
-    </div>    <script>        // Função para alternar o modo escuro
-        function toggleDarkMode(enabled) {
-            const highContrastCheckbox = document.getElementById('alto-contraste');
-            if (enabled && !highContrastCheckbox.checked) {
-                document.body.classList.add('dark-mode');
-                document.documentElement.setAttribute('data-theme', 'dark');
-            } else {
-                document.body.classList.remove('dark-mode');
-                document.documentElement.removeAttribute('data-theme');
-            }
-        }
-
-        // Função para alternar o alto contraste
-        function toggleHighContrast(enabled) {
-            if (enabled) {
-                document.body.classList.add('high-contrast');
-                document.body.classList.remove('dark-mode'); // Alto contraste tem prioridade
-                document.documentElement.setAttribute('data-contrast', 'high');
-                document.documentElement.removeAttribute('data-theme');
-            } else {
-                document.body.classList.remove('high-contrast');
-                document.documentElement.removeAttribute('data-contrast');
-                // Restaura o modo escuro se estiver ativo
-                const darkModeCheckbox = document.getElementById('modo-escuro');
-                if (darkModeCheckbox && darkModeCheckbox.checked) {
-                    document.body.classList.add('dark-mode');
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                }
-            }
-        }
-
-        function updateSpacingDemo(value) {
-            const demoText = document.querySelector('.spacing-demo-text');
-            demoText.className = 'spacing-demo-text';
-            
-            let demoContent = '';
-            switch(value) {
-                case 'normal':
-                    demoText.classList.add('spacing-normal');
-                    demoContent = 'Este é um exemplo de texto com espaçamento normal. O texto é apresentado com o espaçamento padrão entre linhas e letras, adequado para leitura em condições normais.';
-                    break;
-                case 'wide':
-                    demoText.classList.add('spacing-wide');
-                    demoContent = 'Este texto demonstra o espaçamento amplo. Observe como as letras e linhas têm mais espaço entre si, facilitando a leitura para pessoas com dificuldades visuais ou dislexia.';
-                    break;
-                case 'extra-wide':
-                    demoText.classList.add('spacing-extra-wide');
-                    demoContent = 'Com o espaçamento extra amplo, cada letra e linha tem um espaço maior. Esta configuração é especialmente útil para pessoas que precisam de maior distinção entre os elementos do texto.';
-                    break;
-            }
-            demoText.textContent = demoContent;
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Inicializa a demonstração de espaçamento
-            const espacamentoSelect = document.getElementById('espacamento');
-            if (espacamentoSelect) {
-                updateSpacingDemo(espacamentoSelect.value);
-            }
-
-            const table = document.querySelector('.atalhos-table');
-            const focusableElements = table.querySelectorAll('[tabindex="0"]');
-            
-            // Adiciona navegação por teclado
-            table.addEventListener('keydown', function(e) {
-                const currentIndex = Array.from(focusableElements).indexOf(document.activeElement);
-                
-                switch(e.key) {
-                    case 'ArrowRight':
-                        e.preventDefault();
-                        if (currentIndex < focusableElements.length - 1) {
-                            focusableElements[currentIndex + 1].focus();
-                        }
-                        break;
-                    case 'ArrowLeft':
-                        e.preventDefault();
-                        if (currentIndex > 0) {
-                            focusableElements[currentIndex - 1].focus();
-                        }
-                        break;
-                    case 'ArrowDown':
-                        e.preventDefault();
-                        if (currentIndex + 3 < focusableElements.length) {
-                            focusableElements[currentIndex + 3].focus();
-                        }
-                        break;
-                    case 'ArrowUp':
-                        e.preventDefault();
-                        if (currentIndex - 3 >= 0) {
-                            focusableElements[currentIndex - 3].focus();
-                        }
-                        break;
-                    case 'Home':
-                        e.preventDefault();
-                        focusableElements[0].focus();
-                        break;
-                    case 'End':
-                        e.preventDefault();
-                        focusableElements[focusableElements.length - 1].focus();
-                        break;
-                }
-            });
-
-            // Adiciona feedback visual ao focar
-            focusableElements.forEach(element => {
-                element.addEventListener('focus', function() {
-                    this.setAttribute('aria-selected', 'true');
-                });
-                
-                element.addEventListener('blur', function() {
-                    this.removeAttribute('aria-selected');
-                });
-            });            // Configurar event listeners para modo escuro e alto contraste
-            const darkModeCheckbox = document.getElementById('modo-escuro');
-            const highContrastCheckbox = document.getElementById('alto-contraste');
-
-            darkModeCheckbox.addEventListener('change', function() {
-                toggleDarkMode(this.checked);
-                document.dispatchEvent(new CustomEvent('accessibilitySettingsChanged'));
-            });
-
-            highContrastCheckbox.addEventListener('change', function() {
-                toggleHighContrast(this.checked);
-                document.dispatchEvent(new CustomEvent('accessibilitySettingsChanged'));
-            });
-
-            // Inicializar os modos com base no estado inicial dos checkboxes
-            if (darkModeCheckbox.checked) {
-                toggleDarkMode(true);
-            }
-            if (highContrastCheckbox.checked) {
-                toggleHighContrast(true);
-            }            // Inicializar verificação de conflitos
-            checkAccessibilityModeConflicts();
-
-            // Event listeners para checkboxes de modo escuro e alto contraste
-            const darkModeCheckbox = document.getElementById('modo-escuro');
-            const highContrastCheckbox = document.getElementById('alto-contraste');
-
-            highContrastCheckbox.addEventListener('change', function() {
-                checkAccessibilityModeConflicts();
-                toggleHighContrast(this.checked);
-                document.dispatchEvent(new CustomEvent('accessibilitySettingsChanged'));
-            });
-
-            darkModeCheckbox.addEventListener('change', function() {
-                toggleDarkMode(this.checked);
-                document.dispatchEvent(new CustomEvent('accessibilitySettingsChanged'));
-            });
-
-            // Add change event listener to other inputs
-            const inputs = document.querySelectorAll('input[type="range"], select');
-            inputs.forEach(input => {
-                input.addEventListener('change', function() {
-                    document.dispatchEvent(new CustomEvent('accessibilitySettingsChanged'));
-                });
-            });
-        });
-    </script>
+    </div>    <!-- O script de acessibilidade agora está em wwwroot/js/accessibility.js e incluído globalmente pelo layout. -->
 </body>
 </html>

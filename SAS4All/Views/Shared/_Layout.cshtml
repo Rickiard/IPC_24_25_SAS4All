@@ -1,5 +1,10 @@
-﻿﻿<!DOCTYPE html>
-<html lang="pt">
+﻿﻿@{
+    // Get accessibility settings from HttpContext
+    var settings = Context.Items["AccessibilitySettings"] as SAS4All.Models.AcessibilidadeModel;
+    var bodyClasses = Context.Items["BodyClasses"] as string;
+}
+<!DOCTYPE html>
+<html lang="pt" @(settings?.AltoContraste == true ? "data-contrast='high'" : "") @(settings?.ModoEscuro == true && settings?.AltoContraste != true ? "data-theme='dark'" : "")>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,12 +17,13 @@
     <link rel="stylesheet" href="~/SAS4All.styles.css" asp-append-version="true" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/accessibility.js" asp-append-version="true"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
+        // Initialize settings as soon as possible
+        window.accessibilitySettings = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(settings));
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Aplica as configurações de acessibilidade ao carregar a página
+            // Apply the settings immediately
             if (typeof applyAccessibilitySettings === 'function') {
                 applyAccessibilitySettings();
             }
@@ -389,5 +395,6 @@
             }
         });
     </script>
+    <script src="~/js/accessibility.js" asp-append-version="true"></script>
 </body>
 </html>

@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using SAS4All.Models;
+using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace SAS4All.Middleware
 {
@@ -12,9 +14,7 @@ namespace SAS4All.Middleware
         public AccessibilityMiddleware(RequestDelegate next)
         {
             _next = next;
-        }
-
-        public async Task InvokeAsync(HttpContext context)
+        }        public async Task InvokeAsync(HttpContext context)
         {
             // Load settings from cookie
             var settings = LoadSettingsFromCookie(context);
